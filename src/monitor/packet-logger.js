@@ -90,9 +90,9 @@ class PacketLogger {
     // Basic packet info
     console.log(chalk.bold('Packet Info:'));
     console.log(`  Length: ${chalk.cyan(packet.length)} bytes`);
-    console.log(`  Frame Type: ${chalk.cyan('0x' + packet.frameType.toString(16).toUpperCase())}`);
-    console.log(`  Sequence: ${chalk.cyan(packet.sequence)}`);
-    console.log(`  Command: ${chalk.yellow(packet.command)}`);
+    console.log(`  Frame Type: ${chalk.cyan(packet.frameType ? '0x' + packet.frameType.toString(16).toUpperCase() : 'Unknown')}`);
+    console.log(`  Sequence: ${chalk.cyan(packet.sequence || 'Unknown')}`);
+    console.log(`  Command: ${chalk.yellow(packet.command || 'Unknown')}`);
     
     // Command information
     if (packet.commandInfo) {
