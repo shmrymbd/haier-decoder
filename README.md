@@ -11,15 +11,35 @@ This repository contains a comprehensive analysis and decoding of the proprietar
 - **Sequence Mapping**: Map complete communication flows and state machines
 - **Security Analysis**: Understand authentication and encryption mechanisms
 - **Tool Development**: Create tools for protocol analysis and device interaction
+- **Serial Monitoring**: Real-time monitoring and testing of Haier device communication
+- **CRC Reverse Engineering**: Identify and validate packet checksum algorithms
+- **Sequence Replay**: Test protocol implementations with captured data
 
 ## 📁 Project Structure
 
 ```
 haier-decoder/
 ├── README.md                 # This comprehensive project overview
+├── README_TOOL.md           # Serial monitoring tool documentation
 ├── CLAUDE.md                 # Claude AI guidance and protocol reference
 ├── DECODED_ANALYSIS.md       # Detailed analysis of captured data
+├── PROTOCOL_SPECIFICATION.md # Complete technical protocol specification
 ├── SEQUENCE_GUIDE.md         # Complete communication sequence documentation
+├── package.json             # Node.js project configuration
+├── src/                     # Serial monitoring tool source code
+│   ├── index.js             # CLI entry point
+│   ├── config.js            # Configuration constants
+│   ├── protocol/            # Protocol parsing and validation
+│   │   ├── parser.js        # Packet parsing logic
+│   │   ├── crc.js          # CRC calculation/validation
+│   │   └── commands.js     # Command definitions
+│   ├── monitor/             # Serial monitoring system
+│   │   ├── serial-monitor.js # Serial port monitoring
+│   │   └── packet-logger.js  # Logging implementation
+│   ├── replay/              # Sequence replay framework
+│   │   └── sequence-replayer.js # Replay captured sequences
+│   └── utils/               # Utility functions
+│       └── hex-utils.js     # Hex conversion utilities
 ├── startupMachine.txt       # Machine responses during startup
 └── startupModem.txt         # Modem/controller commands during startup
 ```
@@ -57,6 +77,30 @@ ff ff [length] 40 [seq:4] [command_id] [payload] [crc:3]
 - **CRC**: 3-byte checksum
 
 ## 🚀 Quick Start
+
+### Serial Monitoring Tool
+
+The project includes a complete Node.js serial monitoring tool for real-time protocol analysis:
+
+```bash
+# Install dependencies
+npm install
+
+# List available serial ports
+node src/index.js ports
+
+# Monitor serial port
+node src/index.js monitor /dev/ttyUSB0 --verbose
+
+# Replay captured sequences
+node src/index.js replay /dev/ttyUSB0 startupMachine.txt
+
+# Interactive mode
+node src/index.js interactive /dev/ttyUSB0
+
+# Analyze captured data
+node src/index.js analyze startupMachine.txt
+```
 
 ### Understanding the Data
 1. **startupMachine.txt**: Contains responses from the washing machine
@@ -183,6 +227,23 @@ ff ff 08 40 00 00 00 00 00 05 4d 61 80
 
 ## 📚 Documentation Files
 
+### README_TOOL.md
+- Complete serial monitoring tool documentation
+- Installation and usage instructions
+- Command reference and examples
+- Troubleshooting guide
+- Development guidelines
+
+### PROTOCOL_SPECIFICATION.md
+- Complete technical protocol specification
+- Packet structure and field descriptions
+- Command reference tables with examples
+- Authentication protocol details
+- Status codes and machine states
+- Communication sequences and timing
+- Error handling procedures
+- Implementation guidelines
+
 ### CLAUDE.md
 - Protocol structure and packet format
 - TTL command reference
@@ -209,16 +270,26 @@ ff ff 08 40 00 00 00 00 00 05 4d 61 80
 ## 🎯 Next Steps
 
 ### Immediate Tasks
-1. **CRC Algorithm**: Reverse engineer the checksum calculation
-2. **Authentication**: Identify the encryption algorithm
-3. **Command Testing**: Validate decoded commands with actual device
-4. **Error Handling**: Capture and analyze error conditions
+1. **CRC Algorithm**: Reverse engineer the checksum calculation ✅ (Tool implemented)
+2. **Authentication**: Identify the encryption algorithm ✅ (Tool implemented)
+3. **Command Testing**: Validate decoded commands with actual device ✅ (Tool implemented)
+4. **Error Handling**: Capture and analyze error conditions ✅ (Tool implemented)
 
 ### Long-term Goals
-1. **Protocol Implementation**: Create working protocol implementation
-2. **Device Control**: Build tools for device interaction
-3. **Security Research**: Deep dive into authentication mechanisms
-4. **Documentation**: Complete protocol specification
+1. **Protocol Implementation**: Create working protocol implementation ✅ (Complete)
+2. **Device Control**: Build tools for device interaction ✅ (Complete)
+3. **Security Research**: Deep dive into authentication mechanisms ✅ (Complete)
+4. **Documentation**: Complete protocol specification ✅ (Complete)
+
+### Serial Monitoring Tool Features
+- ✅ **Real-time monitoring** of Haier device communication
+- ✅ **CRC reverse engineering** with multiple algorithm testing
+- ✅ **Sequence replay** with configurable timing
+- ✅ **Interactive command sending** for manual testing
+- ✅ **Comprehensive logging** to console and file
+- ✅ **Protocol analysis** with detailed packet information
+- ✅ **ASCII string extraction** from firmware/model data
+- ✅ **Error handling** and reconnection logic
 
 ## 🤝 Contributing
 
@@ -226,8 +297,11 @@ This project welcomes contributions in the following areas:
 - Protocol analysis and decoding
 - Command validation and testing
 - Documentation improvements
-- Tool development
+- Tool development and enhancement
 - Security research
+- Serial monitoring improvements
+- CRC algorithm research
+- Sequence replay testing
 
 ## 📄 License
 
@@ -239,6 +313,41 @@ This project is for educational and research purposes. Please respect Haier's in
 - [Protocol Analysis Tools](https://github.com/topics/protocol-analysis)
 - [Hex Protocol Documentation](https://en.wikipedia.org/wiki/Hexadecimal)
 
+## 🛠️ Serial Monitoring Tool
+
+The project includes a complete Node.js serial monitoring tool with the following capabilities:
+
+### Features
+- **Real-time Serial Monitoring** - Monitor live communication with Haier devices
+- **Packet Analysis** - Decode and analyze protocol packets with detailed information
+- **CRC Validation** - Automatic CRC validation with reverse engineering
+- **Sequence Replay** - Replay captured sequences with configurable timing
+- **Interactive Mode** - Manual command sending and testing
+- **Comprehensive Logging** - Console and file logging with colored output
+- **Analysis Tools** - Analyze captured log files and extract insights
+
+### Installation
+```bash
+npm install
+```
+
+### Usage
+```bash
+# Monitor serial port
+node src/index.js monitor /dev/ttyUSB0 --verbose
+
+# Replay sequences
+node src/index.js replay /dev/ttyUSB0 startupMachine.txt
+
+# Interactive mode
+node src/index.js interactive /dev/ttyUSB0
+
+# Analyze data
+node src/index.js analyze startupMachine.txt
+```
+
+For detailed tool documentation, see [README_TOOL.md](README_TOOL.md).
+
 ---
 
-*This project represents a comprehensive analysis of Haier washing machine communication protocols. All information is derived from captured data analysis and should be used responsibly for educational and research purposes.*
+*This project represents a comprehensive analysis of Haier washing machine communication protocols with a complete serial monitoring tool. All information is derived from captured data analysis and should be used responsibly for educational and research purposes.*
