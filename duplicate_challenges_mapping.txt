@@ -1,0 +1,84 @@
+# Duplicate Challenge Pairs Mapping
+# Generated from rolling.txt analysis
+# Format: Challenge -> [Occurrences with context]
+
+Total duplicate challenges: 3
+
+## Challenge: 00121002000158bf
+Occurrences: 2
+
+### Occurrence 1
+Line Number: 215
+Timestamp: 1760932827
+Device: machine
+Response: a93dfb432b7d01ddd0893005308f8d9d915c3b579a03b8961daa
+Full Data: ff ff 25 40 00 00 00 00 00 12 10 02 00 01 58 bf a9 3d fb 43 2b 7d 01 dd d0 89 30 05 30 8f 8d 9d 91 5c 3b 57 9a 03 b8 96 1d aa
+
+### Occurrence 2
+Line Number: 225
+Timestamp: 1760932833
+Device: machine
+Response: a93dfb432b7d01ddd0893005308f8d9d915c3b579a03b8961daa
+Full Data: ff ff 25 40 00 00 00 00 00 12 10 02 00 01 58 bf a9 3d fb 43 2b 7d 01 dd d0 89 30 05 30 8f 8d 9d 91 5c 3b 57 9a 03 b8 96 1d aa
+
+### Timing Analysis
+Time between occurrence 1 and 2: 6s
+
+### Response Analysis
+Unique responses: 1 out of 2
+WARNING: Some responses are identical - potential encryption flaw
+
+================================================================================
+
+## Challenge: 001210020001fded
+Occurrences: 2
+
+### Occurrence 1
+Line Number: 760
+Timestamp: 1760933674
+Device: machine
+Response: 0080b6c3c1b001877ccb26f3f02b2e437f2c03db61f0c2ee50d0
+Full Data: ff ff 25 40 00 00 00 00 00 12 10 02 00 01 fd ed 00 80 b6 c3 c1 b0 01 87 7c cb 26 f3 f0 2b 2e 43 7f 2c 03 db 61 f0 c2 ee 50 d0
+
+### Occurrence 2
+Line Number: 770
+Timestamp: 1760933680
+Device: machine
+Response: 0080b6c3c1b001877ccb26f3f02b2e437f2c03db61f0c2ee50d0
+Full Data: ff ff 25 40 00 00 00 00 00 12 10 02 00 01 fd ed 00 80 b6 c3 c1 b0 01 87 7c cb 26 f3 f0 2b 2e 43 7f 2c 03 db 61 f0 c2 ee 50 d0
+
+### Timing Analysis
+Time between occurrence 1 and 2: 6s
+
+### Response Analysis
+Unique responses: 1 out of 2
+WARNING: Some responses are identical - potential encryption flaw
+
+================================================================================
+
+## Challenge: 0012100200019532
+Occurrences: 2
+
+### Occurrence 1
+Line Number: 1049
+Timestamp: 1760934193
+Device: machine
+Response: 82bec3498b6c01ebc07951345303bba8770ca9e8f055da2ad59c
+Full Data: ff ff 25 40 00 00 00 00 00 12 10 02 00 01 95 32 82 be c3 49 8b 6c 01 eb c0 79 51 34 53 03 bb a8 77 0c a9 e8 f0 55 da 2a d5 9c
+
+### Occurrence 2
+Line Number: 1059
+Timestamp: 1760934199
+Device: machine
+Response: 82bec3498b6c01ebc07951345303bba8770ca9e8f055da2ad59c
+Full Data: ff ff 25 40 00 00 00 00 00 12 10 02 00 01 95 32 82 be c3 49 8b 6c 01 eb c0 79 51 34 53 03 bb a8 77 0c a9 e8 f0 55 da 2a d5 9c
+
+### Timing Analysis
+Time between occurrence 1 and 2: 6s
+
+### Response Analysis
+Unique responses: 1 out of 2
+WARNING: Some responses are identical - potential encryption flaw
+
+================================================================================
+
