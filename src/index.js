@@ -323,6 +323,43 @@ program
     }
   });
 
+// Chat command
+program
+  .command('chat <port>')
+  .description('Interactive chat interface with Haier device')
+  .option('-a, --auto', 'Start in automated mode')
+  .option('-l, --log <file>', 'Log file path')
+  .action(async (port, options) => {
+    try {
+      const ChatCLI = require('./cli/chat-cli');
+      const chat = new ChatCLI(port, options);
+      await chat.start();
+    } catch (error) {
+      console.error(`❌ Chat interface failed: ${error.message}`);
+      process.exit(1);
+    }
+  });
+
+// Monitor dual command
+program
+  .command('monitor-dual <tx-port> <rx-port>')
+  .description('Monitor bidirectional communication with dual dongles')
+  .option('-b, --baud <rate>', 'Baud rate', '9600')
+  .option('-o, --output <file>', 'Unified log file', 'logs/dual-monitor.log')
+  .option('-v, --verbose', 'Verbose output')
+  .option('--pair', 'Enable automatic packet pairing')
+  .option('--flow', 'Enable conversation flow analysis')
+  .action(async (txPort, rxPort, options) => {
+    try {
+      const DualSerialMonitor = require('./monitor/dual-serial-monitor');
+      const monitor = new DualSerialMonitor(txPort, rxPort, options);
+      await monitor.start();
+    } catch (error) {
+      console.error(`❌ Dual monitor failed: ${error.message}`);
+      process.exit(1);
+    }
+  });
+
 // List ports command
 program
   .command('ports')

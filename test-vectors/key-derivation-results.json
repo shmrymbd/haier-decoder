@@ -1,0 +1,118 @@
+{
+  "timestamp": "2025-10-20T04:01:06.857Z",
+  "deviceInfo": {
+    "imei": "862817068367949",
+    "serial": "0021800078EHD5108DUZ00000002",
+    "model": "CEAB9UQ00",
+    "firmware": "E++2.17"
+  },
+  "totalTests": 21,
+  "successfulTests": 0,
+  "results": [
+    {
+      "name": "Single-IMEI",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Single-Serial",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Single-Model",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Single-Firmware",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Pair-IMEI-Serial",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Pair-IMEI-Model",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Pair-IMEI-Firmware",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Pair-Serial-Model",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Pair-Serial-Firmware",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "Pair-Model-Firmware",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "All-Identifiers",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "IMEI-SHA256",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "IMEI-SHA1",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "IMEI-MD5",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "PBKDF2-1000",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "PBKDF2-10000",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "PBKDF2-100000",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "HKDF-IMEI-Serial",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "IMEI-Timestamp-1760889649",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "IMEI-Timestamp-1760889650",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    },
+    {
+      "name": "IMEI-Timestamp-1760889651",
+      "success": false,
+      "error": "Cannot read properties of undefined (reading 'replace')"
+    }
+  ]
+}

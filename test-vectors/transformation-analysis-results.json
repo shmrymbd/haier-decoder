@@ -1,0 +1,69 @@
+{
+  "timestamp": "2025-10-20T04:01:06.861Z",
+  "totalSessions": 2,
+  "results": [
+    {
+      "name": "XOR",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "AES-128-CBC",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "AES-128-GCM",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "AES-128-CTR",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "AES-256-CBC",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "Substitution",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "Arithmetic",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "Lookup",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "HMAC",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    }
+  ]
+}

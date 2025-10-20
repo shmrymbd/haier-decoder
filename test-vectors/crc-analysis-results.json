@@ -1,0 +1,83 @@
+{
+  "timestamp": "2025-10-20T04:01:06.863Z",
+  "totalPackets": 0,
+  "algorithms": [
+    {
+      "name": "CRC-16-CCITT",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "CRC-16-Modbus",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "CRC-16-IBM",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "CRC-16-ANSI",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "CRC-16-USB",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "CRC-24",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "CRC-32",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "Sum-8",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "Sum-16",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "XOR-8",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    },
+    {
+      "name": "XOR-16",
+      "successRate": 0,
+      "correct": 0,
+      "total": 0,
+      "details": []
+    }
+  ]
+}
