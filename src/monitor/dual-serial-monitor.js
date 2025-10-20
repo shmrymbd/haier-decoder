@@ -1,8 +1,12 @@
 const { EventEmitter } = require('events');
-const SerialPort = require('serialport');
+const { SerialPort } = require('serialport');
 const chalk = require('chalk');
+const { exec } = require('child_process');
+const { promisify } = require('util');
 const PacketParser = require('../protocol/parser');
 const HexUtils = require('../utils/hex-utils');
+
+const execAsync = promisify(exec);
 
 class DualSerialMonitor extends EventEmitter {
   constructor(txPort, rxPort, options = {}) {
@@ -10,7 +14,7 @@ class DualSerialMonitor extends EventEmitter {
     this.txPort = txPort;  // Modem → Machine
     this.rxPort = rxPort;  // Machine → Modem
     this.options = {
-      baudRate: options.baud || 9600,
+      baudRate: parseInt(options.baud || 9600, 10),
       verbose: options.verbose || false,
       logFile: options.output || 'logs/dual-monitor.log',
       enablePairing: options.pair || false,
@@ -46,6 +50,13 @@ class DualSerialMonitor extends EventEmitter {
       console.log(chalk.gray(`   RX Port: ${this.rxPort} (Machine → Modem)`));
       console.log(chalk.gray(`   Pairing: ${this.options.enablePairing ? 'Enabled' : 'Disabled'}`));
       console.log(chalk.gray(`   Flow Analysis: ${this.options.enableFlow ? 'Enabled' : 'Disabled'}`));
+      
+      // Check and clean up any existing processes using the ports
+      console.log(chalk.yellow('🔍 Checking for existing processes using monitored ports...'));
+      await this.cleanupPortProcesses();
+      
+      // Verify ports are available
+      await this.verifyPortsAvailable();
       
       // Initialize components
       await this.initializeComponents();
@@ -101,7 +112,8 @@ class DualSerialMonitor extends EventEmitter {
 
   async connectToPort(direction, portPath, parser) {
     return new Promise((resolve, reject) => {
-      const serialPort = new SerialPort(portPath, {
+      const serialPort = new SerialPort({
+        path: portPath,
         baudRate: this.options.baudRate,
         dataBits: 8,
         parity: 'none',
@@ -243,10 +255,284 @@ class DualSerialMonitor extends EventEmitter {
   }
 
   setupGracefulShutdown() {
-    process.on('SIGINT', async () => {
-      console.log(chalk.yellow('\n🛑 Shutting down dual monitor...'));
-      await this.stop();
-      process.exit(0);
+    // Call the comprehensive signal handler setup
+    this.setupSignalHandlers();
+  }
+
+  /**
+   * Find processes using the specified serial port
+   * @param {string} portPath - Path to the serial port (e.g., /dev/ttyUSB0)
+   * @returns {Promise<Array>} Array of process information
+   */
+  async findPortProcesses(portPath) {
+    try {
+      // Try multiple methods to find processes using the port
+      const processes = [];
+      
+      // Method 1: Use lsof to find processes using the port
+      try {
+        const { stdout: lsofOutput } = await execAsync(`lsof ${portPath} 2>/dev/null || true`);
+        
+        if (lsofOutput.trim()) {
+          const lines = lsofOutput.trim().split('\n');
+          // Skip header line and parse process information
+          for (let i = 1; i < lines.length; i++) {
+            const parts = lines[i].trim().split(/\s+/);
+            if (parts.length >= 2) {
+              processes.push({
+                command: parts[0],
+                pid: parts[1],
+                user: parts[2] || 'unknown',
+                method: 'lsof'
+              });
+            }
+          }
+        }
+      } catch (error) {
+        // lsof failed, continue with other methods
+      }
+      
+      // Method 2: Use fuser to find processes using the port
+      try {
+        const { stdout: fuserOutput } = await execAsync(`fuser ${portPath} 2>/dev/null || true`);
+        
+        if (fuserOutput.trim()) {
+          const pids = fuserOutput.trim().split(/\s+/).filter(pid => pid && !isNaN(pid));
+          for (const pid of pids) {
+            try {
+              // Get process name for this PID
+              const { stdout: psOutput } = await execAsync(`ps -p ${pid} -o comm= 2>/dev/null || true`);
+              const command = psOutput.trim() || 'unknown';
+              processes.push({
+                command: command,
+                pid: pid,
+                user: 'unknown',
+                method: 'fuser'
+              });
+            } catch (error) {
+              // Process might have died between fuser and ps
+              processes.push({
+                command: 'unknown',
+                pid: pid,
+                user: 'unknown',
+                method: 'fuser'
+              });
+            }
+          }
+        }
+      } catch (error) {
+        // fuser failed, continue
+      }
+      
+      // Remove duplicates based on PID
+      const uniqueProcesses = [];
+      const seenPids = new Set();
+      
+      for (const proc of processes) {
+        if (!seenPids.has(proc.pid)) {
+          seenPids.add(proc.pid);
+          uniqueProcesses.push(proc);
+        }
+      }
+      
+      return uniqueProcesses;
+    } catch (error) {
+      console.log(chalk.yellow(`⚠️ Could not check processes for ${portPath}: ${error.message}`));
+      return [];
+    }
+  }
+
+  /**
+   * Kill processes using the specified serial port
+   * @param {string} portPath - Path to the serial port
+   * @returns {Promise<boolean>} True if processes were killed, false otherwise
+   */
+  async killPortProcesses(portPath) {
+    try {
+      const processes = await this.findPortProcesses(portPath);
+      
+      if (processes.length === 0) {
+        console.log(chalk.gray(`   No processes found using ${portPath}`));
+        return false;
+      }
+      
+      console.log(chalk.yellow(`   Found ${processes.length} process(es) using ${portPath}:`));
+      
+      for (const proc of processes) {
+        console.log(chalk.gray(`     - ${proc.command} (PID: ${proc.pid}, User: ${proc.user})`));
+        
+        try {
+          // Try graceful termination first (SIGTERM)
+          await execAsync(`kill -TERM ${proc.pid}`);
+          
+          // Wait a moment for graceful shutdown
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          // Check if process still exists
+          try {
+            await execAsync(`kill -0 ${proc.pid} 2>/dev/null`);
+            // Process still exists, force kill it
+            console.log(chalk.yellow(`     Force killing PID ${proc.pid}...`));
+            await execAsync(`kill -KILL ${proc.pid}`);
+          } catch {
+            // Process already terminated
+            console.log(chalk.green(`     ✓ Process ${proc.pid} terminated gracefully`));
+          }
+        } catch (error) {
+          console.log(chalk.red(`     ✗ Failed to kill PID ${proc.pid}: ${error.message}`));
+        }
+      }
+      
+      return true;
+    } catch (error) {
+      console.log(chalk.red(`   Error killing processes for ${portPath}: ${error.message}`));
+      return false;
+    }
+  }
+
+  /**
+   * Verify that both serial ports are available for use
+   */
+  async verifyPortsAvailable() {
+    console.log(chalk.blue('🔍 Verifying serial ports are available...'));
+    
+    const ports = [
+      { path: this.txPort, name: 'TX' },
+      { path: this.rxPort, name: 'RX' }
+    ];
+    
+    for (const port of ports) {
+      try {
+        // Check if port exists
+        await execAsync(`test -e ${port.path} && echo "exists" || echo "missing"`);
+        
+        // Try to open and immediately close the port to check availability
+        const testPort = new SerialPort({
+          path: port.path,
+          baudRate: this.options.baudRate,
+          autoOpen: false
+        });
+        
+        await new Promise((resolve, reject) => {
+          testPort.open((error) => {
+            if (error) {
+              reject(new Error(`${port.name} port (${port.path}) is not available: ${error.message}`));
+            } else {
+              testPort.close(() => {
+                console.log(chalk.green(`   ✓ ${port.name} port (${port.path}) is available`));
+                resolve();
+              });
+            }
+          });
+        });
+        
+      } catch (error) {
+        console.error(chalk.red(`   ✗ ${port.name} port verification failed: ${error.message}`));
+        throw error;
+      }
+    }
+    
+    console.log(chalk.green('   ✓ All ports verified and available'));
+  }
+
+  /**
+   * Try to force release port locks using fuser -k
+   * @param {string} portPath - Path to the serial port
+   * @returns {Promise<boolean>} True if force release was attempted
+   */
+  async forceReleasePortLock(portPath) {
+    try {
+      console.log(chalk.yellow(`   Attempting to force release lock on ${portPath}...`));
+      
+      // Try fuser -k to kill processes using the port
+      try {
+        await execAsync(`fuser -k ${portPath} 2>/dev/null || true`);
+        console.log(chalk.green(`   ✓ Force release attempted for ${portPath}`));
+        return true;
+      } catch (error) {
+        console.log(chalk.gray(`   No processes to force release on ${portPath}`));
+        return false;
+      }
+    } catch (error) {
+      console.log(chalk.yellow(`   ⚠️ Could not force release lock on ${portPath}: ${error.message}`));
+      return false;
+    }
+  }
+
+  /**
+   * Clean up all processes using the monitored serial ports
+   */
+  async cleanupPortProcesses() {
+    console.log(chalk.blue('🧹 Cleaning up processes using serial ports...'));
+    
+    let cleanupPerformed = false;
+    
+    // Clean up TX port processes
+    if (await this.killPortProcesses(this.txPort)) {
+      cleanupPerformed = true;
+    }
+    
+    // Clean up RX port processes  
+    if (await this.killPortProcesses(this.rxPort)) {
+      cleanupPerformed = true;
+    }
+    
+    // If no processes were found but we're still having port issues,
+    // try force release
+    if (!cleanupPerformed) {
+      console.log(chalk.green('   ✓ No processes found using monitored ports'));
+      
+      // Try force release as a precaution
+      await this.forceReleasePortLock(this.txPort);
+      await this.forceReleasePortLock(this.rxPort);
+    }
+    
+    // Wait a moment for processes to fully terminate
+    if (cleanupPerformed) {
+      console.log(chalk.gray('   Waiting for processes to terminate...'));
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    }
+  }
+
+  /**
+   * Setup signal handlers for graceful shutdown
+   */
+  setupSignalHandlers() {
+    const gracefulShutdown = async (signal) => {
+      console.log(chalk.yellow(`\n🛑 Received ${signal}, shutting down gracefully...`));
+      
+      try {
+        // Clean up processes first
+        await this.cleanupPortProcesses();
+        
+        // Then stop the monitor
+        await this.stop();
+        
+        console.log(chalk.green('✅ Graceful shutdown completed'));
+        process.exit(0);
+      } catch (error) {
+        console.error(chalk.red(`❌ Error during shutdown: ${error.message}`));
+        process.exit(1);
+      }
+    };
+    
+    // Handle various termination signals
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    process.on('SIGHUP', () => gracefulShutdown('SIGHUP'));
+    
+    // Handle uncaught exceptions
+    process.on('uncaughtException', async (error) => {
+      console.error(chalk.red(`❌ Uncaught exception: ${error.message}`));
+      await this.cleanupPortProcesses();
+      process.exit(1);
+    });
+    
+    // Handle unhandled promise rejections
+    process.on('unhandledRejection', async (reason, promise) => {
+      console.error(chalk.red(`❌ Unhandled rejection: ${reason}`));
+      await this.cleanupPortProcesses();
+      process.exit(1);
     });
   }
 
@@ -256,6 +542,9 @@ class DualSerialMonitor extends EventEmitter {
     
     // Display final statistics
     this.displayStatistics();
+    
+    // Clean up processes using the ports
+    await this.cleanupPortProcesses();
     
     // Close serial ports
     if (this.txSerialPort) {

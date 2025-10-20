@@ -1,5 +1,5 @@
 const { EventEmitter } = require('events');
-const SerialPort = require('serialport');
+const { SerialPort } = require('serialport');
 const chalk = require('chalk');
 const PacketParser = require('../protocol/parser');
 const RollingCodeImplementation = require('../crypto/rolling-code-implementation');
@@ -24,7 +24,8 @@ class DeviceCommunicator extends EventEmitter {
       console.log(chalk.yellow(`🔌 Connecting to ${this.portPath}...`));
       
       // Initialize serial port
-      this.port = new SerialPort(this.portPath, {
+      this.port = new SerialPort({
+        path: this.portPath,
         baudRate: 9600,
         dataBits: 8,
         parity: 'none',
