@@ -1,0 +1,15 @@
+{
+  "testDate": "2025-10-20T10:11:25.422Z",
+  "sessionCount": 29,
+  "deviceData": {
+    "imei": "862817068367949",
+    "serial": "0021800078EHD5108DUZ00000002",
+    "model": "CEAB9UQ00",
+    "firmware": "E++2.17"
+  },
+  "results": {
+    "successfulMethods": [],
+    "promisingMethods": [],
+    "failedMethods": []
+  }
+}
