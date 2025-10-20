@@ -114,6 +114,7 @@ class PacketParser {
       // Some packets might have different structures
       let commandStart, commandEnd, payload, receivedCRC;
       
+      let command;
       if (packet.length >= 3 + length) {
         // Standard packet structure
         commandStart = 8;

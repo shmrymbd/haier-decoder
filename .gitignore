@@ -5,8 +5,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Logs
-logs/
-*.log
+# logs/
+# *.log
 
 # Runtime data
 pids

@@ -12,7 +12,12 @@
     "crypto": "node src/crypto/combined-analysis.js",
     "extract": "node src/crypto/binding-auth-extractor.js",
     "pattern": "node src/crypto/final-analysis.js",
-    "test-rolling": "node src/crypto/test-rolling-code.js"
+    "test-rolling": "node src/crypto/test-rolling-code.js",
+    "simulator": "node src/simulator/simulator-cli.js",
+    "simulator:start": "node src/simulator/simulator-cli.js start",
+    "simulator:interactive": "node src/simulator/simulator-cli.js interactive",
+    "simulator:test-auth": "node src/simulator/simulator-cli.js test-auth",
+    "simulator:ports": "node src/simulator/simulator-cli.js ports"
   },
   "keywords": [
     "haier",
@@ -29,10 +34,11 @@
   "author": "shmrymbd",
   "license": "MIT",
   "dependencies": {
-    "serialport": "^12.0.0",
+    "@serialport/parser-readline": "^12.0.0",
     "chalk": "^4.1.2",
-    "winston": "^3.11.0",
-    "commander": "^11.1.0"
+    "commander": "^11.1.0",
+    "serialport": "^12.0.0",
+    "winston": "^3.11.0"
   },
   "engines": {
     "node": ">=14.0.0"
