@@ -1,6 +1,6 @@
 {
-  "timestamp": "2025-10-20T04:01:06.713Z",
-  "totalSessions": 10,
+  "timestamp": "2025-10-20T08:30:37.844Z",
+  "totalSessions": 26,
   "deviceInfo": {
     "imei": "862817068367949",
     "serial": "0021800078EHD5108DUZ00000002",
@@ -24,9 +24,9 @@
     {
       "id": 2,
       "source": "rolling",
-      "timestamp": 1760930946,
-      "challenge": "121002000114cf4145f221d0220150b1682c8e1e72f3f292ab5da8b464e5d04178",
-      "response": "11100200015241785157714c68013770cad4f68fbb732ea6eabad3ef54573fed1c",
+      "timestamp": 1760932578,
+      "challenge": "1210020001d993e4c8d374951c01a3ef0f08cdb454fe10fccf0a5e52a0d01cf435",
+      "response": "1110020001597145565354524f019c21c44408370370bbe4ef508a86c1b00dd185",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",
@@ -37,9 +37,9 @@
     {
       "id": 3,
       "source": "rolling",
-      "timestamp": 1760931007,
-      "challenge": "12100200013fb394401b45836f0155c11fe7c3d225f51bf5df6b309aad4b8a0260",
-      "response": "1110020001443568476c54376c01ef892c4eb4935d1a88ed03174e657ad2537911",
+      "timestamp": 1760932638,
+      "challenge": "1210020001dfaf2ed9933796f30135c29573de1a50b9200d521774b27a5c050ef5",
+      "response": "11100200015130786271565175014ee7aca9043367756694fb762c05ad2b833802",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",
@@ -50,9 +50,9 @@
     {
       "id": 4,
       "source": "rolling",
-      "timestamp": 1760931070,
-      "challenge": "1210020001ac256472a0d1e3a401a4a7730e90f4809b919093deb5436b8913a889",
-      "response": "11100200015079524b483956770108bf7058495fd8706a7e8bad2fad14602d5a62",
+      "timestamp": 1760932705,
+      "challenge": "121002000174fa0777e5d4ca00010f49d4f321e5525567db4abf08fb73c74e90ee",
+      "response": "1110020001386c394f6676337001add3d1d097a117a9a541c491cc28cbc70f17d5",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",
@@ -63,9 +63,9 @@
     {
       "id": 5,
       "source": "rolling",
-      "timestamp": 1760931115,
-      "challenge": "12100200013f8079b3e1039f3601d3b4eb34138a793a99e8bf9ae3941f4ee307a1",
-      "response": "111002000139504b68785177560177864b9de418d13a15b72f8f7a00e0a0cc84ec",
+      "timestamp": 1760932764,
+      "challenge": "12100200014da6728a7cee4043011319cffc80def19a60707fc3e7df662cb1ce45",
+      "response": "11100200015768386655326857018f09950468ef5feb5cbc6791b442f9fefc06e4",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",
@@ -76,9 +76,9 @@
     {
       "id": 6,
       "source": "rolling",
-      "timestamp": 1760931121,
-      "challenge": "12100200013f8079b3e1039f3601d3b4eb34138a793a99e8bf9ae3941f4ee307a1",
-      "response": "11100200016366754636576b750162f1e3a61c99e395256263f1469a3394068d6e",
+      "timestamp": 1760932827,
+      "challenge": "121002000158bfa93dfb432b7d01ddd0893005308f8d9d915c3b579a03b8961daa",
+      "response": "11100200017653335a67305562013e1dc4c20fd48abcf70cf27316db97ec149648",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",
@@ -89,9 +89,9 @@
     {
       "id": 7,
       "source": "rolling",
-      "timestamp": 1760931162,
-      "challenge": "1210020001fbde5418c8f6678401672ec65cff55a6e028aea0deee7dce5e4b400aab",
-      "response": "111002000144346b6c49765a6601652cf41c631e9d70174a84f1957bb2bddc17f1",
+      "timestamp": 1760932833,
+      "challenge": "121002000158bfa93dfb432b7d01ddd0893005308f8d9d915c3b579a03b8961daa",
+      "response": "1110020001716a557569356e4501af7282f7bb9a44c0c76635961ec608",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",
@@ -102,9 +102,9 @@
     {
       "id": 8,
       "source": "rolling",
-      "timestamp": 1760931209,
-      "challenge": "1210020001de17031d6390e00b01ebd5dff1ab01876c0c10f12391057c837216e1",
-      "response": "1110020001355353677a585750017eefae45bdeb3e2f57e2a26eb31acf9231ba6a",
+      "timestamp": 1760932891,
+      "challenge": "1210020001965a869a77e5491601f7458f47c0696b6f58699ae16950e1fc3d457e",
+      "response": "11100200016f70315a4f596a6301b479b99833a3fdd209b46beade94db402bcba9",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",
@@ -115,9 +115,9 @@
     {
       "id": 9,
       "source": "rolling",
-      "timestamp": 1760931256,
-      "challenge": "1210020001afa57597a058277501603f4a37b3e5afd7890f10daf872716a84bbaf",
-      "response": "1110020001345648464836786201a942e49c1c42e5fc461bd9ba6a60a33439e408",
+      "timestamp": 1760932948,
+      "challenge": "1210020001c6f85a42fe34251501d7dfa7a284c3244769946054e184ab2cefcd52",
+      "response": "111002000172686e6d574838730117a3eae9f6321ef27c5c8e58956cb0eca95a66",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",
@@ -128,9 +128,217 @@
     {
       "id": 10,
       "source": "rolling",
-      "timestamp": 1760931297,
-      "challenge": "121002000118b2f3da74073d9d01a6fe6c2f1f4996e567127f7f2e948497ed48de",
-      "response": "1110020001446f6f42536a7655019e443d464b6c8706af42d428af5ef6fb0aed96",
+      "timestamp": 1760933016,
+      "challenge": "1210020001be48536027ff551b62013f30ff55ee45a74f3f6da10eaf619ad7f6fa237a",
+      "response": "11100200014631366e53624c450120c1e46b2ef7a3c7d3b8af1660a98ae16e497a",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 11,
+      "source": "rolling",
+      "timestamp": 1760933084,
+      "challenge": "121002000188fd9c82ebf84bf801925e175374284417e5e7595dccb0298a56dce6",
+      "response": "11100200016e4c57627361717801902ffd58c1ea4fde45a2db4469d5ee17ef01d1",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 12,
+      "source": "rolling",
+      "timestamp": 1760933161,
+      "challenge": "12100200010841ca8d07e611c8014e6b4df3ee662c2bf39fce40a1ac9f2344087a",
+      "response": "1110020001735735455065774f0126fbcd037dca58cf7ba7d478de449f18ef36c4",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 13,
+      "source": "rolling",
+      "timestamp": 1760933245,
+      "challenge": "1210020001121b8c7980d0286c016b5a8d2711c0285c58c9f7b5900ba09f16dfb4",
+      "response": "11100200014e716755486f644301878230fb4e0bdb16d42e950f79de43dafb019f",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 14,
+      "source": "rolling",
+      "timestamp": 1760933342,
+      "challenge": "1210020001e50b2beecb93809e019b0ac4796eef96287677adf0e9dc93e1d0d0d6",
+      "response": "1110020001526e534647656b7301ab6098c36ae19c24dda00f676829791ffa3275",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 15,
+      "source": "rolling",
+      "timestamp": 1760933414,
+      "challenge": "1210020001068834b2db1001d401c24522ccfbcc46ada652f4376a1173a221e927",
+      "response": "1110020001394a366a68495742012efd05bef51ed8bd144d3cc6bc68b56c35e95e",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 16,
+      "source": "rolling",
+      "timestamp": 1760933490,
+      "challenge": "121002000173d74b57611632b601279a1b6613338ec5de327ad8bd4288cf69956d",
+      "response": "111002000177706d723248726801752c90169abf43cf5020f13ccfaf11fd7f1f38",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 17,
+      "source": "rolling",
+      "timestamp": 1760933579,
+      "challenge": "12100200018038ad9b9e92451301a0ca64d176c37204c2401a66d202c96cecc4dd",
+      "response": "1110020001533955506a494f3301171812d21a0790c448bbcfa7bd2539212da392",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 18,
+      "source": "rolling",
+      "timestamp": 1760933674,
+      "challenge": "1210020001fded0080b6c3c1b001877ccb26f3f02b2e437f2c03db61f0c2ee50d0",
+      "response": "1110020001766e4b437262316101edf929c791106ec8dd032494f747293e4c6161",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 19,
+      "source": "rolling",
+      "timestamp": 1760933680,
+      "challenge": "1210020001fded0080b6c3c1b001877ccb26f3f02b2e437f2c03db61f0c2ee50d0",
+      "response": "111002000141",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 20,
+      "source": "rolling",
+      "timestamp": 1760933772,
+      "challenge": "121002000100fa114a4eff55c4c201b1e64903c18615eb47c31ff4c93ae244780785",
+      "response": "1110020001437a48756b377368014f5774ca1b9f4e39962e4437718bf6ba91d542",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 21,
+      "source": "rolling",
+      "timestamp": 1760933852,
+      "challenge": "121002000170b3613549ce0173016ccae340a1ed422089910427f051c414761eb7",
+      "response": "1110020001755231587a39317701772a210e3a3eda12b1ed68385b264a198b8e93",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 22,
+      "source": "rolling",
+      "timestamp": 1760933931,
+      "challenge": "1210020001f9c5980bece138a20185bdb3aa3947969c9404e6a2ababaf68713219",
+      "response": "11100200017477776765634f6701448b4031da4e0dbe5b3407665760bc9d106a1c",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 23,
+      "source": "rolling",
+      "timestamp": 1760934009,
+      "challenge": "1210020001e3681e17e6ca8282010f9bbeb80a3a3c55913bd6e6b791501bef2d7a",
+      "response": "1110020001657230353966795a014176965ce544f709057fba912acd9b2b9695eb",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 24,
+      "source": "rolling",
+      "timestamp": 1760934094,
+      "challenge": "121002000191e06051cdbf99a501d8282613b990295bff551059f32e9d1f40572975",
+      "response": "1110020001514231793661755901d4de410e5d690309913fdb8b7e80b5eed632dc",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 25,
+      "source": "rolling",
+      "timestamp": 1760934193,
+      "challenge": "1210020001953282bec3498b6c01ebc07951345303bba8770ca9e8f055da2ad59c",
+      "response": "11100200014d6b56536652686e01ae885a4a45f8c34cebb6e3f44a88393f61df74",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17"
+      }
+    },
+    {
+      "id": 26,
+      "source": "rolling",
+      "timestamp": 1760934199,
+      "challenge": "1210020001953282bec3498b6c01ebc07951345303bba8770ca9e8f055da2ad59c",
+      "response": "111002000133384f4250695164019a833ec2996e48085f23b27a5184abcc623fe9",
       "deviceInfo": {
         "imei": "862817068367949",
         "serial": "0021800078EHD5108DUZ00000002",

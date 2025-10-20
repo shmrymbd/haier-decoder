@@ -217,7 +217,7 @@ class DualSerialMonitor extends EventEmitter {
   displayPacket(packet, direction) {
     const arrow = direction === 'TX' ? chalk.blue('→') : chalk.green('←');
     const time = new Date(packet.timestamp).toLocaleTimeString();
-    const cmd = packet.commandInfo?.name || 'Unknown';
+    const cmd = packet.commandInfo?.name || this.getCommandName(packet.command);
     const hex = HexUtils.bufferToHex(packet.raw);
     
     console.log(`${time} ${arrow} ${chalk.yellow(cmd)}`);
@@ -234,6 +234,28 @@ class DualSerialMonitor extends EventEmitter {
       const status = packet.payload[0];
       const program = packet.payload[1];
       console.log(chalk.gray(`   Status: ${this.getStatusName(status)}, Program: ${program}`));
+    } else if (packet.command === 0xf7 && packet.payload) {
+      console.log(chalk.gray(`   Complex Command: ${packet.payload.length} bytes`));
+    } else if (packet.command === 0xf3 && packet.payload) {
+      console.log(chalk.gray(`   Status Query F3`));
+    } else if (packet.command === 0xf5 && packet.payload) {
+      console.log(chalk.gray(`   Status Query F5`));
+    } else if (packet.command === 0xec && packet.payload) {
+      const model = packet.payload.slice(0, 10).toString('ascii').replace(/\0/g, '');
+      console.log(chalk.gray(`   Model: ${model}`));
+    } else if (packet.command === 0xea && packet.payload) {
+      const serial = packet.payload.slice(0, 30).toString('ascii').replace(/\0/g, '');
+      console.log(chalk.gray(`   Serial: ${serial}`));
+    } else if (packet.command === 0x62 && packet.payload) {
+      const firmware = packet.payload.slice(0, 20).toString('ascii').replace(/\0/g, '');
+      console.log(chalk.gray(`   Firmware: ${firmware}`));
+    } else if (packet.command === 0x61 && packet.payload) {
+      console.log(chalk.gray(`   Session Start`));
+    } else if (packet.command === 0x70 && packet.payload) {
+      console.log(chalk.gray(`   Controller Ready`));
+    } else if (packet.command === 0x4d && packet.payload) {
+      const subCommand = packet.payload[0];
+      console.log(chalk.gray(`   Handshake: 0x${subCommand.toString(16).padStart(2, '0')}`));
     }
   }
 
@@ -244,14 +266,69 @@ class DualSerialMonitor extends EventEmitter {
     console.log(chalk.gray(`   ↔ Paired (${responseTime}ms) | State: ${state}`));
   }
 
+  getCommandName(command) {
+    // Updated command mapping based on latest protocol analysis
+    const commandMap = {
+      // Basic commands
+      0x01: 'Reset/Init',
+      0x05: 'ACK',
+      0x09: 'Control Signal',
+      0x0f: 'Reset Confirm',
+      
+      // Authentication
+      0x11: 'Auth Response/IMEI',
+      0x12: 'Auth Challenge',
+      
+      // Program control
+      0x60: 'Program Start',
+      0x6d: 'Status Response',
+      
+      // Session management
+      0x61: 'Session Start',
+      0x70: 'Controller Ready',
+      0x73: 'Handshake ACK',
+      0x4d: 'Handshake Init/ACK',
+      
+      // New commands from latest protocol analysis
+      0xf3: 'Status Query F3',
+      0xf5: 'Status Query F5',
+      0xf7: 'Complex Command',
+      0xec: 'Device Info',
+      0xea: 'Serial Info',
+      0x62: 'Firmware Info'
+    };
+    
+    return commandMap[command] || `Unknown(0x${command.toString(16).padStart(2, '0')})`;
+  }
+
   getStatusName(status) {
+    // Updated status mapping based on latest protocol analysis
     const statusMap = {
+      // Basic status codes
       0x01: 'Standby',
       0x02: 'Running',
       0x03: 'Paused',
-      0x04: 'Error'
+      0x04: 'Error',
+      0x05: 'Completed',
+      0x06: 'Cancelled',
+      
+      // Specific status patterns from protocol analysis
+      '01 30 10': 'Ready with parameters',
+      '01 30 30': 'Standby/Ready',
+      '02 B0 31': 'Busy/Error (API error 60015)',
+      '04 30 30': 'Reset in progress',
+      '01 B0 31': 'Program 1 running',
+      '02 B0 31': 'Program 2 running', 
+      '03 B0 31': 'Program 3 running',
+      '04 B0 31': 'Program 4 running'
     };
-    return statusMap[status] || 'Unknown';
+    
+    // Handle both hex values and string patterns
+    if (typeof status === 'string') {
+      return statusMap[status] || `Unknown(${status})`;
+    }
+    
+    return statusMap[status] || `Unknown(0x${status.toString(16)})`;
   }
 
   setupGracefulShutdown() {

@@ -1,5 +1,5 @@
 {
-  "totalSessions": 4,
+  "totalSessions": 7,
   "analysis": {
     "patterns": {
       "challengeStructure": {
@@ -187,6 +187,165 @@
               36
             ]
           }
+        },
+        "4": {
+          "type": "Challenge",
+          "length": 24,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              158,
+              88
+            ]
+          },
+          "lengthByte": 19,
+          "frameType": 67,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              76,
+              132,
+              230,
+              213
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              8,
+              142,
+              103,
+              220,
+              254,
+              142,
+              60,
+              199,
+              125,
+              152,
+              245,
+              195
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              216,
+              196,
+              179
+            ]
+          }
+        },
+        "5": {
+          "type": "Challenge",
+          "length": 24,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              158,
+              88
+            ]
+          },
+          "lengthByte": 19,
+          "frameType": 67,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              76,
+              132,
+              230,
+              213
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              8,
+              142,
+              103,
+              220,
+              254,
+              142,
+              60,
+              199,
+              125,
+              152,
+              245,
+              195
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              216,
+              196,
+              179
+            ]
+          }
+        },
+        "6": {
+          "type": "Challenge",
+          "length": 24,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              158,
+              88
+            ]
+          },
+          "lengthByte": 19,
+          "frameType": 67,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              76,
+              132,
+              230,
+              213
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              8,
+              142,
+              103,
+              220,
+              254,
+              142,
+              60,
+              199,
+              125,
+              152,
+              245,
+              195
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              216,
+              196,
+              179
+            ]
+          }
         }
       },
       "responseStructure": {
@@ -372,6 +531,165 @@
               112,
               86,
               185
+            ]
+          }
+        },
+        "4": {
+          "type": "Response",
+          "length": 24,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              49,
+              121
+            ]
+          },
+          "lengthByte": 51,
+          "frameType": 104,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              71,
+              88,
+              55,
+              48
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              21,
+              102,
+              35,
+              218,
+              70,
+              112,
+              91,
+              197,
+              151,
+              61,
+              198,
+              239
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              79,
+              105,
+              18
+            ]
+          }
+        },
+        "5": {
+          "type": "Response",
+          "length": 24,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              52,
+              89
+            ]
+          },
+          "lengthByte": 77,
+          "frameType": 70,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              104,
+              49,
+              86,
+              122
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              11,
+              51,
+              219,
+              176,
+              65,
+              144,
+              201,
+              235,
+              221,
+              117,
+              113,
+              251
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              31,
+              176,
+              158
+            ]
+          }
+        },
+        "6": {
+          "type": "Response",
+          "length": 24,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              100,
+              77
+            ]
+          },
+          "lengthByte": 67,
+          "frameType": 100,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              120,
+              70,
+              120,
+              115
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              85,
+              0,
+              53,
+              179,
+              171,
+              199,
+              227,
+              156,
+              147,
+              214,
+              64,
+              120
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              20,
+              106,
+              52
             ]
           }
         }
@@ -1770,6 +2088,1149 @@
               }
             }
           ]
+        },
+        "4": {
+          "constantBytes": [
+            {
+              "position": 8,
+              "value": 1,
+              "hex": "01"
+            }
+          ],
+          "variableBytes": [
+            {
+              "position": 0,
+              "challenge": 158,
+              "response": 49,
+              "difference": 147,
+              "hexChallenge": "9e",
+              "hexResponse": "31",
+              "hexDifference": "93"
+            },
+            {
+              "position": 1,
+              "challenge": 88,
+              "response": 121,
+              "difference": 33,
+              "hexChallenge": "58",
+              "hexResponse": "79",
+              "hexDifference": "21"
+            },
+            {
+              "position": 2,
+              "challenge": 19,
+              "response": 51,
+              "difference": 32,
+              "hexChallenge": "13",
+              "hexResponse": "33",
+              "hexDifference": "20"
+            },
+            {
+              "position": 3,
+              "challenge": 67,
+              "response": 104,
+              "difference": 37,
+              "hexChallenge": "43",
+              "hexResponse": "68",
+              "hexDifference": "25"
+            },
+            {
+              "position": 4,
+              "challenge": 76,
+              "response": 71,
+              "difference": 251,
+              "hexChallenge": "4c",
+              "hexResponse": "47",
+              "hexDifference": "fb"
+            },
+            {
+              "position": 5,
+              "challenge": 132,
+              "response": 88,
+              "difference": 212,
+              "hexChallenge": "84",
+              "hexResponse": "58",
+              "hexDifference": "d4"
+            },
+            {
+              "position": 6,
+              "challenge": 230,
+              "response": 55,
+              "difference": 81,
+              "hexChallenge": "e6",
+              "hexResponse": "37",
+              "hexDifference": "51"
+            },
+            {
+              "position": 7,
+              "challenge": 213,
+              "response": 48,
+              "difference": 91,
+              "hexChallenge": "d5",
+              "hexResponse": "30",
+              "hexDifference": "5b"
+            },
+            {
+              "position": 9,
+              "challenge": 8,
+              "response": 21,
+              "difference": 13,
+              "hexChallenge": "08",
+              "hexResponse": "15",
+              "hexDifference": "0d"
+            },
+            {
+              "position": 10,
+              "challenge": 142,
+              "response": 102,
+              "difference": 216,
+              "hexChallenge": "8e",
+              "hexResponse": "66",
+              "hexDifference": "d8"
+            },
+            {
+              "position": 11,
+              "challenge": 103,
+              "response": 35,
+              "difference": 188,
+              "hexChallenge": "67",
+              "hexResponse": "23",
+              "hexDifference": "bc"
+            },
+            {
+              "position": 12,
+              "challenge": 220,
+              "response": 218,
+              "difference": 254,
+              "hexChallenge": "dc",
+              "hexResponse": "da",
+              "hexDifference": "fe"
+            },
+            {
+              "position": 13,
+              "challenge": 254,
+              "response": 70,
+              "difference": 72,
+              "hexChallenge": "fe",
+              "hexResponse": "46",
+              "hexDifference": "48"
+            },
+            {
+              "position": 14,
+              "challenge": 142,
+              "response": 112,
+              "difference": 226,
+              "hexChallenge": "8e",
+              "hexResponse": "70",
+              "hexDifference": "e2"
+            },
+            {
+              "position": 15,
+              "challenge": 60,
+              "response": 91,
+              "difference": 31,
+              "hexChallenge": "3c",
+              "hexResponse": "5b",
+              "hexDifference": "1f"
+            },
+            {
+              "position": 16,
+              "challenge": 199,
+              "response": 197,
+              "difference": 254,
+              "hexChallenge": "c7",
+              "hexResponse": "c5",
+              "hexDifference": "fe"
+            },
+            {
+              "position": 17,
+              "challenge": 125,
+              "response": 151,
+              "difference": 26,
+              "hexChallenge": "7d",
+              "hexResponse": "97",
+              "hexDifference": "1a"
+            },
+            {
+              "position": 18,
+              "challenge": 152,
+              "response": 61,
+              "difference": 165,
+              "hexChallenge": "98",
+              "hexResponse": "3d",
+              "hexDifference": "a5"
+            },
+            {
+              "position": 19,
+              "challenge": 245,
+              "response": 198,
+              "difference": 209,
+              "hexChallenge": "f5",
+              "hexResponse": "c6",
+              "hexDifference": "d1"
+            },
+            {
+              "position": 20,
+              "challenge": 195,
+              "response": 239,
+              "difference": 44,
+              "hexChallenge": "c3",
+              "hexResponse": "ef",
+              "hexDifference": "2c"
+            },
+            {
+              "position": 21,
+              "challenge": 216,
+              "response": 79,
+              "difference": 119,
+              "hexChallenge": "d8",
+              "hexResponse": "4f",
+              "hexDifference": "77"
+            },
+            {
+              "position": 22,
+              "challenge": 196,
+              "response": 105,
+              "difference": 165,
+              "hexChallenge": "c4",
+              "hexResponse": "69",
+              "hexDifference": "a5"
+            },
+            {
+              "position": 23,
+              "challenge": 179,
+              "response": 18,
+              "difference": 95,
+              "hexChallenge": "b3",
+              "hexResponse": "12",
+              "hexDifference": "5f"
+            }
+          ],
+          "patterns": [
+            {
+              "position": 0,
+              "pattern": {
+                "type": "XOR",
+                "value": 175
+              }
+            },
+            {
+              "position": 1,
+              "pattern": {
+                "type": "XOR",
+                "value": 33
+              }
+            },
+            {
+              "position": 2,
+              "pattern": {
+                "type": "XOR",
+                "value": 32
+              }
+            },
+            {
+              "position": 3,
+              "pattern": {
+                "type": "XOR",
+                "value": 43
+              }
+            },
+            {
+              "position": 4,
+              "pattern": {
+                "type": "XOR",
+                "value": 11
+              }
+            },
+            {
+              "position": 5,
+              "pattern": {
+                "type": "XOR",
+                "value": 220
+              }
+            },
+            {
+              "position": 6,
+              "pattern": {
+                "type": "XOR",
+                "value": 209
+              }
+            },
+            {
+              "position": 7,
+              "pattern": {
+                "type": "XOR",
+                "value": 229
+              }
+            },
+            {
+              "position": 9,
+              "pattern": {
+                "type": "XOR",
+                "value": 29
+              }
+            },
+            {
+              "position": 10,
+              "pattern": {
+                "type": "XOR",
+                "value": 232
+              }
+            },
+            {
+              "position": 11,
+              "pattern": {
+                "type": "XOR",
+                "value": 68
+              }
+            },
+            {
+              "position": 12,
+              "pattern": {
+                "type": "XOR",
+                "value": 6
+              }
+            },
+            {
+              "position": 13,
+              "pattern": {
+                "type": "XOR",
+                "value": 184
+              }
+            },
+            {
+              "position": 14,
+              "pattern": {
+                "type": "XOR",
+                "value": 254
+              }
+            },
+            {
+              "position": 15,
+              "pattern": {
+                "type": "XOR",
+                "value": 103
+              }
+            },
+            {
+              "position": 16,
+              "pattern": {
+                "type": "XOR",
+                "value": 2
+              }
+            },
+            {
+              "position": 17,
+              "pattern": {
+                "type": "XOR",
+                "value": 234
+              }
+            },
+            {
+              "position": 18,
+              "pattern": {
+                "type": "XOR",
+                "value": 165
+              }
+            },
+            {
+              "position": 19,
+              "pattern": {
+                "type": "XOR",
+                "value": 51
+              }
+            },
+            {
+              "position": 20,
+              "pattern": {
+                "type": "XOR",
+                "value": 44
+              }
+            },
+            {
+              "position": 21,
+              "pattern": {
+                "type": "XOR",
+                "value": 151
+              }
+            },
+            {
+              "position": 22,
+              "pattern": {
+                "type": "XOR",
+                "value": 173
+              }
+            },
+            {
+              "position": 23,
+              "pattern": {
+                "type": "XOR",
+                "value": 161
+              }
+            }
+          ]
+        },
+        "5": {
+          "constantBytes": [
+            {
+              "position": 8,
+              "value": 1,
+              "hex": "01"
+            }
+          ],
+          "variableBytes": [
+            {
+              "position": 0,
+              "challenge": 158,
+              "response": 52,
+              "difference": 150,
+              "hexChallenge": "9e",
+              "hexResponse": "34",
+              "hexDifference": "96"
+            },
+            {
+              "position": 1,
+              "challenge": 88,
+              "response": 89,
+              "difference": 1,
+              "hexChallenge": "58",
+              "hexResponse": "59",
+              "hexDifference": "01"
+            },
+            {
+              "position": 2,
+              "challenge": 19,
+              "response": 77,
+              "difference": 58,
+              "hexChallenge": "13",
+              "hexResponse": "4d",
+              "hexDifference": "3a"
+            },
+            {
+              "position": 3,
+              "challenge": 67,
+              "response": 70,
+              "difference": 3,
+              "hexChallenge": "43",
+              "hexResponse": "46",
+              "hexDifference": "03"
+            },
+            {
+              "position": 4,
+              "challenge": 76,
+              "response": 104,
+              "difference": 28,
+              "hexChallenge": "4c",
+              "hexResponse": "68",
+              "hexDifference": "1c"
+            },
+            {
+              "position": 5,
+              "challenge": 132,
+              "response": 49,
+              "difference": 173,
+              "hexChallenge": "84",
+              "hexResponse": "31",
+              "hexDifference": "ad"
+            },
+            {
+              "position": 6,
+              "challenge": 230,
+              "response": 86,
+              "difference": 112,
+              "hexChallenge": "e6",
+              "hexResponse": "56",
+              "hexDifference": "70"
+            },
+            {
+              "position": 7,
+              "challenge": 213,
+              "response": 122,
+              "difference": 165,
+              "hexChallenge": "d5",
+              "hexResponse": "7a",
+              "hexDifference": "a5"
+            },
+            {
+              "position": 9,
+              "challenge": 8,
+              "response": 11,
+              "difference": 3,
+              "hexChallenge": "08",
+              "hexResponse": "0b",
+              "hexDifference": "03"
+            },
+            {
+              "position": 10,
+              "challenge": 142,
+              "response": 51,
+              "difference": 165,
+              "hexChallenge": "8e",
+              "hexResponse": "33",
+              "hexDifference": "a5"
+            },
+            {
+              "position": 11,
+              "challenge": 103,
+              "response": 219,
+              "difference": 116,
+              "hexChallenge": "67",
+              "hexResponse": "db",
+              "hexDifference": "74"
+            },
+            {
+              "position": 12,
+              "challenge": 220,
+              "response": 176,
+              "difference": 212,
+              "hexChallenge": "dc",
+              "hexResponse": "b0",
+              "hexDifference": "d4"
+            },
+            {
+              "position": 13,
+              "challenge": 254,
+              "response": 65,
+              "difference": 67,
+              "hexChallenge": "fe",
+              "hexResponse": "41",
+              "hexDifference": "43"
+            },
+            {
+              "position": 14,
+              "challenge": 142,
+              "response": 144,
+              "difference": 2,
+              "hexChallenge": "8e",
+              "hexResponse": "90",
+              "hexDifference": "02"
+            },
+            {
+              "position": 15,
+              "challenge": 60,
+              "response": 201,
+              "difference": 141,
+              "hexChallenge": "3c",
+              "hexResponse": "c9",
+              "hexDifference": "8d"
+            },
+            {
+              "position": 16,
+              "challenge": 199,
+              "response": 235,
+              "difference": 36,
+              "hexChallenge": "c7",
+              "hexResponse": "eb",
+              "hexDifference": "24"
+            },
+            {
+              "position": 17,
+              "challenge": 125,
+              "response": 221,
+              "difference": 96,
+              "hexChallenge": "7d",
+              "hexResponse": "dd",
+              "hexDifference": "60"
+            },
+            {
+              "position": 18,
+              "challenge": 152,
+              "response": 117,
+              "difference": 221,
+              "hexChallenge": "98",
+              "hexResponse": "75",
+              "hexDifference": "dd"
+            },
+            {
+              "position": 19,
+              "challenge": 245,
+              "response": 113,
+              "difference": 124,
+              "hexChallenge": "f5",
+              "hexResponse": "71",
+              "hexDifference": "7c"
+            },
+            {
+              "position": 20,
+              "challenge": 195,
+              "response": 251,
+              "difference": 56,
+              "hexChallenge": "c3",
+              "hexResponse": "fb",
+              "hexDifference": "38"
+            },
+            {
+              "position": 21,
+              "challenge": 216,
+              "response": 31,
+              "difference": 71,
+              "hexChallenge": "d8",
+              "hexResponse": "1f",
+              "hexDifference": "47"
+            },
+            {
+              "position": 22,
+              "challenge": 196,
+              "response": 176,
+              "difference": 236,
+              "hexChallenge": "c4",
+              "hexResponse": "b0",
+              "hexDifference": "ec"
+            },
+            {
+              "position": 23,
+              "challenge": 179,
+              "response": 158,
+              "difference": 235,
+              "hexChallenge": "b3",
+              "hexResponse": "9e",
+              "hexDifference": "eb"
+            }
+          ],
+          "patterns": [
+            {
+              "position": 0,
+              "pattern": {
+                "type": "XOR",
+                "value": 170
+              }
+            },
+            {
+              "position": 1,
+              "pattern": {
+                "type": "XOR",
+                "value": 1
+              }
+            },
+            {
+              "position": 2,
+              "pattern": {
+                "type": "XOR",
+                "value": 94
+              }
+            },
+            {
+              "position": 3,
+              "pattern": {
+                "type": "XOR",
+                "value": 5
+              }
+            },
+            {
+              "position": 4,
+              "pattern": {
+                "type": "XOR",
+                "value": 36
+              }
+            },
+            {
+              "position": 5,
+              "pattern": {
+                "type": "XOR",
+                "value": 181
+              }
+            },
+            {
+              "position": 6,
+              "pattern": {
+                "type": "XOR",
+                "value": 176
+              }
+            },
+            {
+              "position": 7,
+              "pattern": {
+                "type": "XOR",
+                "value": 175
+              }
+            },
+            {
+              "position": 9,
+              "pattern": {
+                "type": "XOR",
+                "value": 3
+              }
+            },
+            {
+              "position": 10,
+              "pattern": {
+                "type": "XOR",
+                "value": 189
+              }
+            },
+            {
+              "position": 11,
+              "pattern": {
+                "type": "XOR",
+                "value": 188
+              }
+            },
+            {
+              "position": 12,
+              "pattern": {
+                "type": "XOR",
+                "value": 108
+              }
+            },
+            {
+              "position": 13,
+              "pattern": {
+                "type": "XOR",
+                "value": 191
+              }
+            },
+            {
+              "position": 14,
+              "pattern": {
+                "type": "XOR",
+                "value": 30
+              }
+            },
+            {
+              "position": 15,
+              "pattern": {
+                "type": "XOR",
+                "value": 245
+              }
+            },
+            {
+              "position": 16,
+              "pattern": {
+                "type": "XOR",
+                "value": 44
+              }
+            },
+            {
+              "position": 17,
+              "pattern": {
+                "type": "XOR",
+                "value": 160
+              }
+            },
+            {
+              "position": 18,
+              "pattern": {
+                "type": "XOR",
+                "value": 237
+              }
+            },
+            {
+              "position": 19,
+              "pattern": {
+                "type": "XOR",
+                "value": 132
+              }
+            },
+            {
+              "position": 20,
+              "pattern": {
+                "type": "XOR",
+                "value": 56
+              }
+            },
+            {
+              "position": 21,
+              "pattern": {
+                "type": "XOR",
+                "value": 199
+              }
+            },
+            {
+              "position": 22,
+              "pattern": {
+                "type": "XOR",
+                "value": 116
+              }
+            },
+            {
+              "position": 23,
+              "pattern": {
+                "type": "XOR",
+                "value": 45
+              }
+            }
+          ]
+        },
+        "6": {
+          "constantBytes": [
+            {
+              "position": 8,
+              "value": 1,
+              "hex": "01"
+            }
+          ],
+          "variableBytes": [
+            {
+              "position": 0,
+              "challenge": 158,
+              "response": 100,
+              "difference": 198,
+              "hexChallenge": "9e",
+              "hexResponse": "64",
+              "hexDifference": "c6"
+            },
+            {
+              "position": 1,
+              "challenge": 88,
+              "response": 77,
+              "difference": 245,
+              "hexChallenge": "58",
+              "hexResponse": "4d",
+              "hexDifference": "f5"
+            },
+            {
+              "position": 2,
+              "challenge": 19,
+              "response": 67,
+              "difference": 48,
+              "hexChallenge": "13",
+              "hexResponse": "43",
+              "hexDifference": "30"
+            },
+            {
+              "position": 3,
+              "challenge": 67,
+              "response": 100,
+              "difference": 33,
+              "hexChallenge": "43",
+              "hexResponse": "64",
+              "hexDifference": "21"
+            },
+            {
+              "position": 4,
+              "challenge": 76,
+              "response": 120,
+              "difference": 44,
+              "hexChallenge": "4c",
+              "hexResponse": "78",
+              "hexDifference": "2c"
+            },
+            {
+              "position": 5,
+              "challenge": 132,
+              "response": 70,
+              "difference": 194,
+              "hexChallenge": "84",
+              "hexResponse": "46",
+              "hexDifference": "c2"
+            },
+            {
+              "position": 6,
+              "challenge": 230,
+              "response": 120,
+              "difference": 146,
+              "hexChallenge": "e6",
+              "hexResponse": "78",
+              "hexDifference": "92"
+            },
+            {
+              "position": 7,
+              "challenge": 213,
+              "response": 115,
+              "difference": 158,
+              "hexChallenge": "d5",
+              "hexResponse": "73",
+              "hexDifference": "9e"
+            },
+            {
+              "position": 9,
+              "challenge": 8,
+              "response": 85,
+              "difference": 77,
+              "hexChallenge": "08",
+              "hexResponse": "55",
+              "hexDifference": "4d"
+            },
+            {
+              "position": 10,
+              "challenge": 142,
+              "response": 0,
+              "difference": 114,
+              "hexChallenge": "8e",
+              "hexResponse": "00",
+              "hexDifference": "72"
+            },
+            {
+              "position": 11,
+              "challenge": 103,
+              "response": 53,
+              "difference": 206,
+              "hexChallenge": "67",
+              "hexResponse": "35",
+              "hexDifference": "ce"
+            },
+            {
+              "position": 12,
+              "challenge": 220,
+              "response": 179,
+              "difference": 215,
+              "hexChallenge": "dc",
+              "hexResponse": "b3",
+              "hexDifference": "d7"
+            },
+            {
+              "position": 13,
+              "challenge": 254,
+              "response": 171,
+              "difference": 173,
+              "hexChallenge": "fe",
+              "hexResponse": "ab",
+              "hexDifference": "ad"
+            },
+            {
+              "position": 14,
+              "challenge": 142,
+              "response": 199,
+              "difference": 57,
+              "hexChallenge": "8e",
+              "hexResponse": "c7",
+              "hexDifference": "39"
+            },
+            {
+              "position": 15,
+              "challenge": 60,
+              "response": 227,
+              "difference": 167,
+              "hexChallenge": "3c",
+              "hexResponse": "e3",
+              "hexDifference": "a7"
+            },
+            {
+              "position": 16,
+              "challenge": 199,
+              "response": 156,
+              "difference": 213,
+              "hexChallenge": "c7",
+              "hexResponse": "9c",
+              "hexDifference": "d5"
+            },
+            {
+              "position": 17,
+              "challenge": 125,
+              "response": 147,
+              "difference": 22,
+              "hexChallenge": "7d",
+              "hexResponse": "93",
+              "hexDifference": "16"
+            },
+            {
+              "position": 18,
+              "challenge": 152,
+              "response": 214,
+              "difference": 62,
+              "hexChallenge": "98",
+              "hexResponse": "d6",
+              "hexDifference": "3e"
+            },
+            {
+              "position": 19,
+              "challenge": 245,
+              "response": 64,
+              "difference": 75,
+              "hexChallenge": "f5",
+              "hexResponse": "40",
+              "hexDifference": "4b"
+            },
+            {
+              "position": 20,
+              "challenge": 195,
+              "response": 120,
+              "difference": 181,
+              "hexChallenge": "c3",
+              "hexResponse": "78",
+              "hexDifference": "b5"
+            },
+            {
+              "position": 21,
+              "challenge": 216,
+              "response": 20,
+              "difference": 60,
+              "hexChallenge": "d8",
+              "hexResponse": "14",
+              "hexDifference": "3c"
+            },
+            {
+              "position": 22,
+              "challenge": 196,
+              "response": 106,
+              "difference": 166,
+              "hexChallenge": "c4",
+              "hexResponse": "6a",
+              "hexDifference": "a6"
+            },
+            {
+              "position": 23,
+              "challenge": 179,
+              "response": 52,
+              "difference": 129,
+              "hexChallenge": "b3",
+              "hexResponse": "34",
+              "hexDifference": "81"
+            }
+          ],
+          "patterns": [
+            {
+              "position": 0,
+              "pattern": {
+                "type": "XOR",
+                "value": 250
+              }
+            },
+            {
+              "position": 1,
+              "pattern": {
+                "type": "XOR",
+                "value": 21
+              }
+            },
+            {
+              "position": 2,
+              "pattern": {
+                "type": "XOR",
+                "value": 80
+              }
+            },
+            {
+              "position": 3,
+              "pattern": {
+                "type": "XOR",
+                "value": 39
+              }
+            },
+            {
+              "position": 4,
+              "pattern": {
+                "type": "XOR",
+                "value": 52
+              }
+            },
+            {
+              "position": 5,
+              "pattern": {
+                "type": "XOR",
+                "value": 194
+              }
+            },
+            {
+              "position": 6,
+              "pattern": {
+                "type": "XOR",
+                "value": 158
+              }
+            },
+            {
+              "position": 7,
+              "pattern": {
+                "type": "XOR",
+                "value": 166
+              }
+            },
+            {
+              "position": 9,
+              "pattern": {
+                "type": "XOR",
+                "value": 93
+              }
+            },
+            {
+              "position": 10,
+              "pattern": {
+                "type": "XOR",
+                "value": 142
+              }
+            },
+            {
+              "position": 11,
+              "pattern": {
+                "type": "XOR",
+                "value": 82
+              }
+            },
+            {
+              "position": 12,
+              "pattern": {
+                "type": "XOR",
+                "value": 111
+              }
+            },
+            {
+              "position": 13,
+              "pattern": {
+                "type": "XOR",
+                "value": 85
+              }
+            },
+            {
+              "position": 14,
+              "pattern": {
+                "type": "XOR",
+                "value": 73
+              }
+            },
+            {
+              "position": 15,
+              "pattern": {
+                "type": "XOR",
+                "value": 223
+              }
+            },
+            {
+              "position": 16,
+              "pattern": {
+                "type": "XOR",
+                "value": 91
+              }
+            },
+            {
+              "position": 17,
+              "pattern": {
+                "type": "XOR",
+                "value": 238
+              }
+            },
+            {
+              "position": 18,
+              "pattern": {
+                "type": "XOR",
+                "value": 78
+              }
+            },
+            {
+              "position": 19,
+              "pattern": {
+                "type": "XOR",
+                "value": 181
+              }
+            },
+            {
+              "position": 20,
+              "pattern": {
+                "type": "XOR",
+                "value": 187
+              }
+            },
+            {
+              "position": 21,
+              "pattern": {
+                "type": "XOR",
+                "value": 204
+              }
+            },
+            {
+              "position": 22,
+              "pattern": {
+                "type": "XOR",
+                "value": 174
+              }
+            },
+            {
+              "position": 23,
+              "pattern": {
+                "type": "XOR",
+                "value": 135
+              }
+            }
+          ]
         }
       },
       "transformations": [
@@ -2259,6 +3720,511 @@
           ]
         },
         {
+          "session": 4,
+          "transformations": [
+            {
+              "name": "XOR-0b",
+              "accuracy": 0.125,
+              "result": "95 53 18 48 47 8F ED DE"
+            },
+            {
+              "name": "XOR-20",
+              "accuracy": 0.125,
+              "result": "BE 78 33 63 6C A4 C6 F5"
+            },
+            {
+              "name": "XOR-21",
+              "accuracy": 0.125,
+              "result": "BF 79 32 62 6D A5 C7 F4"
+            },
+            {
+              "name": "XOR-2b",
+              "accuracy": 0.125,
+              "result": "B5 73 38 68 67 AF CD FE"
+            },
+            {
+              "name": "XOR-af",
+              "accuracy": 0.125,
+              "result": "31 F7 BC EC E3 2B 49 7A"
+            },
+            {
+              "name": "XOR-d1",
+              "accuracy": 0.125,
+              "result": "4F 89 C2 92 9D 55 37 04"
+            },
+            {
+              "name": "XOR-dc",
+              "accuracy": 0.125,
+              "result": "42 84 CF 9F 90 58 3A 09"
+            },
+            {
+              "name": "XOR-e5",
+              "accuracy": 0.125,
+              "result": "7B BD F6 A6 A9 61 03 30"
+            },
+            {
+              "name": "ADD-32",
+              "accuracy": 0.125,
+              "result": "BE 78 33 63 6C A4 06 F5"
+            },
+            {
+              "name": "ADD-33",
+              "accuracy": 0.125,
+              "result": "BF 79 34 64 6D A5 07 F6"
+            },
+            {
+              "name": "ADD-37",
+              "accuracy": 0.125,
+              "result": "C3 7D 38 68 71 A9 0B FA"
+            },
+            {
+              "name": "ADD-81",
+              "accuracy": 0.125,
+              "result": "EF A9 64 94 9D D5 37 26"
+            },
+            {
+              "name": "ADD-91",
+              "accuracy": 0.125,
+              "result": "F9 B3 6E 9E A7 DF 41 30"
+            },
+            {
+              "name": "ADD-147",
+              "accuracy": 0.125,
+              "result": "31 EB A6 D6 DF 17 79 68"
+            },
+            {
+              "name": "ADD-212",
+              "accuracy": 0.125,
+              "result": "72 2C E7 17 20 58 BA A9"
+            },
+            {
+              "name": "ADD-251",
+              "accuracy": 0.125,
+              "result": "99 53 0E 3E 47 7F E1 D0"
+            },
+            {
+              "name": "SUB-5",
+              "accuracy": 0.125,
+              "result": "99 53 0E 3E 47 7F E1 D0"
+            },
+            {
+              "name": "SUB-44",
+              "accuracy": 0.125,
+              "result": "72 2C E7 17 20 58 BA A9"
+            },
+            {
+              "name": "SUB-109",
+              "accuracy": 0.125,
+              "result": "31 EB A6 D6 DF 17 79 68"
+            },
+            {
+              "name": "SUB-165",
+              "accuracy": 0.125,
+              "result": "F9 B3 6E 9E A7 DF 41 30"
+            },
+            {
+              "name": "SUB-175",
+              "accuracy": 0.125,
+              "result": "EF A9 64 94 9D D5 37 26"
+            },
+            {
+              "name": "SUB-219",
+              "accuracy": 0.125,
+              "result": "C3 7D 38 68 71 A9 0B FA"
+            },
+            {
+              "name": "SUB-223",
+              "accuracy": 0.125,
+              "result": "BF 79 34 64 6D A5 07 F6"
+            },
+            {
+              "name": "SUB-224",
+              "accuracy": 0.125,
+              "result": "BE 78 33 63 6C A4 06 F5"
+            },
+            {
+              "name": "ROT-3",
+              "accuracy": 0.125,
+              "result": "F4 C2 98 1A 62 24 37 AE"
+            },
+            {
+              "name": "ROT-5",
+              "accuracy": 0.125,
+              "result": "D3 0B 62 68 89 90 DC BA"
+            },
+            {
+              "name": "LOOKUP-20",
+              "accuracy": 0.125,
+              "result": "BE 78 33 63 6C A4 06 F5"
+            },
+            {
+              "name": "LOOKUP-21",
+              "accuracy": 0.125,
+              "result": "BF 79 34 64 6D A5 07 F6"
+            },
+            {
+              "name": "LOOKUP-25",
+              "accuracy": 0.125,
+              "result": "C3 7D 38 68 71 A9 0B FA"
+            },
+            {
+              "name": "LOOKUP-51",
+              "accuracy": 0.125,
+              "result": "EF A9 64 94 9D D5 37 26"
+            },
+            {
+              "name": "LOOKUP-5b",
+              "accuracy": 0.125,
+              "result": "F9 B3 6E 9E A7 DF 41 30"
+            },
+            {
+              "name": "LOOKUP-93",
+              "accuracy": 0.125,
+              "result": "31 EB A6 D6 DF 17 79 68"
+            },
+            {
+              "name": "LOOKUP-d4",
+              "accuracy": 0.125,
+              "result": "72 2C E7 17 20 58 BA A9"
+            },
+            {
+              "name": "LOOKUP-fb",
+              "accuracy": 0.125,
+              "result": "99 53 0E 3E 47 7F E1 D0"
+            }
+          ]
+        },
+        {
+          "session": 5,
+          "transformations": [
+            {
+              "name": "XOR-01",
+              "accuracy": 0.125,
+              "result": "9F 59 12 42 4D 85 E7 D4"
+            },
+            {
+              "name": "XOR-05",
+              "accuracy": 0.125,
+              "result": "9B 5D 16 46 49 81 E3 D0"
+            },
+            {
+              "name": "XOR-24",
+              "accuracy": 0.125,
+              "result": "BA 7C 37 67 68 A0 C2 F1"
+            },
+            {
+              "name": "XOR-5e",
+              "accuracy": 0.125,
+              "result": "C0 06 4D 1D 12 DA B8 8B"
+            },
+            {
+              "name": "XOR-aa",
+              "accuracy": 0.125,
+              "result": "34 F2 B9 E9 E6 2E 4C 7F"
+            },
+            {
+              "name": "XOR-af",
+              "accuracy": 0.125,
+              "result": "31 F7 BC EC E3 2B 49 7A"
+            },
+            {
+              "name": "XOR-b0",
+              "accuracy": 0.125,
+              "result": "2E E8 A3 F3 FC 34 56 65"
+            },
+            {
+              "name": "XOR-b5",
+              "accuracy": 0.125,
+              "result": "2B ED A6 F6 F9 31 53 60"
+            },
+            {
+              "name": "ADD-1",
+              "accuracy": 0.125,
+              "result": "9F 59 14 44 4D 85 E7 D6"
+            },
+            {
+              "name": "ADD-3",
+              "accuracy": 0.125,
+              "result": "A1 5B 16 46 4F 87 E9 D8"
+            },
+            {
+              "name": "ADD-28",
+              "accuracy": 0.125,
+              "result": "BA 74 2F 5F 68 A0 02 F1"
+            },
+            {
+              "name": "ADD-58",
+              "accuracy": 0.125,
+              "result": "D8 92 4D 7D 86 BE 20 0F"
+            },
+            {
+              "name": "ADD-112",
+              "accuracy": 0.125,
+              "result": "0E C8 83 B3 BC F4 56 45"
+            },
+            {
+              "name": "ADD-150",
+              "accuracy": 0.125,
+              "result": "34 EE A9 D9 E2 1A 7C 6B"
+            },
+            {
+              "name": "ADD-165",
+              "accuracy": 0.125,
+              "result": "43 FD B8 E8 F1 29 8B 7A"
+            },
+            {
+              "name": "ADD-173",
+              "accuracy": 0.125,
+              "result": "4B 05 C0 F0 F9 31 93 82"
+            },
+            {
+              "name": "SUB-83",
+              "accuracy": 0.125,
+              "result": "4B 05 C0 F0 F9 31 93 82"
+            },
+            {
+              "name": "SUB-91",
+              "accuracy": 0.125,
+              "result": "43 FD B8 E8 F1 29 8B 7A"
+            },
+            {
+              "name": "SUB-106",
+              "accuracy": 0.125,
+              "result": "34 EE A9 D9 E2 1A 7C 6B"
+            },
+            {
+              "name": "SUB-144",
+              "accuracy": 0.125,
+              "result": "0E C8 83 B3 BC F4 56 45"
+            },
+            {
+              "name": "SUB-198",
+              "accuracy": 0.125,
+              "result": "D8 92 4D 7D 86 BE 20 0F"
+            },
+            {
+              "name": "SUB-228",
+              "accuracy": 0.125,
+              "result": "BA 74 2F 5F 68 A0 02 F1"
+            },
+            {
+              "name": "SUB-253",
+              "accuracy": 0.125,
+              "result": "A1 5B 16 46 4F 87 E9 D8"
+            },
+            {
+              "name": "SUB-255",
+              "accuracy": 0.125,
+              "result": "9F 59 14 44 4D 85 E7 D6"
+            },
+            {
+              "name": "LOOKUP-01",
+              "accuracy": 0.125,
+              "result": "9F 59 14 44 4D 85 E7 D6"
+            },
+            {
+              "name": "LOOKUP-03",
+              "accuracy": 0.125,
+              "result": "A1 5B 16 46 4F 87 E9 D8"
+            },
+            {
+              "name": "LOOKUP-1c",
+              "accuracy": 0.125,
+              "result": "BA 74 2F 5F 68 A0 02 F1"
+            },
+            {
+              "name": "LOOKUP-3a",
+              "accuracy": 0.125,
+              "result": "D8 92 4D 7D 86 BE 20 0F"
+            },
+            {
+              "name": "LOOKUP-70",
+              "accuracy": 0.125,
+              "result": "0E C8 83 B3 BC F4 56 45"
+            },
+            {
+              "name": "LOOKUP-96",
+              "accuracy": 0.125,
+              "result": "34 EE A9 D9 E2 1A 7C 6B"
+            },
+            {
+              "name": "LOOKUP-a5",
+              "accuracy": 0.125,
+              "result": "43 FD B8 E8 F1 29 8B 7A"
+            },
+            {
+              "name": "LOOKUP-ad",
+              "accuracy": 0.125,
+              "result": "4B 05 C0 F0 F9 31 93 82"
+            }
+          ]
+        },
+        {
+          "session": 6,
+          "transformations": [
+            {
+              "name": "XOR-15",
+              "accuracy": 0.125,
+              "result": "8B 4D 06 56 59 91 F3 C0"
+            },
+            {
+              "name": "XOR-27",
+              "accuracy": 0.125,
+              "result": "B9 7F 34 64 6B A3 C1 F2"
+            },
+            {
+              "name": "XOR-34",
+              "accuracy": 0.125,
+              "result": "AA 6C 27 77 78 B0 D2 E1"
+            },
+            {
+              "name": "XOR-50",
+              "accuracy": 0.125,
+              "result": "CE 08 43 13 1C D4 B6 85"
+            },
+            {
+              "name": "XOR-9e",
+              "accuracy": 0.125,
+              "result": "00 C6 8D DD D2 1A 78 4B"
+            },
+            {
+              "name": "XOR-a6",
+              "accuracy": 0.125,
+              "result": "38 FE B5 E5 EA 22 40 73"
+            },
+            {
+              "name": "XOR-c2",
+              "accuracy": 0.125,
+              "result": "5C 9A D1 81 8E 46 24 17"
+            },
+            {
+              "name": "XOR-fa",
+              "accuracy": 0.125,
+              "result": "64 A2 E9 B9 B6 7E 1C 2F"
+            },
+            {
+              "name": "ADD-33",
+              "accuracy": 0.125,
+              "result": "BF 79 34 64 6D A5 07 F6"
+            },
+            {
+              "name": "ADD-44",
+              "accuracy": 0.125,
+              "result": "CA 84 3F 6F 78 B0 12 01"
+            },
+            {
+              "name": "ADD-48",
+              "accuracy": 0.125,
+              "result": "CE 88 43 73 7C B4 16 05"
+            },
+            {
+              "name": "ADD-146",
+              "accuracy": 0.125,
+              "result": "30 EA A5 D5 DE 16 78 67"
+            },
+            {
+              "name": "ADD-158",
+              "accuracy": 0.125,
+              "result": "3C F6 B1 E1 EA 22 84 73"
+            },
+            {
+              "name": "ADD-194",
+              "accuracy": 0.125,
+              "result": "60 1A D5 05 0E 46 A8 97"
+            },
+            {
+              "name": "ADD-198",
+              "accuracy": 0.125,
+              "result": "64 1E D9 09 12 4A AC 9B"
+            },
+            {
+              "name": "ADD-245",
+              "accuracy": 0.125,
+              "result": "93 4D 08 38 41 79 DB CA"
+            },
+            {
+              "name": "SUB-11",
+              "accuracy": 0.125,
+              "result": "93 4D 08 38 41 79 DB CA"
+            },
+            {
+              "name": "SUB-58",
+              "accuracy": 0.125,
+              "result": "64 1E D9 09 12 4A AC 9B"
+            },
+            {
+              "name": "SUB-62",
+              "accuracy": 0.125,
+              "result": "60 1A D5 05 0E 46 A8 97"
+            },
+            {
+              "name": "SUB-98",
+              "accuracy": 0.125,
+              "result": "3C F6 B1 E1 EA 22 84 73"
+            },
+            {
+              "name": "SUB-110",
+              "accuracy": 0.125,
+              "result": "30 EA A5 D5 DE 16 78 67"
+            },
+            {
+              "name": "SUB-208",
+              "accuracy": 0.125,
+              "result": "CE 88 43 73 7C B4 16 05"
+            },
+            {
+              "name": "SUB-212",
+              "accuracy": 0.125,
+              "result": "CA 84 3F 6F 78 B0 12 01"
+            },
+            {
+              "name": "SUB-223",
+              "accuracy": 0.125,
+              "result": "BF 79 34 64 6D A5 07 F6"
+            },
+            {
+              "name": "LOOKUP-21",
+              "accuracy": 0.125,
+              "result": "BF 79 34 64 6D A5 07 F6"
+            },
+            {
+              "name": "LOOKUP-2c",
+              "accuracy": 0.125,
+              "result": "CA 84 3F 6F 78 B0 12 01"
+            },
+            {
+              "name": "LOOKUP-30",
+              "accuracy": 0.125,
+              "result": "CE 88 43 73 7C B4 16 05"
+            },
+            {
+              "name": "LOOKUP-92",
+              "accuracy": 0.125,
+              "result": "30 EA A5 D5 DE 16 78 67"
+            },
+            {
+              "name": "LOOKUP-9e",
+              "accuracy": 0.125,
+              "result": "3C F6 B1 E1 EA 22 84 73"
+            },
+            {
+              "name": "LOOKUP-c2",
+              "accuracy": 0.125,
+              "result": "60 1A D5 05 0E 46 A8 97"
+            },
+            {
+              "name": "LOOKUP-c6",
+              "accuracy": 0.125,
+              "result": "64 1E D9 09 12 4A AC 9B"
+            },
+            {
+              "name": "LOOKUP-f5",
+              "accuracy": 0.125,
+              "result": "93 4D 08 38 41 79 DB CA"
+            }
+          ]
+        },
+        {
           "session": 1,
           "transformations": [
             {
@@ -2312,14 +4278,14 @@
     },
     "insights": {
       "keyFindings": [
-        "Found 18 constant bytes across all sessions",
-        "Found 80 variable bytes across all sessions",
+        "Found 21 constant bytes across all sessions",
+        "Found 149 variable bytes across all sessions",
         "Top transformation patterns:",
+        "  XOR-132: 5 occurrences",
         "  XOR-89: 4 occurrences",
-        "  XOR-132: 4 occurrences",
-        "  XOR-3: 2 occurrences",
-        "  XOR-28: 2 occurrences",
-        "  XOR-180: 2 occurrences"
+        "  XOR-3: 3 occurrences",
+        "  XOR-189: 3 occurrences",
+        "  XOR-151: 3 occurrences"
       ],
       "recommendations": [
         "Focus on the most frequent transformation patterns",
@@ -2335,5 +4301,5 @@
       ]
     }
   },
-  "timestamp": "2025-10-20T04:01:06.754Z"
+  "timestamp": "2025-10-20T08:30:37.884Z"
 }

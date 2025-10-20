@@ -17,46 +17,104 @@ class ConversationFlow {
     this.errorCount = 0;
     this.retryCount = 0;
     
-    // State machine definition
+    // Enhanced state machine definition with complete 15-step initialization sequence
     this.stateMachine = {
       'IDLE': {
-        transitions: ['CONNECTING', 'ERROR'],
+        transitions: ['SESSION_START', 'ERROR'],
         triggers: {
-          'TX': { 0x01: 'CONNECTING' }, // Reset/Init command
-          'RX': { 0x0f: 'CONNECTING' }  // Reset confirm
+          'TX': { 0x61: 'SESSION_START' },  // Session start command
+          'RX': { 0x0f: 'SESSION_START' }   // Reset confirm
         }
       },
-      'CONNECTING': {
+      'SESSION_START': {
+        transitions: ['CONTROLLER_READY', 'ERROR', 'IDLE'],
+        triggers: {
+          'TX': { 0x70: 'CONTROLLER_READY' }, // Controller ready
+          'RX': { 0x70: 'CONTROLLER_READY' }  // Controller ready response
+        }
+      },
+      'CONTROLLER_READY': {
+        transitions: ['HANDSHAKE_INIT', 'ERROR', 'IDLE'],
+        triggers: {
+          'TX': { 0x4d: 'HANDSHAKE_INIT' },  // Handshake init
+          'RX': { 0x73: 'HANDSHAKE_INIT' }   // Handshake ACK
+        }
+      },
+      'HANDSHAKE_INIT': {
+        transitions: ['IMEI_BROADCAST', 'ERROR', 'IDLE'],
+        triggers: {
+          'TX': { 0x11: 'IMEI_BROADCAST' },  // IMEI broadcast
+          'RX': { 0x73: 'IMEI_BROADCAST' }   // Handshake ACK
+        }
+      },
+      'IMEI_BROADCAST': {
+        transitions: ['STATUS_QUERY', 'ERROR', 'IDLE'],
+        triggers: {
+          'TX': { 0xf3: 'STATUS_QUERY' },    // Status query F3
+          'RX': { 0x4d: 'STATUS_QUERY' }     // IMEI ACK
+        }
+      },
+      'STATUS_QUERY': {
+        transitions: ['COMPLEX_COMMAND', 'ERROR', 'IDLE'],
+        triggers: {
+          'TX': { 0xf7: 'COMPLEX_COMMAND' }, // Complex command
+          'RX': { 0x6d: 'COMPLEX_COMMAND' }  // Status response
+        }
+      },
+      'COMPLEX_COMMAND': {
         transitions: ['AUTHENTICATING', 'ERROR', 'IDLE'],
         triggers: {
-          'TX': { 0x12: 'AUTHENTICATING' }, // Auth challenge
-          'RX': { 0x11: 'AUTHENTICATED' }   // Auth response
+          'TX': { 0x12: 'AUTHENTICATING' },  // Auth challenge
+          'RX': { 0x4d: 'AUTHENTICATING' }   // Complex command ACK
         }
       },
       'AUTHENTICATING': {
-        transitions: ['AUTHENTICATED', 'ERROR', 'CONNECTING'],
+        transitions: ['AUTHENTICATED', 'ERROR', 'COMPLEX_COMMAND'],
         triggers: {
-          'RX': { 0x11: 'AUTHENTICATED' }   // Auth response
+          'RX': { 0x11: 'AUTHENTICATED' }    // Auth response
         }
       },
       'AUTHENTICATED': {
+        transitions: ['DEVICE_INFO', 'ACTIVE', 'IDLE', 'ERROR'],
+        triggers: {
+          'TX': { 0xec: 'DEVICE_INFO' },     // Device info query
+          'TX': { 0x60: 'ACTIVE' },          // Program start
+          'TX': { 0x01: 'IDLE' }             // Reset
+        }
+      },
+      'DEVICE_INFO': {
+        transitions: ['FIRMWARE_QUERY', 'ACTIVE', 'IDLE', 'ERROR'],
+        triggers: {
+          'TX': { 0x62: 'FIRMWARE_QUERY' },  // Firmware query
+          'RX': { 0xec: 'FIRMWARE_QUERY' }   // Device info response
+        }
+      },
+      'FIRMWARE_QUERY': {
+        transitions: ['SERIAL_QUERY', 'ACTIVE', 'IDLE', 'ERROR'],
+        triggers: {
+          'TX': { 0xea: 'SERIAL_QUERY' },    // Serial query
+          'RX': { 0x62: 'SERIAL_QUERY' }     // Firmware response
+        }
+      },
+      'SERIAL_QUERY': {
         transitions: ['ACTIVE', 'IDLE', 'ERROR'],
         triggers: {
-          'TX': { 0x60: 'ACTIVE' },         // Program start
-          'TX': { 0x01: 'IDLE' }            // Reset
+          'TX': { 0x60: 'ACTIVE' },          // Program start
+          'RX': { 0xea: 'ACTIVE' }           // Serial response
         }
       },
       'ACTIVE': {
         transitions: ['AUTHENTICATED', 'IDLE', 'ERROR'],
         triggers: {
-          'TX': { 0x01: 'IDLE' },           // Reset
-          'RX': { 0x6d: 'AUTHENTICATED' }   // Status response
+          'TX': { 0x01: 'IDLE' },            // Reset
+          'RX': { 0x6d: 'AUTHENTICATED' }    // Status response
         }
       },
       'ERROR': {
-        transitions: ['IDLE', 'CONNECTING'],
+        transitions: ['IDLE', 'SESSION_START'],
         triggers: {
-          'TX': { 0x01: 'CONNECTING' }      // Reset/retry
+          'TX': { 0x01: 'SESSION_START' },   // Reset/retry
+          'TX': { 0x61: 'SESSION_START' }    // Session restart
         }
       }
     };
@@ -98,6 +156,23 @@ class ConversationFlow {
     // Track program changes
     if (packet.command === 0x60 && direction === 'TX') {
       this.updateCurrentProgram(packet);
+    }
+    
+    // Track new commands from latest protocol analysis
+    if (packet.command === 0xf7 && direction === 'TX') {
+      this.trackComplexCommand(packet, timestamp);
+    }
+    
+    if (packet.command === 0xec && direction === 'RX') {
+      this.trackDeviceInfo(packet, timestamp);
+    }
+    
+    if (packet.command === 0x62 && direction === 'RX') {
+      this.trackFirmwareInfo(packet, timestamp);
+    }
+    
+    if (packet.command === 0xea && direction === 'RX') {
+      this.trackSerialInfo(packet, timestamp);
     }
     
     // Track errors
@@ -205,6 +280,58 @@ class ConversationFlow {
   }
 
   /**
+   * Track complex command
+   * @param {object} packet - Complex command packet
+   * @param {number} timestamp - Timestamp
+   */
+  trackComplexCommand(packet, timestamp) {
+    // Track complex command execution
+    this.complexCommandCount = (this.complexCommandCount || 0) + 1;
+  }
+
+  /**
+   * Track device info response
+   * @param {object} packet - Device info packet
+   * @param {number} timestamp - Timestamp
+   */
+  trackDeviceInfo(packet, timestamp) {
+    if (packet.payload && packet.payload.length > 0) {
+      // Extract device model from payload
+      const modelBytes = packet.payload.slice(0, 10);
+      const model = modelBytes.toString('ascii').replace(/\0/g, '');
+      this.deviceModel = model;
+    }
+  }
+
+  /**
+   * Track firmware info response
+   * @param {object} packet - Firmware info packet
+   * @param {number} timestamp - Timestamp
+   */
+  trackFirmwareInfo(packet, timestamp) {
+    if (packet.payload && packet.payload.length > 0) {
+      // Extract firmware version from payload
+      const firmwareBytes = packet.payload.slice(0, 20);
+      const firmware = firmwareBytes.toString('ascii').replace(/\0/g, '');
+      this.firmwareVersion = firmware;
+    }
+  }
+
+  /**
+   * Track serial info response
+   * @param {object} packet - Serial info packet
+   * @param {number} timestamp - Timestamp
+   */
+  trackSerialInfo(packet, timestamp) {
+    if (packet.payload && packet.payload.length > 0) {
+      // Extract serial number from payload
+      const serialBytes = packet.payload.slice(0, 30);
+      const serial = serialBytes.toString('ascii').replace(/\0/g, '');
+      this.serialNumber = serial;
+    }
+  }
+
+  /**
    * Track error occurrence
    * @param {object} packet - Error packet
    * @param {number} timestamp - Timestamp
@@ -266,11 +393,15 @@ class ConversationFlow {
       currentState: this.state,
       deviceStatus: this.deviceStatus,
       currentProgram: this.currentProgram,
+      deviceModel: this.deviceModel || 'Unknown',
+      firmwareVersion: this.firmwareVersion || 'Unknown',
+      serialNumber: this.serialNumber || 'Unknown',
       authAttempts: authAttempts,
       authSuccesses: authSuccesses,
       authSuccessRate: parseFloat(authSuccessRate),
       errorCount: this.errorCount,
       retryCount: this.retryCount,
+      complexCommandCount: this.complexCommandCount || 0,
       commandCount: this.commandSequence.length,
       stateTransitions: this.stateTransitions.length,
       stateTimeline: this.getStateTimeline()
@@ -297,14 +428,32 @@ class ConversationFlow {
    * @returns {string} Status name
    */
   getStatusName(status) {
+    // Updated status mapping based on latest protocol analysis
     const statusMap = {
+      // Basic status codes
       0x01: 'Standby',
       0x02: 'Running',
       0x03: 'Paused',
       0x04: 'Error',
       0x05: 'Completed',
-      0x06: 'Cancelled'
+      0x06: 'Cancelled',
+      
+      // Specific status patterns from protocol analysis
+      '01 30 10': 'Ready with parameters',
+      '01 30 30': 'Standby/Ready',
+      '02 B0 31': 'Busy/Error (API error 60015)',
+      '04 30 30': 'Reset in progress',
+      '01 B0 31': 'Program 1 running',
+      '02 B0 31': 'Program 2 running', 
+      '03 B0 31': 'Program 3 running',
+      '04 B0 31': 'Program 4 running'
     };
+    
+    // Handle both hex values and string patterns
+    if (typeof status === 'string') {
+      return statusMap[status] || `Unknown(${status})`;
+    }
+    
     return statusMap[status] || `Unknown(0x${status.toString(16)})`;
   }
 

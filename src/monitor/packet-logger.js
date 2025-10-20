@@ -123,6 +123,18 @@ class PacketLogger {
       if (packet.commandInfo.imei) {
         console.log(`  IMEI: ${chalk.green(packet.commandInfo.imei)}`);
       }
+      if (packet.commandInfo.complexCommandLength) {
+        console.log(`  Complex Command Length: ${chalk.cyan(packet.commandInfo.complexCommandLength)} bytes`);
+      }
+      if (packet.commandInfo.sessionStart) {
+        console.log(`  Session Start: ${chalk.green(packet.commandInfo.sessionStart)}`);
+      }
+      if (packet.commandInfo.controllerReady) {
+        console.log(`  Controller Ready: ${chalk.green(packet.commandInfo.controllerReady)}`);
+      }
+      if (packet.commandInfo.handshake) {
+        console.log(`  Handshake: ${chalk.green(packet.commandInfo.handshake)}`);
+      }
     }
     
     // CRC validation

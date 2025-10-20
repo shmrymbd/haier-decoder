@@ -31,6 +31,14 @@ class CommandHandler {
       'send': this.sendRawHex.bind(this),
       'hex': this.sendRawHex.bind(this),
       
+      // Missing Commands from Latest Protocol Analysis
+      'complex': this.sendComplexCommand.bind(this),
+      'query': this.sendStatusQuery.bind(this),
+      'firmware': this.getFirmwareInfo.bind(this),
+      'model': this.getModelInfo.bind(this),
+      'serial': this.getSerialInfo.bind(this),
+      'sync': this.syncTimestamp.bind(this),
+      
       // Session Management
       'history': this.showHistory.bind(this),
       'clear': this.clearHistory.bind(this),
@@ -94,14 +102,17 @@ class CommandHandler {
   }
 
   createAuthenticationChallenge() {
+    // Generate rolling challenge
+    const challenge = this.communicator.generateRollingChallenge();
+    const challengeBuffer = HexUtils.hexToBuffer(challenge);
+    
     // Create authentication challenge packet with correct frame structure
     const frameFlags = 0x40; // Has CRC
     const reserved = Buffer.from([0x00, 0x00, 0x00, 0x00, 0x00]);
-    const frameType = 0x12; // Authentication challenge
-    const challenge = Buffer.from([0x78, 0x8c, 0x6f, 0xf2, 0xd9, 0x2d, 0xc8, 0x55]); // Example challenge
+    const frameType = 0x11; // Authentication challenge (TX direction)
     const frameData = Buffer.concat([
       Buffer.from([0x10, 0x02, 0x00, 0x01]), // Challenge header
-      challenge // 8-byte challenge
+      challengeBuffer // 8-byte rolling challenge
     ]);
     
     // Calculate checksum (LSB of sum of flags+reserved+type+data)
@@ -290,6 +301,121 @@ class CommandHandler {
       }
     } catch (error) {
       return { error: `Failed to send raw hex: ${error.message}` };
+    }
+  }
+
+  // Missing Commands from Latest Protocol Analysis
+  async sendComplexCommand() {
+    try {
+      console.log(chalk.yellow('🔄 Sending complex command (F7)...'));
+      
+      // Complex Command (Mode 2 - Alternate format)
+      const complexHex = 'ff ff 22 40 00 00 00 00 00 f7 01 03 01 08 00 01 00 00 00 00 03 00 02 06 01 00 01 00 02 00 03 04 00 02 17 00 96 22 e4';
+      
+      const result = await this.communicator.sendRawHex(complexHex);
+      
+      if (result.success) {
+        return { message: 'Complex command sent successfully' };
+      } else {
+        return { error: result.error };
+      }
+    } catch (error) {
+      return { error: `Failed to send complex command: ${error.message}` };
+    }
+  }
+
+  async sendStatusQuery() {
+    try {
+      console.log(chalk.yellow('📊 Sending status query (F3)...'));
+      
+      // Status Query Command
+      const queryHex = 'ff ff 0a 40 00 00 00 00 00 f3 00 00 3d d0 e1';
+      
+      const result = await this.communicator.sendRawHex(queryHex);
+      
+      if (result.success) {
+        return { message: 'Status query sent successfully' };
+      } else {
+        return { error: result.error };
+      }
+    } catch (error) {
+      return { error: `Failed to send status query: ${error.message}` };
+    }
+  }
+
+  async getFirmwareInfo() {
+    try {
+      console.log(chalk.yellow('ℹ️ Requesting firmware information...'));
+      
+      // Request firmware info (command 62)
+      const firmwareHex = 'ff ff 0a 40 00 00 00 00 00 62 00 00 3d d0 e1';
+      
+      const result = await this.communicator.sendRawHex(firmwareHex);
+      
+      if (result.success) {
+        return { message: 'Firmware info request sent' };
+      } else {
+        return { error: result.error };
+      }
+    } catch (error) {
+      return { error: `Failed to get firmware info: ${error.message}` };
+    }
+  }
+
+  async getModelInfo() {
+    try {
+      console.log(chalk.yellow('ℹ️ Requesting model information...'));
+      
+      // Request model info (command EC)
+      const modelHex = 'ff ff 0a 40 00 00 00 00 00 ec 00 00 3d d0 e1';
+      
+      const result = await this.communicator.sendRawHex(modelHex);
+      
+      if (result.success) {
+        return { message: 'Model info request sent' };
+      } else {
+        return { error: result.error };
+      }
+    } catch (error) {
+      return { error: `Failed to get model info: ${error.message}` };
+    }
+  }
+
+  async getSerialInfo() {
+    try {
+      console.log(chalk.yellow('ℹ️ Requesting serial information...'));
+      
+      // Request serial info (command EA)
+      const serialHex = 'ff ff 0a 40 00 00 00 00 00 ea 00 00 3d d0 e1';
+      
+      const result = await this.communicator.sendRawHex(serialHex);
+      
+      if (result.success) {
+        return { message: 'Serial info request sent' };
+      } else {
+        return { error: result.error };
+      }
+    } catch (error) {
+      return { error: `Failed to get serial info: ${error.message}` };
+    }
+  }
+
+  async syncTimestamp() {
+    try {
+      console.log(chalk.yellow('🕐 Synchronizing timestamp...'));
+      
+      // Timestamp sync command (11 10 00)
+      const timestampHex = 'ff ff 0a 40 00 00 00 00 00 11 10 00 3d d0 e1';
+      
+      const result = await this.communicator.sendRawHex(timestampHex);
+      
+      if (result.success) {
+        return { message: 'Timestamp sync sent successfully' };
+      } else {
+        return { error: result.error };
+      }
+    } catch (error) {
+      return { error: `Failed to sync timestamp: ${error.message}` };
     }
   }
 

@@ -22,7 +22,28 @@ class PacketPairer {
       // Reset command (0x01 with 0x5d) → Reset confirm (0x0f)
       0x5d: { responseCommand: 0x0f, timeout: 3000, name: 'Reset' },
       // Control signal (0x09) → ACK (0x4d)
-      0x09: { responseCommand: 0x4d, timeout: 2000, name: 'Control Signal' }
+      0x09: { responseCommand: 0x4d, timeout: 2000, name: 'Control Signal' },
+      
+      // New commands from latest protocol analysis
+      // Complex command (0xf7) → ACK (0x4d)
+      0xf7: { responseCommand: 0x4d, timeout: 3000, name: 'Complex Command' },
+      // Status query (0xf3) → Status response (0x6d)
+      0xf3: { responseCommand: 0x6d, timeout: 3000, name: 'Status Query F3' },
+      // Status query (0xf5) → Status response (0x6d)
+      0xf5: { responseCommand: 0x6d, timeout: 3000, name: 'Status Query F5' },
+      // Device info query (0xec) → Device info response (0xec)
+      0xec: { responseCommand: 0xec, timeout: 2000, name: 'Device Info Query' },
+      // Serial query (0xea) → Serial response (0xea)
+      0xea: { responseCommand: 0xea, timeout: 2000, name: 'Serial Query' },
+      // Firmware query (0x62) → Firmware response (0x62)
+      0x62: { responseCommand: 0x62, timeout: 2000, name: 'Firmware Query' },
+      // Session management commands
+      // Session start (0x61) → Session ACK (0x70)
+      0x61: { responseCommand: 0x70, timeout: 2000, name: 'Session Start' },
+      // Controller ready (0x70) → Ready ACK (0x73)
+      0x70: { responseCommand: 0x73, timeout: 2000, name: 'Controller Ready' },
+      // Handshake init (0x4d 0x01) → Handshake ACK (0x73)
+      0x4d: { responseCommand: 0x73, timeout: 2000, name: 'Handshake Init' }
     };
     
     this.stats = {
@@ -146,6 +167,21 @@ class PacketPairer {
       return this.validateStatusPair(challenge.packet, response);
     }
     
+    // Special handling for complex commands
+    if (challenge.command === 0xf7 && response.command === 0x4d) {
+      return this.validateComplexPair(challenge.packet, response);
+    }
+    
+    // Special handling for device info queries
+    if (challenge.command === 0xec && response.command === 0xec) {
+      return this.validateDeviceInfoPair(challenge.packet, response);
+    }
+    
+    // Special handling for session management
+    if ([0x61, 0x70, 0x4d].includes(challenge.command) && [0x70, 0x73].includes(response.command)) {
+      return this.validateSessionPair(challenge.packet, response);
+    }
+    
     return true;
   }
 
@@ -179,7 +215,88 @@ class PacketPairer {
       return false;
     }
     
+    // Enhanced rolling code validation
+    const challengeData = challenge.payload.slice(4, 12); // 8-byte challenge
+    const responseData = response.payload.slice(4, 12);   // 8-byte response
+    
+    // Validate rolling code characteristics
+    if (!this.validateRollingCode(challengeData, responseData)) {
+      return false;
+    }
+    
     return true;
+  }
+
+  /**
+   * Validate rolling code characteristics
+   * @param {Buffer} challenge - Challenge data
+   * @param {Buffer} response - Response data
+   * @returns {boolean} True if valid rolling code
+   */
+  validateRollingCode(challenge, response) {
+    // Check for rolling code patterns
+    // 1. Challenge should be unique (not all zeros or repeated bytes)
+    if (this.isRepeatedBytes(challenge) || this.isAllZeros(challenge)) {
+      return false;
+    }
+    
+    // 2. Response should be different from challenge
+    if (challenge.equals(response)) {
+      return false;
+    }
+    
+    // 3. Check for reasonable entropy (not too many repeated patterns)
+    if (this.hasLowEntropy(challenge) || this.hasLowEntropy(response)) {
+      return false;
+    }
+    
+    // 4. Validate response length and structure
+    if (response.length !== 8) {
+      return false;
+    }
+    
+    return true;
+  }
+
+  /**
+   * Check if buffer contains repeated bytes
+   * @param {Buffer} buffer - Buffer to check
+   * @returns {boolean} True if repeated bytes
+   */
+  isRepeatedBytes(buffer) {
+    if (buffer.length === 0) return true;
+    const firstByte = buffer[0];
+    return buffer.every(byte => byte === firstByte);
+  }
+
+  /**
+   * Check if buffer is all zeros
+   * @param {Buffer} buffer - Buffer to check
+   * @returns {boolean} True if all zeros
+   */
+  isAllZeros(buffer) {
+    return buffer.every(byte => byte === 0);
+  }
+
+  /**
+   * Check if buffer has low entropy (too many repeated patterns)
+   * @param {Buffer} buffer - Buffer to check
+   * @returns {boolean} True if low entropy
+   */
+  hasLowEntropy(buffer) {
+    if (buffer.length < 4) return false;
+    
+    // Check for patterns like 0xAA, 0x55, 0xFF, 0x00
+    const patterns = [0xAA, 0x55, 0xFF, 0x00];
+    for (const pattern of patterns) {
+      let count = 0;
+      for (let i = 0; i < buffer.length; i++) {
+        if (buffer[i] === pattern) count++;
+      }
+      if (count > buffer.length / 2) return true;
+    }
+    
+    return false;
   }
 
   /**
@@ -200,6 +317,71 @@ class PacketPairer {
     }
     
     return true;
+  }
+
+  /**
+   * Validate complex command pair
+   * @param {object} command - Complex command packet
+   * @param {object} response - Response packet
+   * @returns {boolean} True if valid pair
+   */
+  validateComplexPair(command, response) {
+    // Check if command has complex structure (0xf7)
+    if (command.command !== 0xf7) {
+      return false;
+    }
+    
+    // Check if response is ACK (0x4d)
+    if (response.command !== 0x4d) {
+      return false;
+    }
+    
+    return true;
+  }
+
+  /**
+   * Validate device info query pair
+   * @param {object} query - Query packet
+   * @param {object} response - Response packet
+   * @returns {boolean} True if valid pair
+   */
+  validateDeviceInfoPair(query, response) {
+    // Check if both are device info commands
+    if (query.command !== 0xec || response.command !== 0xec) {
+      return false;
+    }
+    
+    // Check if response has device info data
+    if (!response.payload || response.payload.length < 10) {
+      return false;
+    }
+    
+    return true;
+  }
+
+  /**
+   * Validate session management pair
+   * @param {object} command - Session command packet
+   * @param {object} response - Response packet
+   * @returns {boolean} True if valid pair
+   */
+  validateSessionPair(command, response) {
+    // Check session start → controller ready
+    if (command.command === 0x61 && response.command === 0x70) {
+      return true;
+    }
+    
+    // Check controller ready → handshake ACK
+    if (command.command === 0x70 && response.command === 0x73) {
+      return true;
+    }
+    
+    // Check handshake init → handshake ACK
+    if (command.command === 0x4d && response.command === 0x73) {
+      return true;
+    }
+    
+    return false;
   }
 
   /**
@@ -323,6 +505,74 @@ class PacketPairer {
    */
   getAuthPairs() {
     return this.getPairsByType('Authentication');
+  }
+
+  /**
+   * Get rolling code analysis
+   * @returns {object} Rolling code analysis
+   */
+  getRollingCodeAnalysis() {
+    const authPairs = this.getAuthPairs();
+    if (authPairs.length === 0) {
+      return { valid: false, reason: 'No authentication pairs found' };
+    }
+
+    const challenges = authPairs.map(pair => pair.challenge.packet.payload.slice(4, 12));
+    const responses = authPairs.map(pair => pair.response.packet.payload.slice(4, 12));
+    
+    // Analyze rolling code patterns
+    const analysis = {
+      totalPairs: authPairs.length,
+      uniqueChallenges: new Set(challenges.map(c => c.toString('hex'))).size,
+      uniqueResponses: new Set(responses.map(r => r.toString('hex'))).size,
+      rollingCodeDetected: false,
+      patterns: {
+        challengeEntropy: [],
+        responseEntropy: [],
+        timeBetweenChallenges: []
+      }
+    };
+
+    // Check if challenges are unique (rolling code characteristic)
+    analysis.rollingCodeDetected = analysis.uniqueChallenges === authPairs.length;
+
+    // Calculate entropy for each challenge/response
+    for (let i = 0; i < challenges.length; i++) {
+      analysis.patterns.challengeEntropy.push(this.calculateEntropy(challenges[i]));
+      analysis.patterns.responseEntropy.push(this.calculateEntropy(responses[i]));
+    }
+
+    // Calculate time between challenges
+    for (let i = 1; i < authPairs.length; i++) {
+      const timeDiff = authPairs[i].challenge.timestamp - authPairs[i-1].challenge.timestamp;
+      analysis.patterns.timeBetweenChallenges.push(timeDiff);
+    }
+
+    return analysis;
+  }
+
+  /**
+   * Calculate entropy of a buffer
+   * @param {Buffer} buffer - Buffer to analyze
+   * @returns {number} Entropy value (0-8 for 8-byte buffer)
+   */
+  calculateEntropy(buffer) {
+    if (buffer.length === 0) return 0;
+    
+    const byteCounts = new Array(256).fill(0);
+    for (let i = 0; i < buffer.length; i++) {
+      byteCounts[buffer[i]]++;
+    }
+    
+    let entropy = 0;
+    for (let i = 0; i < 256; i++) {
+      if (byteCounts[i] > 0) {
+        const probability = byteCounts[i] / buffer.length;
+        entropy -= probability * Math.log2(probability);
+      }
+    }
+    
+    return entropy;
   }
 
   /**

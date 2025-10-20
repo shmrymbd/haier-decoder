@@ -95,6 +95,7 @@ class ChatCLI extends EventEmitter {
       'auth', 'challenge', 'status', 'info', 'model', 'serial',
       'reset', 'standby', 'start', 'stop', 'program1', 'program2', 'program3', 'program4',
       'send', 'hex', 'history', 'clear', 'save', 'load',
+      'complex', 'query', 'firmware', 'sync',
       'mode', 'auto', 'manual', 'help', 'exit', 'quit'
     ];
     
@@ -224,6 +225,14 @@ class ChatCLI extends EventEmitter {
     console.log(chalk.yellow.bold('Raw Commands:'));
     console.log('  send <hex>        - Send raw hex packet');
     console.log('  hex <hex>         - Send raw hex packet\n');
+    
+    console.log(chalk.yellow.bold('Advanced Commands:'));
+    console.log('  complex           - Send complex command (F7)');
+    console.log('  query             - Send status query (F3)');
+    console.log('  firmware          - Get firmware information');
+    console.log('  model             - Get model information');
+    console.log('  serial            - Get serial information');
+    console.log('  sync              - Synchronize timestamp\n');
     
     console.log(chalk.yellow.bold('Session Commands:'));
     console.log('  history [n]       - Show last n commands (default: 10)');

@@ -121,6 +121,24 @@ class UnifiedLogger {
     } else if (packet.command === 0x01 && packet.payload) {
       const subCommand = packet.payload[0];
       logLine += ` | SubCommand: 0x${subCommand.toString(16).padStart(2, '0')}`;
+    } else if (packet.command === 0xf7 && packet.payload) {
+      logLine += ` | Complex Command: ${packet.payload.length} bytes`;
+    } else if (packet.command === 0xec && packet.payload) {
+      const model = packet.payload.slice(0, 10).toString('ascii').replace(/\0/g, '');
+      logLine += ` | Model: ${model}`;
+    } else if (packet.command === 0x62 && packet.payload) {
+      const firmware = packet.payload.slice(0, 20).toString('ascii').replace(/\0/g, '');
+      logLine += ` | Firmware: ${firmware}`;
+    } else if (packet.command === 0xea && packet.payload) {
+      const serial = packet.payload.slice(0, 30).toString('ascii').replace(/\0/g, '');
+      logLine += ` | Serial: ${serial}`;
+    } else if (packet.command === 0x61 && packet.payload) {
+      logLine += ` | Session Start`;
+    } else if (packet.command === 0x70 && packet.payload) {
+      logLine += ` | Controller Ready`;
+    } else if (packet.command === 0x4d && packet.payload) {
+      const subCommand = packet.payload[0];
+      logLine += ` | Handshake: 0x${subCommand.toString(16).padStart(2, '0')}`;
     }
     
     // Add CRC validation status
@@ -193,14 +211,32 @@ class UnifiedLogger {
    * @returns {string} Status name
    */
   getStatusName(status) {
+    // Updated status mapping based on latest protocol analysis
     const statusMap = {
+      // Basic status codes
       0x01: 'Standby',
       0x02: 'Running',
       0x03: 'Paused',
       0x04: 'Error',
       0x05: 'Completed',
-      0x06: 'Cancelled'
+      0x06: 'Cancelled',
+      
+      // Specific status patterns from protocol analysis
+      '01 30 10': 'Ready with parameters',
+      '01 30 30': 'Standby/Ready',
+      '02 B0 31': 'Busy/Error (API error 60015)',
+      '04 30 30': 'Reset in progress',
+      '01 B0 31': 'Program 1 running',
+      '02 B0 31': 'Program 2 running', 
+      '03 B0 31': 'Program 3 running',
+      '04 B0 31': 'Program 4 running'
     };
+    
+    // Handle both hex values and string patterns
+    if (typeof status === 'string') {
+      return statusMap[status] || `Unknown(${status})`;
+    }
+    
     return statusMap[status] || `Unknown(0x${status.toString(16)})`;
   }
 

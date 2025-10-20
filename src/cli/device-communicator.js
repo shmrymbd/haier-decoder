@@ -68,6 +68,9 @@ class DeviceCommunicator extends EventEmitter {
 
       // Initialize rolling code algorithm
       await this.initializeRollingCode();
+      
+      // Initialize complete protocol session
+      await this.initializeSession();
 
     } catch (error) {
       console.error(chalk.red('❌ Failed to connect:'), error.message);
@@ -84,6 +87,10 @@ class DeviceCommunicator extends EventEmitter {
       // Initialize rolling code with device info
       this.rollingCode = new RollingCodeImplementation(deviceInfo);
       console.log(chalk.green('🔐 Rolling code algorithm initialized'));
+      
+      // Generate initial session key
+      this.sessionTimestamp = Date.now().toString();
+      this.sessionSequence = 0;
       
     } catch (error) {
       console.log(chalk.yellow('⚠️ Could not initialize rolling code algorithm'));
@@ -156,14 +163,20 @@ class DeviceCommunicator extends EventEmitter {
       
       // Extract challenge from packet payload
       const challenge = packet.payload.slice(0, 8); // First 8 bytes
+      const challengeHex = HexUtils.bufferToHex(challenge);
       
-      // Generate response using rolling code algorithm
-      const response = await this.rollingCode.generateResponse(challenge);
+      // Generate response using rolling code algorithm with session data
+      const response = await this.rollingCode.generateResponse(
+        challengeHex, 
+        this.sessionTimestamp, 
+        this.sessionSequence.toString()
+      );
       
       // Send authentication response
       await this.sendAuthenticationResponse(response);
       
       this.authenticated = true;
+      this.sessionSequence++;
       console.log(chalk.green('✅ Authentication successful'));
       
     } catch (error) {
@@ -289,13 +302,113 @@ class DeviceCommunicator extends EventEmitter {
     }
 
     try {
-      const response = await this.rollingCode.generateResponse(challenge);
+      // Generate unique challenge if none provided
+      if (!challenge) {
+        challenge = this.generateRollingChallenge();
+      }
+      
+      const response = await this.rollingCode.generateResponse(
+        challenge, 
+        this.sessionTimestamp, 
+        this.sessionSequence.toString()
+      );
+      
       await this.sendAuthenticationResponse(response);
       this.authenticated = true;
+      this.sessionSequence++;
+      
       return { success: true, message: 'Authentication successful' };
     } catch (error) {
       return { error: error.message };
     }
+  }
+
+  generateRollingChallenge() {
+    // Generate 8-byte rolling challenge
+    const challenge = Buffer.alloc(8);
+    for (let i = 0; i < 8; i++) {
+      challenge[i] = Math.floor(Math.random() * 256);
+    }
+    return HexUtils.bufferToHex(challenge);
+  }
+
+  async initializeSession() {
+    try {
+      console.log(chalk.yellow('🔄 Initializing complete protocol session...'));
+      
+      // 1. Session start
+      await this.sendSessionStart();
+      await this.delay(100);
+      
+      // 2. Controller ready
+      await this.sendControllerReady();
+      await this.delay(100);
+      
+      // 3. Handshake
+      await this.sendHandshake();
+      await this.delay(100);
+      
+      // 4. Wait for handshake ACK (handled by packet parser)
+      console.log(chalk.gray('   Waiting for handshake ACK...'));
+      await this.delay(200);
+      
+      // 5. Device ID exchange
+      await this.exchangeDeviceId();
+      await this.delay(100);
+      
+      // 6. Status query
+      await this.queryStatus();
+      await this.delay(100);
+      
+      // 7. Machine info dump (handled by packet parser)
+      console.log(chalk.gray('   Waiting for machine info...'));
+      await this.delay(200);
+      
+      // 8. Authentication
+      await this.authenticate();
+      await this.delay(100);
+      
+      // 9. Timestamp sync
+      await this.syncTimestamp();
+      await this.delay(100);
+      
+      // 10. Ready for commands
+      this.ready = true;
+      console.log(chalk.green('✅ Complete protocol session initialized'));
+      
+    } catch (error) {
+      console.error(chalk.red('❌ Session initialization failed:'), error.message);
+      throw error;
+    }
+  }
+
+  async sendSessionStart() {
+    const sessionStartHex = 'ff ff 0a 00 00 00 00 00 00 61 00 07 72';
+    await this.sendRawHex(sessionStartHex);
+  }
+
+  async sendControllerReady() {
+    const controllerReadyHex = 'ff ff 08 40 00 00 00 00 00 70 b8 86 41';
+    await this.sendRawHex(controllerReadyHex);
+  }
+
+  async sendHandshake() {
+    const handshakeHex = 'ff ff 0a 40 00 00 00 00 00 01 4d 01 99 b3 b4';
+    await this.sendRawHex(handshakeHex);
+  }
+
+  async exchangeDeviceId() {
+    const deviceIdHex = 'ff ff 19 40 00 00 00 00 00 11 00 f0 38 36 32 38 31 37 30 36 38 33 36 37 39 34 39 7e cc 81';
+    await this.sendRawHex(deviceIdHex);
+  }
+
+  async queryStatus() {
+    const statusQueryHex = 'ff ff 0a 40 00 00 00 00 00 f3 00 00 3d d0 e1';
+    await this.sendRawHex(statusQueryHex);
+  }
+
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   async getStatus() {
@@ -356,14 +469,31 @@ class DeviceCommunicator extends EventEmitter {
   }
 
   getStateName(status) {
+    // Updated status mapping based on latest protocol analysis
     const states = {
+      // Basic status codes
       0x01: 'Standby',
-      0x02: 'Running',
+      0x02: 'Running', 
       0x03: 'Paused',
-      0x04: 'Error'
+      0x04: 'Error',
+      
+      // Specific status patterns from protocol analysis
+      '01 30 10': 'Ready with parameters',
+      '01 30 30': 'Standby/Ready',
+      '02 B0 31': 'Busy/Error (API error 60015)',
+      '04 30 30': 'Reset in progress',
+      '01 B0 31': 'Program 1 running',
+      '02 B0 31': 'Program 2 running', 
+      '03 B0 31': 'Program 3 running',
+      '04 B0 31': 'Program 4 running'
     };
     
-    return states[status] || 'Unknown';
+    // Handle both hex values and string patterns
+    if (typeof status === 'string') {
+      return states[status] || 'Unknown';
+    } else {
+      return states[status] || states[status.toString(16).padStart(2, '0')] || 'Unknown';
+    }
   }
 
   async startProgram(programNumber) {

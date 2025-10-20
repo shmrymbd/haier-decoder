@@ -1,0 +1,21 @@
+{
+  "sessionStart": "2025-10-20T08:55:10.502Z",
+  "sessionId": 1760950510502,
+  "deviceInfo": null,
+  "commands": [
+    {
+      "timestamp": "2025-10-20T08:55:10.502Z",
+      "command": "test",
+      "args": [
+        "arg1",
+        "arg2"
+      ],
+      "result": {
+        "message": "Test success"
+      },
+      "duration": 1
+    }
+  ],
+  "totalCommands": 1,
+  "duration": 30
+}
