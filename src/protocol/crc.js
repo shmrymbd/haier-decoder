@@ -38,6 +38,30 @@ class CRC {
   }
 
   /**
+   * Calculate CRC-16/ARC (CRC-16-ANSI) - the algorithm used by Haier protocol
+   * Based on HaierProtocol library findings
+   * @param {Buffer} data - Data to calculate CRC for
+   * @returns {number} CRC value
+   */
+  calculateCRC16ARC(data) {
+    let crc = 0x0000; // Initial value
+    
+    for (let i = 0; i < data.length; i++) {
+      crc ^= data[i];
+      
+      for (let j = 0; j < 8; j++) {
+        if (crc & 0x0001) {
+          crc = (crc >> 1) ^ 0xA001; // Polynomial 0x8005 reversed
+        } else {
+          crc = crc >> 1;
+        }
+      }
+    }
+    
+    return crc;
+  }
+
+  /**
    * Test all CRC algorithms against known packets
    * @returns {Object|null} Best matching algorithm or null
    */
@@ -120,12 +144,23 @@ class CRC {
       return { valid: false, reason: 'Packet too short' };
     }
     
-    const data = packet.slice(0, -3);
+    // For CRC-16/ARC, calculate on frame data excluding separator, CRC, and checksum
+    const frameData = packet.slice(2, -3); // Skip separator and CRC, exclude checksum
     const receivedCRC = this.parseCRCFromPacket(packet);
     
-    // Try validated algorithm first
+    // Try CRC-16/ARC first (based on HaierProtocol library findings)
+    const arcCRC = this.calculateCRC16ARC(frameData);
+    if (arcCRC === receivedCRC) {
+      return { 
+        valid: true, 
+        algorithm: 'CRC-16/ARC',
+        crc: arcCRC 
+      };
+    }
+    
+    // Try validated algorithm
     if (this.validatedAlgorithm) {
-      const calculatedCRC = this.calculateCRC16(data, this.validatedAlgorithm);
+      const calculatedCRC = this.calculateCRC16(frameData, this.validatedAlgorithm);
       if (calculatedCRC === receivedCRC) {
         return { 
           valid: true, 
@@ -136,7 +171,7 @@ class CRC {
     }
     
     // Try lookup table
-    const dataHex = data.toString('hex');
+    const dataHex = frameData.toString('hex');
     if (this.lookupTable.has(dataHex)) {
       const expectedCRC = this.lookupTable.get(dataHex);
       if (expectedCRC === receivedCRC) {
@@ -150,7 +185,7 @@ class CRC {
     
     // Try all algorithms as fallback
     for (const algorithm of this.algorithms) {
-      const calculatedCRC = this.calculateCRC16(data, algorithm);
+      const calculatedCRC = this.calculateCRC16(frameData, algorithm);
       if (calculatedCRC === receivedCRC) {
         return { 
           valid: true, 
@@ -164,28 +199,18 @@ class CRC {
       valid: false, 
       reason: 'CRC mismatch',
       received: receivedCRC,
-      calculated: this.calculateCRC16(data, this.algorithms[0])
+      calculated: arcCRC
     };
   }
 
   /**
    * Calculate CRC for outgoing packet
-   * @param {Buffer} data - Packet data without CRC
+   * @param {Buffer} frameData - Frame data excluding separator, CRC, and checksum
    * @returns {number} CRC value
    */
-  calculatePacketCRC(data) {
-    if (this.validatedAlgorithm) {
-      return this.calculateCRC16(data, this.validatedAlgorithm);
-    }
-    
-    // Try lookup table first
-    const dataHex = data.toString('hex');
-    if (this.lookupTable.has(dataHex)) {
-      return this.lookupTable.get(dataHex);
-    }
-    
-    // Fallback to first algorithm
-    return this.calculateCRC16(data, this.algorithms[0]);
+  calculatePacketCRC(frameData) {
+    // Use CRC-16/ARC as primary algorithm (based on HaierProtocol library)
+    return this.calculateCRC16ARC(frameData);
   }
 
   /**
