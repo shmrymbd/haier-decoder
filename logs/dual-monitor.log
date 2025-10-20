@@ -1,0 +1,8 @@
+# Dual-Dongle Monitor Log
+# Session ID: 1760935082479
+# Start Time: 2025-10-20T04:38:02.479Z
+# TX Port: Modem → Machine
+# RX Port: Machine → Modem
+# Format: [timestamp] DIRECTION: command_name: hex_data
+# Direction indicators: → (TX), ← (RX)
+#
