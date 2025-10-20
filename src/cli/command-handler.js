@@ -94,17 +94,41 @@ class CommandHandler {
   }
 
   createAuthenticationChallenge() {
-    // Create authentication challenge packet (command 0x12)
-    const header = Buffer.from([0xff, 0xff]);
-    const length = Buffer.from([0x25]); // 37 bytes total
-    const frameType = Buffer.from([0x40]);
-    const sequence = Buffer.from([0x00, 0x00, 0x00, 0x00]);
-    const command = Buffer.from([0x12]);
-    const payload = Buffer.from([0x10, 0x02, 0x00, 0x01]); // Challenge header
+    // Create authentication challenge packet with correct frame structure
+    const frameFlags = 0x40; // Has CRC
+    const reserved = Buffer.from([0x00, 0x00, 0x00, 0x00, 0x00]);
+    const frameType = 0x12; // Authentication challenge
     const challenge = Buffer.from([0x78, 0x8c, 0x6f, 0xf2, 0xd9, 0x2d, 0xc8, 0x55]); // Example challenge
-    const crc = Buffer.from([0x00, 0x00, 0x00]); // Placeholder CRC
+    const frameData = Buffer.concat([
+      Buffer.from([0x10, 0x02, 0x00, 0x01]), // Challenge header
+      challenge // 8-byte challenge
+    ]);
     
-    return Buffer.concat([header, length, frameType, sequence, command, payload, challenge, crc]);
+    // Calculate checksum (LSB of sum of flags+reserved+type+data)
+    const sumData = Buffer.concat([Buffer.from([frameFlags]), reserved, Buffer.from([frameType]), frameData]);
+    let sum = 0;
+    for (let i = 0; i < sumData.length; i++) sum = (sum + sumData[i]) & 0xFF;
+    const checksum = sum;
+    
+    // Calculate CRC-16/ARC
+    const CRC = require('../protocol/crc');
+    const crc = new CRC();
+    const crcValue = crc.calculateCRC16ARC(sumData);
+    
+    // Build complete packet
+    const frameLength = 1 + 5 + 1 + frameData.length + 1; // flags + reserved + type + data + checksum
+    const packet = Buffer.concat([
+      Buffer.from([0xFF, 0xFF]), // Frame separator
+      Buffer.from([frameLength]), // Frame length
+      Buffer.from([frameFlags]), // Frame flags
+      reserved, // Reserved space
+      Buffer.from([frameType]), // Frame type
+      frameData, // Frame data
+      Buffer.from([checksum]), // Checksum
+      Buffer.from([(crcValue >> 8) & 0xFF, crcValue & 0xFF]) // CRC
+    ]);
+    
+    return packet;
   }
 
   // Status & Info Commands

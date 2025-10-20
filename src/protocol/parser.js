@@ -76,7 +76,14 @@ class PacketParser {
     }
     
     const length = this.buffer[2];
-    const totalLength = 3 + length; // header + length + payload + CRC
+    // We need at least 4 bytes to read flags to determine CRC presence
+    if (this.buffer.length < 4) {
+      return null;
+    }
+    const flags = this.buffer[3];
+    const hasCRC = (flags & 0x40) === 0x40;
+    // Total packet length = 2 (sep) + 1 (len) + length + (CRC? 2 : 0)
+    const totalLength = 3 + length + (hasCRC ? 2 : 0);
     
     // Check if we have complete packet
     if (this.buffer.length < totalLength) {
@@ -98,74 +105,81 @@ class PacketParser {
   parsePacket(packet) {
     try {
       // Basic packet structure validation
-      if (packet.length < 6) {
+      if (packet.length < 8) {
         return this.createErrorPacket(packet, 'Packet too short');
       }
-      
       if (packet[0] !== 0xFF || packet[1] !== 0xFF) {
         return this.createErrorPacket(packet, 'Invalid header');
       }
-      
-      const length = packet[2];
-      const frameType = packet[3];
-      const sequence = packet.readUInt32BE(4);
-      
-      // For captured data, we need to be more flexible with length validation
-      // Some packets might have different structures
-      let commandStart, commandEnd, payload, receivedCRC;
-      
-      let command;
-      if (packet.length >= 3 + length) {
-        // Standard packet structure
-        commandStart = 8;
-        commandEnd = Math.min(commandStart + 2, packet.length - 3);
-        command = packet.slice(commandStart, commandEnd);
-        payload = packet.slice(commandEnd, packet.length - 3);
-        receivedCRC = packet.slice(-3);
-      } else {
-        // Handle packets that don't follow standard structure
-        commandStart = 8;
-        commandEnd = Math.min(commandStart + 2, packet.length);
-        command = packet.slice(commandStart, commandEnd);
-        payload = packet.slice(commandEnd);
-        receivedCRC = Buffer.alloc(0);
+
+      const frameLength = packet[2];
+      const flags = packet[3];
+      const hasCRC = (flags & 0x40) === 0x40;
+      const reserved = packet.slice(4, 9);
+      const frameType = packet[9];
+
+      // Determine indexes for checksum and CRC
+      const checksumIndex = packet.length - (hasCRC ? 3 : 1);
+      // Allow zero-length data (checksumIndex can equal dataStart)
+      if (checksumIndex < 10) {
+        return this.createErrorPacket(packet, 'Invalid frame length');
       }
-      
-      // Validate CRC only if we have enough data
-      let crcValidation = { valid: false, algorithm: 'unknown', reason: 'insufficient data' };
-      if (packet.length >= 6) {
+      const checksum = packet[checksumIndex];
+      const crcBytes = hasCRC ? packet.slice(-2) : Buffer.alloc(0);
+
+      // Frame data is between type and checksum
+      const dataStart = 10;
+      const dataEnd = checksumIndex;
+      const frameData = packet.slice(dataStart, dataEnd);
+
+      // Command heuristic: first 1-2 bytes of data if present
+      const command = frameData.slice(0, Math.min(2, frameData.length));
+      const payload = frameData.slice(command.length);
+
+      // Validate checksum (LSB of sum of flags+reserved+type+data)
+      const sumData = Buffer.concat([Buffer.from([flags]), reserved, Buffer.from([frameType]), frameData]);
+      let sum = 0;
+      for (let i = 0; i < sumData.length; i++) sum = (sum + sumData[i]) & 0xFF;
+      const checksumValid = sum === checksum;
+
+      // Validate CRC if present
+      let crcValidation = { valid: !hasCRC, algorithm: hasCRC ? 'unknown' : 'none' };
+      if (hasCRC) {
         crcValidation = this.crc.validatePacket(packet);
       }
-      
+
       // Get command information
       const commandInfo = this.commands.getCommandInfo(packet);
-      
+
       // Create parsed packet object
       const parsedPacket = {
         id: this.packetCount,
         timestamp: new Date(),
         length: packet.length,
-        frameType: frameType,
-        sequence: sequence,
+        frameLength,
+        flags,
+        hasCRC,
+        reserved: reserved.toString('hex').toUpperCase(),
+        frameType,
         command: command.toString('hex').toUpperCase(),
         payload: payload.toString('hex').toUpperCase(),
-        receivedCRC: receivedCRC.toString('hex').toUpperCase(),
+        checksum: checksum.toString(16).padStart(2, '0').toUpperCase(),
+        checksumValid,
+        receivedCRC: crcBytes.toString('hex').toUpperCase(),
         crcValid: crcValidation.valid,
         crcAlgorithm: crcValidation.algorithm || 'unknown',
-        crcReason: crcValidation.reason || null,
         commandInfo: commandInfo,
         raw: packet.toString('hex').toUpperCase(),
         hexDump: HexUtils.hexDump(packet)
       };
-      
+
       // Add ASCII strings if present
       const asciiStrings = HexUtils.findASCIIStrings(packet);
       if (asciiStrings.length > 0) {
         parsedPacket.asciiStrings = asciiStrings;
       }
-      
+
       return parsedPacket;
-      
     } catch (error) {
       return this.createErrorPacket(packet, `Parse error: ${error.message}`);
     }

@@ -178,21 +178,40 @@ class DeviceCommunicator extends EventEmitter {
   }
 
   createAuthenticationResponsePacket(response) {
-    // Create packet with command 0x11 (authentication response)
-    const header = Buffer.from([0xff, 0xff]);
-    const length = Buffer.from([0x25]); // 37 bytes total
-    const frameType = Buffer.from([0x40]);
-    const sequence = Buffer.from([0x00, 0x00, 0x00, 0x00]);
-    const command = Buffer.from([0x11]);
-    const payload = Buffer.concat([
+    // Create packet with correct frame structure
+    const frameFlags = 0x40; // Has CRC
+    const reserved = Buffer.from([0x00, 0x00, 0x00, 0x00, 0x00]);
+    const frameType = 0x11; // Authentication response
+    const frameData = Buffer.concat([
       Buffer.from([0x10, 0x02, 0x00, 0x01]), // Authentication header
       response // 8-byte response
     ]);
     
-    // Calculate CRC (placeholder - needs real implementation)
-    const crc = Buffer.from([0x00, 0x00, 0x00]); // Placeholder
+    // Calculate checksum (LSB of sum of flags+reserved+type+data)
+    const sumData = Buffer.concat([Buffer.from([frameFlags]), reserved, Buffer.from([frameType]), frameData]);
+    let sum = 0;
+    for (let i = 0; i < sumData.length; i++) sum = (sum + sumData[i]) & 0xFF;
+    const checksum = sum;
     
-    return Buffer.concat([header, length, frameType, sequence, command, payload, crc]);
+    // Calculate CRC-16/ARC
+    const CRC = require('../protocol/crc');
+    const crc = new CRC();
+    const crcValue = crc.calculateCRC16ARC(sumData);
+    
+    // Build complete packet
+    const frameLength = 1 + 5 + 1 + frameData.length + 1; // flags + reserved + type + data + checksum
+    const packet = Buffer.concat([
+      Buffer.from([0xFF, 0xFF]), // Frame separator
+      Buffer.from([frameLength]), // Frame length
+      Buffer.from([frameFlags]), // Frame flags
+      reserved, // Reserved space
+      Buffer.from([frameType]), // Frame type
+      frameData, // Frame data
+      Buffer.from([checksum]), // Checksum
+      Buffer.from([(crcValue >> 8) & 0xFF, crcValue & 0xFF]) // CRC
+    ]);
+    
+    return packet;
   }
 
   async sendCommand(command, options = {}) {
@@ -287,16 +306,37 @@ class DeviceCommunicator extends EventEmitter {
   }
 
   createStatusQueryCommand() {
-    // Create status query packet (command 0x01)
-    const header = Buffer.from([0xff, 0xff]);
-    const length = Buffer.from([0x0a]); // 10 bytes total
-    const frameType = Buffer.from([0x40]);
-    const sequence = Buffer.from([0x00, 0x00, 0x00, 0x00]);
-    const command = Buffer.from([0x01]);
-    const payload = Buffer.from([0x4d, 0x01]);
-    const crc = Buffer.from([0x99, 0xb3, 0xb4]); // Placeholder CRC
+    // Create status query packet with correct frame structure
+    const frameFlags = 0x40; // Has CRC
+    const reserved = Buffer.from([0x00, 0x00, 0x00, 0x00, 0x00]);
+    const frameType = 0x01; // Status query
+    const frameData = Buffer.from([0x4d, 0x01]);
     
-    return Buffer.concat([header, length, frameType, sequence, command, payload, crc]);
+    // Calculate checksum (LSB of sum of flags+reserved+type+data)
+    const sumData = Buffer.concat([Buffer.from([frameFlags]), reserved, Buffer.from([frameType]), frameData]);
+    let sum = 0;
+    for (let i = 0; i < sumData.length; i++) sum = (sum + sumData[i]) & 0xFF;
+    const checksum = sum;
+    
+    // Calculate CRC-16/ARC
+    const CRC = require('../protocol/crc');
+    const crc = new CRC();
+    const crcValue = crc.calculateCRC16ARC(sumData);
+    
+    // Build complete packet
+    const frameLength = 1 + 5 + 1 + frameData.length + 1; // flags + reserved + type + data + checksum
+    const packet = Buffer.concat([
+      Buffer.from([0xFF, 0xFF]), // Frame separator
+      Buffer.from([frameLength]), // Frame length
+      Buffer.from([frameFlags]), // Frame flags
+      reserved, // Reserved space
+      Buffer.from([frameType]), // Frame type
+      frameData, // Frame data
+      Buffer.from([checksum]), // Checksum
+      Buffer.from([(crcValue >> 8) & 0xFF, crcValue & 0xFF]) // CRC
+    ]);
+    
+    return packet;
   }
 
   parseStatusResponse(packet) {
@@ -337,16 +377,37 @@ class DeviceCommunicator extends EventEmitter {
   }
 
   createProgramStartCommand(programNumber) {
-    // Create program start packet
-    const header = Buffer.from([0xff, 0xff]);
-    const length = Buffer.from([0x0e]); // 14 bytes total
-    const frameType = Buffer.from([0x40]);
-    const sequence = Buffer.from([0x00, 0x00, 0x00, 0x00]);
-    const command = Buffer.from([0x60]);
-    const payload = Buffer.from([0x00, 0x01, programNumber, 0x00, 0x00, 0x00]);
-    const crc = Buffer.from([0xb0, 0x34, 0xad]); // Placeholder CRC
+    // Create program start packet with correct frame structure
+    const frameFlags = 0x40; // Has CRC
+    const reserved = Buffer.from([0x00, 0x00, 0x00, 0x00, 0x00]);
+    const frameType = 0x60; // Program start
+    const frameData = Buffer.from([0x00, 0x01, programNumber, 0x00, 0x00, 0x00]);
     
-    return Buffer.concat([header, length, frameType, sequence, command, payload, crc]);
+    // Calculate checksum (LSB of sum of flags+reserved+type+data)
+    const sumData = Buffer.concat([Buffer.from([frameFlags]), reserved, Buffer.from([frameType]), frameData]);
+    let sum = 0;
+    for (let i = 0; i < sumData.length; i++) sum = (sum + sumData[i]) & 0xFF;
+    const checksum = sum;
+    
+    // Calculate CRC-16/ARC
+    const CRC = require('../protocol/crc');
+    const crc = new CRC();
+    const crcValue = crc.calculateCRC16ARC(sumData);
+    
+    // Build complete packet
+    const frameLength = 1 + 5 + 1 + frameData.length + 1; // flags + reserved + type + data + checksum
+    const packet = Buffer.concat([
+      Buffer.from([0xFF, 0xFF]), // Frame separator
+      Buffer.from([frameLength]), // Frame length
+      Buffer.from([frameFlags]), // Frame flags
+      reserved, // Reserved space
+      Buffer.from([frameType]), // Frame type
+      frameData, // Frame data
+      Buffer.from([checksum]), // Checksum
+      Buffer.from([(crcValue >> 8) & 0xFF, crcValue & 0xFF]) // CRC
+    ]);
+    
+    return packet;
   }
 
   parseProgramStartResponse(packet) {
@@ -364,16 +425,37 @@ class DeviceCommunicator extends EventEmitter {
   }
 
   createResetCommand() {
-    // Create reset packet
-    const header = Buffer.from([0xff, 0xff]);
-    const length = Buffer.from([0x0c]); // 12 bytes total
-    const frameType = Buffer.from([0x40]);
-    const sequence = Buffer.from([0x00, 0x00, 0x00, 0x00]);
-    const command = Buffer.from([0x01]);
-    const payload = Buffer.from([0x5d, 0x1f, 0x00, 0x01]);
-    const crc = Buffer.from([0xca, 0xbb, 0x9b]); // Placeholder CRC
+    // Create reset packet with correct frame structure
+    const frameFlags = 0x40; // Has CRC
+    const reserved = Buffer.from([0x00, 0x00, 0x00, 0x00, 0x00]);
+    const frameType = 0x01; // Reset command
+    const frameData = Buffer.from([0x5d, 0x1f, 0x00, 0x01]);
     
-    return Buffer.concat([header, length, frameType, sequence, command, payload, crc]);
+    // Calculate checksum (LSB of sum of flags+reserved+type+data)
+    const sumData = Buffer.concat([Buffer.from([frameFlags]), reserved, Buffer.from([frameType]), frameData]);
+    let sum = 0;
+    for (let i = 0; i < sumData.length; i++) sum = (sum + sumData[i]) & 0xFF;
+    const checksum = sum;
+    
+    // Calculate CRC-16/ARC
+    const CRC = require('../protocol/crc');
+    const crc = new CRC();
+    const crcValue = crc.calculateCRC16ARC(sumData);
+    
+    // Build complete packet
+    const frameLength = 1 + 5 + 1 + frameData.length + 1; // flags + reserved + type + data + checksum
+    const packet = Buffer.concat([
+      Buffer.from([0xFF, 0xFF]), // Frame separator
+      Buffer.from([frameLength]), // Frame length
+      Buffer.from([frameFlags]), // Frame flags
+      reserved, // Reserved space
+      Buffer.from([frameType]), // Frame type
+      frameData, // Frame data
+      Buffer.from([checksum]), // Checksum
+      Buffer.from([(crcValue >> 8) & 0xFF, crcValue & 0xFF]) // CRC
+    ]);
+    
+    return packet;
   }
 
   parseResetResponse(packet) {
