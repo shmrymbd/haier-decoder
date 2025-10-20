@@ -20,7 +20,8 @@ This repository contains a comprehensive analysis and decoding of the proprietar
 - **Pattern Recognition**: Identify transformation algorithms and key derivation
 - **Algorithm Implementation**: Create working rolling code algorithm
 - **Real Device Testing**: Validate algorithm with live device communication
-- **Security Documentation**: Complete security analysis and implementation guide
+- **Security Documentation**: ✅ **UPDATED** - Complete security analysis with dual-logs findings
+- **Multiple Response Analysis**: ✅ **DISCOVERED** - Sophisticated retry mechanism with sequence-based authentication
 
 ## 📁 Project Structure
 
@@ -34,6 +35,9 @@ haier-decoder/
 ├── SEQUENCE_GUIDE.md         # Complete communication sequence documentation
 ├── ROLLING_CODE_ANALYSIS_SUMMARY.md # Rolling code analysis summary
 ├── FINAL_ROLLING_CODE_ANALYSIS.md   # Final rolling code analysis report
+├── SECURITY_ANALYSIS.md             # Comprehensive security analysis with dual-logs findings
+├── DUAL_LOGS_AUTH_ANALYSIS.md       # Dual-logs authentication analysis
+├── DUAL_LOGS_ALGORITHM_ANALYSIS.md  # Dual-logs algorithm analysis results
 ├── binding.txt              # Real-time binding communication data
 ├── package.json             # Node.js project configuration
 ├── src/                     # Serial monitoring tool source code
@@ -83,21 +87,27 @@ haier-decoder/
 - **Communication Flow**: Full startup sequence and state machine mapping
 
 ### Phase 2: Rolling Code Analysis 🔄 **IN PROGRESS**
-- **Authentication Sessions**: 4 sessions captured and analyzed
+- **Authentication Sessions**: 6 sessions captured and analyzed (including dual-logs)
 - **Transformation Patterns**: 80 variable bytes with XOR-based transformations
 - **Top Patterns**: XOR-89 (4 occurrences), XOR-132 (4 occurrences)
 - **Constant Components**: 18 constant bytes across all sessions
 - **Algorithm Complexity**: Multi-key system with session-based derivation
 - **Analysis Tools**: 6 sophisticated analysis tools created
+- **Multiple Response Pattern**: ✅ **DISCOVERED** - 3 different responses to same challenge
+- **Retry Mechanism**: ✅ **CONFIRMED** - Sophisticated sequence-based authentication
+- **CRC-16/ARC Validation**: ✅ **100% ACCURACY** - All packets validate successfully
 
 ### Protocol Features
-1. **Rolling Code Authentication**: 8-byte challenge + encrypted response
-2. **Session Management**: Regular resets with boundary markers
+1. **Rolling Code Authentication**: 8-byte challenge + encrypted response with multiple responses per challenge
+2. **Session Management**: Regular resets with boundary markers + retry mechanism
 3. **Heartbeat System**: Regular acknowledgments every 3-5 seconds
 4. **Timestamp Tracking**: Real-time clock synchronization
 5. **Complex Commands**: Multi-level parameter structures
 6. **Status Reporting**: Detailed 67-byte status packets
 7. **Configuration Data**: Program parameters, times, temperatures
+8. **Enhanced Security**: ✅ **Multiple response validation** prevents replay attacks
+9. **CRC-16/ARC Validation**: ✅ **100% packet integrity** validation
+10. **Sequence-Based Authentication**: ✅ **Retry mechanism** with unique responses per attempt
 
 ## 📊 Protocol Structure ✅ **UPDATED**
 
