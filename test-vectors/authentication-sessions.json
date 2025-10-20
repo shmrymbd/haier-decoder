@@ -30,17 +30,46 @@
       "challenge": "78 8c 6f f2 d9 2d c8 55 01 58 29 f7 e3 63 e7 64 00 77 9d f4 b1 b8 83 fd df ec 56 24",
       "response": "64 38 63 4f 4e 79 47 30 01 17 70 f0 a8 83 ab e0 59 1d cb 20 35 44 8e 4c 79 70 56 b9",
       "source": "real-time-capture"
+    },
+    {
+      "id": 4,
+      "timestamp": "1760935738422",
+      "sequence": "01",
+      "challenge": "9e 58 13 43 4c 84 e6 d5 01 08 8e 67 dc fe 8e 3c c7 7d 98 f5 c3 d8 c4 b3",
+      "response": "31 79 33 68 47 58 37 30 01 15 66 23 da 46 70 5b c5 97 3d c6 ef 4f 69 12",
+      "source": "dual-logs-real-time"
+    },
+    {
+      "id": 5,
+      "timestamp": "1760935738422",
+      "sequence": "02",
+      "challenge": "9e 58 13 43 4c 84 e6 d5 01 08 8e 67 dc fe 8e 3c c7 7d 98 f5 c3 d8 c4 b3",
+      "response": "34 59 4d 46 68 31 56 7a 01 0b 33 db b0 41 90 c9 eb dd 75 71 fb 1f b0 9e",
+      "source": "dual-logs-real-time"
+    },
+    {
+      "id": 6,
+      "timestamp": "1760935738422",
+      "sequence": "03",
+      "challenge": "9e 58 13 43 4c 84 e6 d5 01 08 8e 67 dc fe 8e 3c c7 7d 98 f5 c3 d8 c4 b3",
+      "response": "64 4d 43 64 78 46 78 73 01 55 00 35 b3 ab c7 e3 9c 93 d6 40 78 14 6a 34",
+      "source": "dual-logs-real-time"
     }
   ],
   "analysis": {
-    "totalSessions": 3,
-    "challengeLength": 29,
-    "responseLength": 29,
+    "totalSessions": 6,
+    "challengeLength": 25,
+    "responseLength": 25,
     "commonPatterns": {
       "header": "ff ff 25 40 00 00 00 00 00",
       "command": "10 02 00 01",
       "randomChallengeLength": 8,
-      "payloadLength": 21
+      "payloadLength": 16
+    },
+    "sources": {
+      "startupMachine.txt": 2,
+      "real-time-capture": 1,
+      "dual-logs-real-time": 3
     }
   }
 }
