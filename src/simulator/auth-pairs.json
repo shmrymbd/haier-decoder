@@ -1,0 +1,69 @@
+{
+  "authentication_pairs": [
+    {
+      "id": 1,
+      "challenge": "64 29 1b 0f 17 76 3c c6",
+      "response": "60 90 9c fd 8b 87 f0 41 14 7e dc 8b 70 cf cb 8f 2f 1d 88",
+      "direction": "machine_to_modem",
+      "description": "First authentication challenge from machine"
+    },
+    {
+      "id": 2,
+      "challenge": "49 4c 4c 7a 77 53 6e 6a",
+      "response": "08 2d 03 b4 eb f6 c5 55 6e f0 ca 18 74 66 db 1d 80 17 c4",
+      "direction": "modem_to_machine",
+      "description": "Modem challenge to machine"
+    },
+    {
+      "id": 3,
+      "challenge": "a7 b7 50 cd 2d 97 dd fa",
+      "response": "0d cb 41 e0 d2 ef 96 9a c7 cc 02 aa 47 e3 da 43 11 16 a2",
+      "direction": "machine_to_modem",
+      "description": "Second machine challenge"
+    },
+    {
+      "id": 4,
+      "challenge": "30 4f 6a 38 34 58 53 4b",
+      "response": "fb a6 62 9b 7b 9f 1b 7e 28 d4 ce c8 13 41 cf 4c 27 7d 5b",
+      "direction": "modem_to_machine",
+      "description": "Second modem challenge"
+    },
+    {
+      "id": 5,
+      "challenge": "e6 2e cd 0f 1a 7a 35 74",
+      "response": "38 93 79 42 3b 3a d2 d1 bc 44 41 11 59 ea 5a ab f0 28 00",
+      "direction": "machine_to_modem",
+      "description": "Third machine challenge"
+    },
+    {
+      "id": 6,
+      "challenge": "79 42 61 53 6f 53 56 39",
+      "response": "83 ca 66 a0 e7 9a 67 48 70 9f d2 f6 ec 4f ac 72 fd 3c e3",
+      "direction": "modem_to_machine",
+      "description": "Third modem challenge"
+    },
+    {
+      "id": 7,
+      "challenge": "af a5 09 96 54 74 68 0b",
+      "response": "86 89 93 b5 8c 2d 2f ad 07 5d e6 cf 04 41 51 f1 45 0c 7c",
+      "direction": "machine_to_modem",
+      "description": "Fourth machine challenge"
+    },
+    {
+      "id": 8,
+      "challenge": "4c 4a 79 34 58 69 68 79",
+      "response": "60 68 89 45 d5 38 12 b5 d8 11 8b 51 7e f3 4c 42 9d 22 1f",
+      "direction": "modem_to_machine",
+      "description": "Fourth modem challenge"
+    }
+  ],
+  "metadata": {
+    "source": "startup.txt captured data",
+    "total_pairs": 8,
+    "machine_challenges": 4,
+    "modem_challenges": 4,
+    "extraction_date": "2024-12-24",
+    "description": "Authentication pairs extracted from real Haier washing machine communication"
+  }
+}
+
