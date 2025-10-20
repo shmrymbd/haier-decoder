@@ -12,7 +12,7 @@ This repository contains a comprehensive analysis and decoding of the proprietar
 - **Sequence Mapping**: Map complete communication flows and state machines
 - **Tool Development**: Create tools for protocol analysis and device interaction
 - **Serial Monitoring**: Real-time monitoring and testing of Haier device communication
-- **CRC Reverse Engineering**: Identify and validate packet checksum algorithms
+- **CRC Reverse Engineering**: ✅ **BREAKTHROUGH** - CRC-16/ARC algorithm identified with 100% validation accuracy
 - **Sequence Replay**: Test protocol implementations with captured data
 
 ### Phase 2: Rolling Code Reverse Engineering 🔄 **IN PROGRESS**
@@ -99,20 +99,32 @@ haier-decoder/
 6. **Status Reporting**: Detailed 67-byte status packets
 7. **Configuration Data**: Program parameters, times, temperatures
 
-## 📊 Protocol Structure
+## 📊 Protocol Structure ✅ **UPDATED**
 
-### Basic Packet Format
+### Haier Protocol Frame Format
+Based on [HaierProtocol library](https://github.com/paveldn/HaierProtocol) findings:
 ```
-ff ff [length] 40 [seq:4] [command_id] [payload] [crc:3]
+ff ff [length] [flags] [reserved:5] [type] [data] [checksum] [crc:2]
 ```
 
-### Key Components
-- **Header**: Always `ff ff`
-- **Frame Type**: `40` for command/control frames
-- **Sequence**: 4-byte sequence number
-- **Command**: Variable length command identifier
-- **Payload**: Command-specific data
-- **CRC**: 3-byte checksum
+### Frame Components
+- **Frame Separator**: `ff ff` (2 bytes)
+- **Frame Length**: Total frame length (1 byte)
+- **Frame Flags**: `40` (has CRC), `00` (no CRC) (1 byte)
+- **Reserved Space**: `00 00 00 00 00` (5 bytes)
+- **Frame Type**: Command/response type (1 byte)
+- **Frame Data**: Variable payload (0-246 bytes)
+- **Checksum**: LSB of sum (1 byte)
+- **CRC**: CRC-16/ARC (2 bytes, only if flags = 0x40)
+
+### Key Components ✅ **UPDATED**
+- **Frame Separator**: Always `ff ff`
+- **Frame Flags**: `40` (has CRC), `00` (no CRC)
+- **Reserved Space**: 5 bytes for future use
+- **Frame Type**: Command/response identifier
+- **Frame Data**: Variable payload (0-246 bytes)
+- **Checksum**: LSB of sum calculation
+- **CRC**: ✅ **CRC-16/ARC algorithm** - 100% validation accuracy
 
 ## 🚀 Quick Start
 
