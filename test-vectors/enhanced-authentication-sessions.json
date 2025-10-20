@@ -1,60 +1,14 @@
 {
-  "deviceInfo": {
-    "imei": "862817068367949",
-    "serial": "0021800078EHD5108DUZ00000002",
-    "model": "CEAB9UQ00",
-    "firmware": "E++2.17",
-    "deviceType": "U-WMT"
-  },
+  "analysisDate": "2025-10-20T09:36:39.760Z",
+  "totalSessions": 29,
+  "sources": [
+    "dualLogs.txt",
+    "startup.txt",
+    "rolling.txt",
+    "binding.txt",
+    "commands-logs.txt"
+  ],
   "sessions": [
-    {
-      "id": 1,
-      "timestamp": "1760889649",
-      "sequence": "01",
-      "challenge": "db 61 6e 43 47 1e 37 4f 01 79 6d 40 1a 35 74 79 8c 91 0b 91 39 00 02 e9 a8 4a 19 5f",
-      "response": "56 57 65 56 49 43 37 55 01 d2 87 c9 4b 77 9b 59 d7 e2 68 e2 a8 80 ff 55 24 06 8b cf d8",
-      "source": "startupMachine.txt"
-    },
-    {
-      "id": 2,
-      "timestamp": "1760889650",
-      "sequence": "01",
-      "challenge": "75 5a af 88 e5 c8 52 70 01 3f 8e 46 d1 bb 19 63 34 9e dd c7 06 91 ed 68 4c c9 74 92",
-      "response": "45 4a 6c 61 32 56 41 54 01 6a a6 0b 61 b4 3a be 0f ce 22 83 f7 d8 ee a2 0f 1b 16 78",
-      "source": "startupMachine.txt"
-    },
-    {
-      "id": 3,
-      "timestamp": "1760889661",
-      "sequence": "01",
-      "challenge": "78 8c 6f f2 d9 2d c8 55 01 58 29 f7 e3 63 e7 64 00 77 9d f4 b1 b8 83 fd df ec 56 24",
-      "response": "64 38 63 4f 4e 79 47 30 01 17 70 f0 a8 83 ab e0 59 1d cb 20 35 44 8e 4c 79 70 56 b9",
-      "source": "real-time-capture"
-    },
-    {
-      "id": 4,
-      "timestamp": "1760935738422",
-      "sequence": "01",
-      "challenge": "9e 58 13 43 4c 84 e6 d5 01 08 8e 67 dc fe 8e 3c c7 7d 98 f5 c3 d8 c4 b3",
-      "response": "31 79 33 68 47 58 37 30 01 15 66 23 da 46 70 5b c5 97 3d c6 ef 4f 69 12",
-      "source": "dual-logs-real-time"
-    },
-    {
-      "id": 5,
-      "timestamp": "1760935738422",
-      "sequence": "02",
-      "challenge": "9e 58 13 43 4c 84 e6 d5 01 08 8e 67 dc fe 8e 3c c7 7d 98 f5 c3 d8 c4 b3",
-      "response": "34 59 4d 46 68 31 56 7a 01 0b 33 db b0 41 90 c9 eb dd 75 71 fb 1f b0 9e",
-      "source": "dual-logs-real-time"
-    },
-    {
-      "id": 6,
-      "timestamp": "1760935738422",
-      "sequence": "03",
-      "challenge": "9e 58 13 43 4c 84 e6 d5 01 08 8e 67 dc fe 8e 3c c7 7d 98 f5 c3 d8 c4 b3",
-      "response": "64 4d 43 64 78 46 78 73 01 55 00 35 b3 ab c7 e3 9c 93 d6 40 78 14 6a 34",
-      "source": "dual-logs-real-time"
-    },
     {
       "id": 1,
       "timestamp": "1760952701639",
@@ -375,23 +329,50 @@
       "lineNumber": 30
     }
   ],
-  "analysis": {
-    "totalSessions": 35,
-    "challengeLength": 25,
-    "responseLength": 25,
-    "commonPatterns": {
-      "header": "ff ff 25 40 00 00 00 00 00",
-      "command": "10 02 00 01",
-      "randomChallengeLength": 8,
-      "payloadLength": 16
+  "patterns": {
+    "uniqueChallenges": 29,
+    "multipleResponsePatterns": 0,
+    "uniqueXorPatterns": 29,
+    "commonXorPatterns": 0
+  },
+  "statistics": {
+    "sessionsBySource": {
+      "dualLogs.txt": 1,
+      "startup.txt": 4,
+      "rolling.txt": 22,
+      "binding.txt": 1,
+      "commands-logs.txt": 1
     },
-    "sources": [
-      "dualLogs.txt",
-      "startup.txt",
-      "rolling.txt",
-      "binding.txt",
-      "commands-logs.txt"
-    ],
-    "lastUpdated": "2025-10-20T09:36:39.761Z"
+    "xorPatternFrequency": {
+      "af 21": 1,
+      "2d 65 57 75 60 25 52 ac": 1,
+      "97 f8 3a f5 19 cf 8e b1": 1,
+      "9f 6c ac 5c 75 29 63 4d": 1,
+      "e3 ef 70 a2 0c 1d 00 72": 1,
+      "80 e2 a1 9e 80 20 c7 53": 1,
+      "8e 9f 56 bb e2 61 c7 86": 1,
+      "4c 96 3e 38 83 a2 f9 70": 1,
+      "1a ce 4a ec 29 dc 28 14": 1,
+      "2e ec 9a 67 9c 73 7e 1f": 1,
+      "f9 2a b7 c0 38 bc 23 75": 1,
+      "b4 90 34 2f a9 7c 1d 66": 1,
+      "f8 79 65 0e 74 9d 19 5e": 1,
+      "e6 b1 cb e0 98 99 3a 80": 1,
+      "7b 16 ff c8 57 83 66 87": 1,
+      "5c 6a eb 2c c8 bf 4c 2f": 1,
+      "b7 65 78 a8 8c f6 eb ed": 1,
+      "3f c2 02 d8 b3 59 56 96": 1,
+      "04 a7 26 25 53 5e 40 de": 1,
+      "d3 01 f8 cb f4 db 0a 20": 1,
+      "8b 83 4b c3 c4 a1 f0 d1": 1,
+      "43 80 59 3f 25 c8 26 ac": 1,
+      "05 e1 50 6d 33 f7 30 04": 1,
+      "8d b2 ef 6c 89 82 77 c5": 1,
+      "86 1a 2e 22 df ac fb d8": 1,
+      "c0 a2 51 28 fb de ec fc": 1,
+      "d8 59 d4 ed a5 1b e3 02": 1,
+      "1c b4 0c bd 97 54 8f 65": 1,
+      "b6 2d 9b 6b 03 29 1b d8": 1
+    }
   }
 }

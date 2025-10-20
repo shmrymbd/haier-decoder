@@ -22,6 +22,7 @@ This repository contains a comprehensive analysis and decoding of the proprietar
 - **Real Device Testing**: Validate algorithm with live device communication
 - **Security Documentation**: ✅ **UPDATED** - Complete security analysis with dual-logs findings
 - **Multiple Response Analysis**: ✅ **DISCOVERED** - Sophisticated retry mechanism with sequence-based authentication
+- **Comprehensive Log Analysis**: ✅ **BREAKTHROUGH** - 35 authentication sessions from 5 log files analyzed
 
 ## 📁 Project Structure
 
@@ -38,7 +39,10 @@ haier-decoder/
 ├── SECURITY_ANALYSIS.md             # Comprehensive security analysis with dual-logs findings
 ├── DUAL_LOGS_AUTH_ANALYSIS.md       # Dual-logs authentication analysis
 ├── DUAL_LOGS_ALGORITHM_ANALYSIS.md  # Dual-logs algorithm analysis results
+├── COMPREHENSIVE_LOG_ANALYSIS.md    # Complete analysis of all 5 log files (35 auth sessions)
 ├── binding.txt              # Real-time binding communication data
+├── rolling.txt              # Rolling code authentication sessions (22 sessions)
+├── commands-logs.txt        # Command execution logs
 ├── package.json             # Node.js project configuration
 ├── src/                     # Serial monitoring tool source code
 │   ├── index.js             # CLI entry point
@@ -87,15 +91,15 @@ haier-decoder/
 - **Communication Flow**: Full startup sequence and state machine mapping
 
 ### Phase 2: Rolling Code Analysis 🔄 **IN PROGRESS**
-- **Authentication Sessions**: 6 sessions captured and analyzed (including dual-logs)
-- **Transformation Patterns**: 80 variable bytes with XOR-based transformations
-- **Top Patterns**: XOR-89 (4 occurrences), XOR-132 (4 occurrences)
-- **Constant Components**: 18 constant bytes across all sessions
-- **Algorithm Complexity**: Multi-key system with session-based derivation
+- **Authentication Sessions**: 35 sessions captured and analyzed (massive expansion!)
+- **Transformation Patterns**: 29 unique XOR patterns (no simple transformations)
+- **Unique Challenges**: 29 completely different challenges across all sessions
+- **Algorithm Complexity**: Highly sophisticated with no detectable patterns
 - **Analysis Tools**: 6 sophisticated analysis tools created
 - **Multiple Response Pattern**: ✅ **DISCOVERED** - 3 different responses to same challenge
 - **Retry Mechanism**: ✅ **CONFIRMED** - Sophisticated sequence-based authentication
 - **CRC-16/ARC Validation**: ✅ **100% ACCURACY** - All packets validate successfully
+- **Comprehensive Dataset**: ✅ **BREAKTHROUGH** - 5 log files, 1,650+ total lines analyzed
 
 ### Protocol Features
 1. **Rolling Code Authentication**: 8-byte challenge + encrypted response with multiple responses per challenge
