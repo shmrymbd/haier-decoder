@@ -1,14 +1,18 @@
 {
   "name": "haier-decoder",
   "version": "1.0.0",
-  "description": "Haier Washing Machine Protocol Serial Monitor & Testing Tool",
+  "description": "Haier Washing Machine Protocol Serial Monitor, Testing Tool & Rolling Code Analysis",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "monitor": "node src/index.js monitor",
     "replay": "node src/index.js replay",
     "interactive": "node src/index.js interactive",
-    "analyze": "node src/index.js analyze"
+    "analyze": "node src/index.js analyze",
+    "crypto": "node src/crypto/combined-analysis.js",
+    "extract": "node src/crypto/binding-auth-extractor.js",
+    "pattern": "node src/crypto/final-analysis.js",
+    "test-rolling": "node src/crypto/test-rolling-code.js"
   },
   "keywords": [
     "haier",
@@ -16,7 +20,11 @@
     "protocol",
     "serial",
     "monitor",
-    "decoder"
+    "decoder",
+    "rolling-code",
+    "authentication",
+    "crypto",
+    "reverse-engineering"
   ],
   "author": "shmrymbd",
   "license": "MIT",

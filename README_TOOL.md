@@ -1,9 +1,10 @@
 # Haier Protocol Serial Monitor & Testing Tool
 
-A comprehensive Node.js tool for monitoring, analyzing, and testing Haier washing machine protocol communication over serial ports.
+A comprehensive Node.js tool for monitoring, analyzing, and testing Haier washing machine protocol communication over serial ports, including advanced rolling code authentication analysis.
 
 ## Features
 
+### Serial Monitoring & Protocol Analysis
 - 🔍 **Real-time Serial Monitoring** - Monitor live communication with Haier devices
 - 📊 **Packet Analysis** - Decode and analyze protocol packets with detailed information
 - 🔐 **CRC Validation** - Automatic CRC validation with reverse engineering
@@ -11,6 +12,14 @@ A comprehensive Node.js tool for monitoring, analyzing, and testing Haier washin
 - 🎮 **Interactive Mode** - Manual command sending and testing
 - 📝 **Comprehensive Logging** - Console and file logging with colored output
 - 📈 **Analysis Tools** - Analyze captured log files and extract insights
+
+### Rolling Code Authentication Analysis
+- 🔐 **Rolling Code Algorithm** - Complete framework for authentication reverse engineering
+- 📊 **Pattern Analysis** - Advanced byte-by-byte transformation analysis
+- 🔍 **Data Extraction** - Extract authentication sessions from captured data
+- 📈 **Statistical Analysis** - Multi-session statistical analysis and pattern recognition
+- 🧪 **Algorithm Testing** - Comprehensive testing framework for transformation methods
+- 📋 **Test Vectors** - Structured test data for algorithm validation
 
 ## Installation
 
@@ -70,6 +79,51 @@ node src/index.js interactive /dev/ttyUSB0
 ```bash
 # Analyze captured data
 node src/index.js analyze logs/haier-protocol.log --verbose
+```
+
+## Rolling Code Analysis Commands
+
+### 1. Combined Analysis
+
+```bash
+# Run combined analysis on all authentication sessions
+npm run crypto
+# or
+node src/crypto/combined-analysis.js
+```
+
+### 2. Extract Authentication Sessions
+
+```bash
+# Extract authentication sessions from binding data
+npm run extract
+# or
+node src/crypto/binding-auth-extractor.js
+```
+
+### 3. Pattern Analysis
+
+```bash
+# Run comprehensive pattern analysis
+npm run pattern
+# or
+node src/crypto/final-analysis.js
+```
+
+### 4. Test Rolling Code Algorithm
+
+```bash
+# Test rolling code algorithm
+npm run test-rolling
+# or
+node src/crypto/test-rolling-code.js
+```
+
+### 5. Algorithm Testing
+
+```bash
+# Test cryptographic algorithms
+node src/crypto/algorithm-tester.js
 ```
 
 ## Command Reference

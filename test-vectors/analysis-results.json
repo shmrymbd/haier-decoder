@@ -1,0 +1,689 @@
+{
+  "patternAnalysis": {
+    "patterns": {
+      "challengeBytes": [
+        {
+          "type": "Buffer",
+          "data": [
+            219,
+            97,
+            110,
+            67,
+            71,
+            30,
+            55,
+            79
+          ]
+        },
+        {
+          "type": "Buffer",
+          "data": [
+            117,
+            90,
+            175,
+            136,
+            229,
+            200,
+            82,
+            112
+          ]
+        },
+        {
+          "type": "Buffer",
+          "data": [
+            120,
+            140,
+            111,
+            242,
+            217,
+            45,
+            200,
+            85
+          ]
+        }
+      ],
+      "responseBytes": [
+        {
+          "type": "Buffer",
+          "data": [
+            86,
+            87,
+            101,
+            86,
+            73,
+            67,
+            55,
+            85
+          ]
+        },
+        {
+          "type": "Buffer",
+          "data": [
+            69,
+            74,
+            108,
+            97,
+            50,
+            86,
+            65,
+            84
+          ]
+        },
+        {
+          "type": "Buffer",
+          "data": [
+            100,
+            56,
+            99,
+            79,
+            78,
+            121,
+            71,
+            48
+          ]
+        }
+      ],
+      "transformations": [
+        {
+          "session": 1,
+          "transformations": [
+            {
+              "name": "XOR-00",
+              "accuracy": 0.125,
+              "result": "DB 61 6E 43 47 1E 37 4F"
+            },
+            {
+              "name": "XOR-0b",
+              "accuracy": 0.125,
+              "result": "D0 6A 65 48 4C 15 3C 44"
+            },
+            {
+              "name": "XOR-0e",
+              "accuracy": 0.125,
+              "result": "D5 6F 60 4D 49 10 39 41"
+            },
+            {
+              "name": "XOR-15",
+              "accuracy": 0.125,
+              "result": "CE 74 7B 56 52 0B 22 5A"
+            },
+            {
+              "name": "XOR-1a",
+              "accuracy": 0.125,
+              "result": "C1 7B 74 59 5D 04 2D 55"
+            },
+            {
+              "name": "XOR-36",
+              "accuracy": 0.125,
+              "result": "ED 57 58 75 71 28 01 79"
+            },
+            {
+              "name": "XOR-5d",
+              "accuracy": 0.125,
+              "result": "86 3C 33 1E 1A 43 6A 12"
+            },
+            {
+              "name": "XOR-8d",
+              "accuracy": 0.125,
+              "result": "56 EC E3 CE CA 93 BA C2"
+            },
+            {
+              "name": "ADD-2",
+              "accuracy": 0.125,
+              "result": "DD 63 70 45 49 20 39 51"
+            },
+            {
+              "name": "ADD-6",
+              "accuracy": 0.125,
+              "result": "E1 67 74 49 4D 24 3D 55"
+            },
+            {
+              "name": "SUB-9",
+              "accuracy": 0.125,
+              "result": "D2 58 65 3A 3E 15 2E 46"
+            },
+            {
+              "name": "SUB-10",
+              "accuracy": 0.125,
+              "result": "D1 57 64 39 3D 14 2D 45"
+            },
+            {
+              "name": "ADD-19",
+              "accuracy": 0.125,
+              "result": "EE 74 81 56 5A 31 4A 62"
+            },
+            {
+              "name": "ADD-37",
+              "accuracy": 0.125,
+              "result": "00 86 93 68 6C 43 5C 74"
+            },
+            {
+              "name": "ADD-123",
+              "accuracy": 0.125,
+              "result": "56 DC E9 BE C2 99 B2 CA"
+            },
+            {
+              "name": "SUB-133",
+              "accuracy": 0.125,
+              "result": "56 DC E9 BE C2 99 B2 CA"
+            },
+            {
+              "name": "SUB-219",
+              "accuracy": 0.125,
+              "result": "00 86 93 68 6C 43 5C 74"
+            },
+            {
+              "name": "SUB-237",
+              "accuracy": 0.125,
+              "result": "EE 74 81 56 5A 31 4A 62"
+            },
+            {
+              "name": "ADD-246",
+              "accuracy": 0.125,
+              "result": "D1 57 64 39 3D 14 2D 45"
+            },
+            {
+              "name": "ADD-247",
+              "accuracy": 0.125,
+              "result": "D2 58 65 3A 3E 15 2E 46"
+            },
+            {
+              "name": "SUB-250",
+              "accuracy": 0.125,
+              "result": "E1 67 74 49 4D 24 3D 55"
+            },
+            {
+              "name": "SUB-254",
+              "accuracy": 0.125,
+              "result": "DD 63 70 45 49 20 39 51"
+            },
+            {
+              "name": "LOOKUP-00",
+              "accuracy": 0.125,
+              "result": "DB 61 6E 43 47 1E 37 4F"
+            },
+            {
+              "name": "LOOKUP-02",
+              "accuracy": 0.125,
+              "result": "DD 63 70 45 49 20 39 51"
+            },
+            {
+              "name": "LOOKUP-06",
+              "accuracy": 0.125,
+              "result": "E1 67 74 49 4D 24 3D 55"
+            },
+            {
+              "name": "LOOKUP-13",
+              "accuracy": 0.125,
+              "result": "EE 74 81 56 5A 31 4A 62"
+            },
+            {
+              "name": "LOOKUP-25",
+              "accuracy": 0.125,
+              "result": "00 86 93 68 6C 43 5C 74"
+            },
+            {
+              "name": "LOOKUP-7b",
+              "accuracy": 0.125,
+              "result": "56 DC E9 BE C2 99 B2 CA"
+            },
+            {
+              "name": "LOOKUP-f6",
+              "accuracy": 0.125,
+              "result": "D1 57 64 39 3D 14 2D 45"
+            },
+            {
+              "name": "LOOKUP-f7",
+              "accuracy": 0.125,
+              "result": "D2 58 65 3A 3E 15 2E 46"
+            }
+          ]
+        },
+        {
+          "session": 2,
+          "transformations": [
+            {
+              "name": "XOR-10",
+              "accuracy": 0.125,
+              "result": "65 4A BF 98 F5 D8 42 60"
+            },
+            {
+              "name": "XOR-13",
+              "accuracy": 0.125,
+              "result": "66 49 BC 9B F6 DB 41 63"
+            },
+            {
+              "name": "XOR-24",
+              "accuracy": 0.125,
+              "result": "51 7E 8B AC C1 EC 76 54"
+            },
+            {
+              "name": "XOR-30",
+              "accuracy": 0.125,
+              "result": "45 6A 9F B8 D5 F8 62 40"
+            },
+            {
+              "name": "XOR-9e",
+              "accuracy": 0.125,
+              "result": "EB C4 31 16 7B 56 CC EE"
+            },
+            {
+              "name": "XOR-c3",
+              "accuracy": 0.125,
+              "result": "B6 99 6C 4B 26 0B 91 B3"
+            },
+            {
+              "name": "XOR-d7",
+              "accuracy": 0.125,
+              "result": "A2 8D 78 5F 32 1F 85 A7"
+            },
+            {
+              "name": "XOR-e9",
+              "accuracy": 0.125,
+              "result": "9C B3 46 61 0C 21 BB 99"
+            },
+            {
+              "name": "SUB-16",
+              "accuracy": 0.125,
+              "result": "65 4A 9F 78 D5 B8 42 60"
+            },
+            {
+              "name": "SUB-17",
+              "accuracy": 0.125,
+              "result": "64 49 9E 77 D4 B7 41 5F"
+            },
+            {
+              "name": "SUB-28",
+              "accuracy": 0.125,
+              "result": "59 3E 93 6C C9 AC 36 54"
+            },
+            {
+              "name": "SUB-39",
+              "accuracy": 0.125,
+              "result": "4E 33 88 61 BE A1 2B 49"
+            },
+            {
+              "name": "SUB-48",
+              "accuracy": 0.125,
+              "result": "45 2A 7F 58 B5 98 22 40"
+            },
+            {
+              "name": "SUB-67",
+              "accuracy": 0.125,
+              "result": "32 17 6C 45 A2 85 0F 2D"
+            },
+            {
+              "name": "ADD-77",
+              "accuracy": 0.125,
+              "result": "C2 A7 FC D5 32 15 9F BD"
+            },
+            {
+              "name": "SUB-114",
+              "accuracy": 0.125,
+              "result": "03 E8 3D 16 73 56 E0 FE"
+            },
+            {
+              "name": "ADD-142",
+              "accuracy": 0.125,
+              "result": "03 E8 3D 16 73 56 E0 FE"
+            },
+            {
+              "name": "SUB-179",
+              "accuracy": 0.125,
+              "result": "C2 A7 FC D5 32 15 9F BD"
+            },
+            {
+              "name": "ADD-189",
+              "accuracy": 0.125,
+              "result": "32 17 6C 45 A2 85 0F 2D"
+            },
+            {
+              "name": "ADD-208",
+              "accuracy": 0.125,
+              "result": "45 2A 7F 58 B5 98 22 40"
+            },
+            {
+              "name": "ADD-217",
+              "accuracy": 0.125,
+              "result": "4E 33 88 61 BE A1 2B 49"
+            },
+            {
+              "name": "ADD-228",
+              "accuracy": 0.125,
+              "result": "59 3E 93 6C C9 AC 36 54"
+            },
+            {
+              "name": "ADD-239",
+              "accuracy": 0.125,
+              "result": "64 49 9E 77 D4 B7 41 5F"
+            },
+            {
+              "name": "ADD-240",
+              "accuracy": 0.125,
+              "result": "65 4A 9F 78 D5 B8 42 60"
+            },
+            {
+              "name": "LOOKUP-4d",
+              "accuracy": 0.125,
+              "result": "C2 A7 FC D5 32 15 9F BD"
+            },
+            {
+              "name": "LOOKUP-8e",
+              "accuracy": 0.125,
+              "result": "03 E8 3D 16 73 56 E0 FE"
+            },
+            {
+              "name": "LOOKUP-bd",
+              "accuracy": 0.125,
+              "result": "32 17 6C 45 A2 85 0F 2D"
+            },
+            {
+              "name": "LOOKUP-d0",
+              "accuracy": 0.125,
+              "result": "45 2A 7F 58 B5 98 22 40"
+            },
+            {
+              "name": "LOOKUP-d9",
+              "accuracy": 0.125,
+              "result": "4E 33 88 61 BE A1 2B 49"
+            },
+            {
+              "name": "LOOKUP-e4",
+              "accuracy": 0.125,
+              "result": "59 3E 93 6C C9 AC 36 54"
+            },
+            {
+              "name": "LOOKUP-ef",
+              "accuracy": 0.125,
+              "result": "64 49 9E 77 D4 B7 41 5F"
+            },
+            {
+              "name": "LOOKUP-f0",
+              "accuracy": 0.125,
+              "result": "65 4A 9F 78 D5 B8 42 60"
+            }
+          ]
+        },
+        {
+          "session": 3,
+          "transformations": [
+            {
+              "name": "XOR-0c",
+              "accuracy": 0.125,
+              "result": "74 80 63 FE D5 21 C4 59"
+            },
+            {
+              "name": "XOR-1c",
+              "accuracy": 0.125,
+              "result": "64 90 73 EE C5 31 D4 49"
+            },
+            {
+              "name": "XOR-54",
+              "accuracy": 0.125,
+              "result": "2C D8 3B A6 8D 79 9C 01"
+            },
+            {
+              "name": "XOR-65",
+              "accuracy": 0.125,
+              "result": "1D E9 0A 97 BC 48 AD 30"
+            },
+            {
+              "name": "XOR-8f",
+              "accuracy": 0.125,
+              "result": "F7 03 E0 7D 56 A2 47 DA"
+            },
+            {
+              "name": "XOR-97",
+              "accuracy": 0.125,
+              "result": "EF 1B F8 65 4E BA 5F C2"
+            },
+            {
+              "name": "XOR-b4",
+              "accuracy": 0.125,
+              "result": "CC 38 DB 46 6D 99 7C E1"
+            },
+            {
+              "name": "XOR-bd",
+              "accuracy": 0.125,
+              "result": "C5 31 D2 4F 64 90 75 E8"
+            },
+            {
+              "name": "SUB-12",
+              "accuracy": 0.125,
+              "result": "6C 80 63 E6 CD 21 BC 49"
+            },
+            {
+              "name": "SUB-20",
+              "accuracy": 0.125,
+              "result": "64 78 5B DE C5 19 B4 41"
+            },
+            {
+              "name": "SUB-37",
+              "accuracy": 0.125,
+              "result": "53 67 4A CD B4 08 A3 30"
+            },
+            {
+              "name": "ADD-76",
+              "accuracy": 0.125,
+              "result": "C4 D8 BB 3E 25 79 14 A1"
+            },
+            {
+              "name": "SUB-84",
+              "accuracy": 0.125,
+              "result": "24 38 1B 9E 85 D9 74 01"
+            },
+            {
+              "name": "ADD-93",
+              "accuracy": 0.125,
+              "result": "D5 E9 CC 4F 36 8A 25 B2"
+            },
+            {
+              "name": "ADD-117",
+              "accuracy": 0.125,
+              "result": "ED 01 E4 67 4E A2 3D CA"
+            },
+            {
+              "name": "ADD-127",
+              "accuracy": 0.125,
+              "result": "F7 0B EE 71 58 AC 47 D4"
+            },
+            {
+              "name": "SUB-129",
+              "accuracy": 0.125,
+              "result": "F7 0B EE 71 58 AC 47 D4"
+            },
+            {
+              "name": "SUB-139",
+              "accuracy": 0.125,
+              "result": "ED 01 E4 67 4E A2 3D CA"
+            },
+            {
+              "name": "SUB-163",
+              "accuracy": 0.125,
+              "result": "D5 E9 CC 4F 36 8A 25 B2"
+            },
+            {
+              "name": "ADD-172",
+              "accuracy": 0.125,
+              "result": "24 38 1B 9E 85 D9 74 01"
+            },
+            {
+              "name": "SUB-180",
+              "accuracy": 0.125,
+              "result": "C4 D8 BB 3E 25 79 14 A1"
+            },
+            {
+              "name": "ADD-219",
+              "accuracy": 0.125,
+              "result": "53 67 4A CD B4 08 A3 30"
+            },
+            {
+              "name": "ADD-236",
+              "accuracy": 0.125,
+              "result": "64 78 5B DE C5 19 B4 41"
+            },
+            {
+              "name": "ADD-244",
+              "accuracy": 0.125,
+              "result": "6C 80 63 E6 CD 21 BC 49"
+            },
+            {
+              "name": "LOOKUP-4c",
+              "accuracy": 0.125,
+              "result": "C4 D8 BB 3E 25 79 14 A1"
+            },
+            {
+              "name": "LOOKUP-5d",
+              "accuracy": 0.125,
+              "result": "D5 E9 CC 4F 36 8A 25 B2"
+            },
+            {
+              "name": "LOOKUP-75",
+              "accuracy": 0.125,
+              "result": "ED 01 E4 67 4E A2 3D CA"
+            },
+            {
+              "name": "LOOKUP-7f",
+              "accuracy": 0.125,
+              "result": "F7 0B EE 71 58 AC 47 D4"
+            },
+            {
+              "name": "LOOKUP-ac",
+              "accuracy": 0.125,
+              "result": "24 38 1B 9E 85 D9 74 01"
+            },
+            {
+              "name": "LOOKUP-db",
+              "accuracy": 0.125,
+              "result": "53 67 4A CD B4 08 A3 30"
+            },
+            {
+              "name": "LOOKUP-ec",
+              "accuracy": 0.125,
+              "result": "64 78 5B DE C5 19 B4 41"
+            },
+            {
+              "name": "LOOKUP-f4",
+              "accuracy": 0.125,
+              "result": "6C 80 63 E6 CD 21 BC 49"
+            }
+          ]
+        }
+      ],
+      "correlations": []
+    },
+    "correlations": {
+      "challengeSimilarity": 0.03571428571428571,
+      "responseSimilarity": 0.011904761904761904,
+      "transformationConsistency": 0,
+      "keyDerivationConsistency": 0
+    }
+  },
+  "hypotheses": {
+    "Simple XOR with Key": {
+      "success": false,
+      "accuracy": 0.125,
+      "results": [
+        {
+          "session": 1,
+          "accuracy": 0.125,
+          "key": 0
+        },
+        {
+          "session": 2,
+          "accuracy": 0.125,
+          "key": 16
+        },
+        {
+          "session": 3,
+          "accuracy": 0.125,
+          "key": 12
+        }
+      ]
+    },
+    "AES Encryption": {
+      "success": false,
+      "accuracy": 0,
+      "results": [
+        {
+          "session": 1,
+          "accuracy": 0,
+          "key": null
+        },
+        {
+          "session": 2,
+          "accuracy": 0,
+          "key": null
+        },
+        {
+          "session": 3,
+          "accuracy": 0,
+          "key": null
+        }
+      ]
+    },
+    "Arithmetic Operations": {
+      "success": false,
+      "accuracy": 0.125,
+      "results": [
+        {
+          "session": 1,
+          "accuracy": 0.125,
+          "operation": "ADD-2"
+        },
+        {
+          "session": 2,
+          "accuracy": 0.125,
+          "operation": "SUB-16"
+        },
+        {
+          "session": 3,
+          "accuracy": 0.125,
+          "operation": "SUB-12"
+        }
+      ]
+    },
+    "Lookup Table": {
+      "success": false,
+      "accuracy": 0.125,
+      "results": [
+        {
+          "session": 1,
+          "accuracy": 0.125,
+          "seed": 0
+        },
+        {
+          "session": 2,
+          "accuracy": 0.125,
+          "seed": 77
+        },
+        {
+          "session": 3,
+          "accuracy": 0.125,
+          "seed": 76
+        }
+      ]
+    },
+    "Combined Operations": {
+      "success": false,
+      "accuracy": 0.20833333333333334,
+      "results": [
+        {
+          "session": 1,
+          "accuracy": 0.125,
+          "combination": "XOR-0-ADD-2"
+        },
+        {
+          "session": 2,
+          "accuracy": 0.25,
+          "combination": "XOR-57-ADD-214"
+        },
+        {
+          "session": 3,
+          "accuracy": 0.25,
+          "combination": "XOR-96-ADD-76"
+        }
+      ]
+    }
+  }
+}

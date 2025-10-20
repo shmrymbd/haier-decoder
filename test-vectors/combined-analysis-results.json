@@ -1,0 +1,2339 @@
+{
+  "totalSessions": 4,
+  "analysis": {
+    "patterns": {
+      "challengeStructure": {
+        "1": {
+          "type": "Challenge",
+          "length": 42,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              255,
+              255
+            ]
+          },
+          "lengthByte": 37,
+          "frameType": 64,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              0
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              18,
+              16,
+              2,
+              0,
+              1,
+              120,
+              140,
+              111,
+              242,
+              217,
+              45,
+              200,
+              85,
+              1,
+              88,
+              41,
+              247,
+              227,
+              99,
+              231,
+              100,
+              0,
+              119,
+              157,
+              244,
+              177,
+              184,
+              131,
+              253,
+              223
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              236,
+              86,
+              36
+            ]
+          }
+        },
+        "2": {
+          "type": "Challenge",
+          "length": 28,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              117,
+              90
+            ]
+          },
+          "lengthByte": 175,
+          "frameType": 136,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              229,
+              200,
+              82,
+              112
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              63,
+              142,
+              70,
+              209,
+              187,
+              25,
+              99,
+              52,
+              158,
+              221,
+              199,
+              6,
+              145,
+              237,
+              104,
+              76
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              201,
+              116,
+              146
+            ]
+          }
+        },
+        "3": {
+          "type": "Challenge",
+          "length": 28,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              120,
+              140
+            ]
+          },
+          "lengthByte": 111,
+          "frameType": 242,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              217,
+              45,
+              200,
+              85
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              88,
+              41,
+              247,
+              227,
+              99,
+              231,
+              100,
+              0,
+              119,
+              157,
+              244,
+              177,
+              184,
+              131,
+              253,
+              223
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              236,
+              86,
+              36
+            ]
+          }
+        }
+      },
+      "responseStructure": {
+        "1": {
+          "type": "Response",
+          "length": 42,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              255,
+              255
+            ]
+          },
+          "lengthByte": 37,
+          "frameType": 64,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              0
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              17,
+              16,
+              2,
+              0,
+              1,
+              100,
+              56,
+              99,
+              79,
+              78,
+              121,
+              71,
+              48,
+              1,
+              23,
+              112,
+              240,
+              168,
+              131,
+              171,
+              224,
+              89,
+              29,
+              203,
+              32,
+              53,
+              68,
+              142,
+              76,
+              121
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              112,
+              86,
+              185
+            ]
+          }
+        },
+        "2": {
+          "type": "Response",
+          "length": 28,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              69,
+              74
+            ]
+          },
+          "lengthByte": 108,
+          "frameType": 97,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              50,
+              86,
+              65,
+              84
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              106,
+              166,
+              11,
+              97,
+              180,
+              58,
+              190,
+              15,
+              206,
+              34,
+              131,
+              247,
+              216,
+              238,
+              162,
+              15
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              27,
+              22,
+              120
+            ]
+          }
+        },
+        "3": {
+          "type": "Response",
+          "length": 28,
+          "header": {
+            "type": "Buffer",
+            "data": [
+              100,
+              56
+            ]
+          },
+          "lengthByte": 99,
+          "frameType": 79,
+          "sequence": {
+            "type": "Buffer",
+            "data": [
+              78,
+              121,
+              71,
+              48
+            ]
+          },
+          "command": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "payload": {
+            "type": "Buffer",
+            "data": [
+              23,
+              112,
+              240,
+              168,
+              131,
+              171,
+              224,
+              89,
+              29,
+              203,
+              32,
+              53,
+              68,
+              142,
+              76,
+              121
+            ]
+          },
+          "crc": {
+            "type": "Buffer",
+            "data": [
+              112,
+              86,
+              185
+            ]
+          }
+        }
+      },
+      "bytePositions": {
+        "1": {
+          "constantBytes": [
+            {
+              "position": 0,
+              "value": 255,
+              "hex": "ff"
+            },
+            {
+              "position": 1,
+              "value": 255,
+              "hex": "ff"
+            },
+            {
+              "position": 2,
+              "value": 37,
+              "hex": "25"
+            },
+            {
+              "position": 3,
+              "value": 64,
+              "hex": "40"
+            },
+            {
+              "position": 4,
+              "value": 0,
+              "hex": "00"
+            },
+            {
+              "position": 5,
+              "value": 0,
+              "hex": "00"
+            },
+            {
+              "position": 6,
+              "value": 0,
+              "hex": "00"
+            },
+            {
+              "position": 7,
+              "value": 0,
+              "hex": "00"
+            },
+            {
+              "position": 8,
+              "value": 0,
+              "hex": "00"
+            },
+            {
+              "position": 10,
+              "value": 16,
+              "hex": "10"
+            },
+            {
+              "position": 11,
+              "value": 2,
+              "hex": "02"
+            },
+            {
+              "position": 12,
+              "value": 0,
+              "hex": "00"
+            },
+            {
+              "position": 13,
+              "value": 1,
+              "hex": "01"
+            },
+            {
+              "position": 22,
+              "value": 1,
+              "hex": "01"
+            },
+            {
+              "position": 40,
+              "value": 86,
+              "hex": "56"
+            }
+          ],
+          "variableBytes": [
+            {
+              "position": 9,
+              "challenge": 18,
+              "response": 17,
+              "difference": 255,
+              "hexChallenge": "12",
+              "hexResponse": "11",
+              "hexDifference": "ff"
+            },
+            {
+              "position": 14,
+              "challenge": 120,
+              "response": 100,
+              "difference": 236,
+              "hexChallenge": "78",
+              "hexResponse": "64",
+              "hexDifference": "ec"
+            },
+            {
+              "position": 15,
+              "challenge": 140,
+              "response": 56,
+              "difference": 172,
+              "hexChallenge": "8c",
+              "hexResponse": "38",
+              "hexDifference": "ac"
+            },
+            {
+              "position": 16,
+              "challenge": 111,
+              "response": 99,
+              "difference": 244,
+              "hexChallenge": "6f",
+              "hexResponse": "63",
+              "hexDifference": "f4"
+            },
+            {
+              "position": 17,
+              "challenge": 242,
+              "response": 79,
+              "difference": 93,
+              "hexChallenge": "f2",
+              "hexResponse": "4f",
+              "hexDifference": "5d"
+            },
+            {
+              "position": 18,
+              "challenge": 217,
+              "response": 78,
+              "difference": 117,
+              "hexChallenge": "d9",
+              "hexResponse": "4e",
+              "hexDifference": "75"
+            },
+            {
+              "position": 19,
+              "challenge": 45,
+              "response": 121,
+              "difference": 76,
+              "hexChallenge": "2d",
+              "hexResponse": "79",
+              "hexDifference": "4c"
+            },
+            {
+              "position": 20,
+              "challenge": 200,
+              "response": 71,
+              "difference": 127,
+              "hexChallenge": "c8",
+              "hexResponse": "47",
+              "hexDifference": "7f"
+            },
+            {
+              "position": 21,
+              "challenge": 85,
+              "response": 48,
+              "difference": 219,
+              "hexChallenge": "55",
+              "hexResponse": "30",
+              "hexDifference": "db"
+            },
+            {
+              "position": 23,
+              "challenge": 88,
+              "response": 23,
+              "difference": 191,
+              "hexChallenge": "58",
+              "hexResponse": "17",
+              "hexDifference": "bf"
+            },
+            {
+              "position": 24,
+              "challenge": 41,
+              "response": 112,
+              "difference": 71,
+              "hexChallenge": "29",
+              "hexResponse": "70",
+              "hexDifference": "47"
+            },
+            {
+              "position": 25,
+              "challenge": 247,
+              "response": 240,
+              "difference": 249,
+              "hexChallenge": "f7",
+              "hexResponse": "f0",
+              "hexDifference": "f9"
+            },
+            {
+              "position": 26,
+              "challenge": 227,
+              "response": 168,
+              "difference": 197,
+              "hexChallenge": "e3",
+              "hexResponse": "a8",
+              "hexDifference": "c5"
+            },
+            {
+              "position": 27,
+              "challenge": 99,
+              "response": 131,
+              "difference": 32,
+              "hexChallenge": "63",
+              "hexResponse": "83",
+              "hexDifference": "20"
+            },
+            {
+              "position": 28,
+              "challenge": 231,
+              "response": 171,
+              "difference": 196,
+              "hexChallenge": "e7",
+              "hexResponse": "ab",
+              "hexDifference": "c4"
+            },
+            {
+              "position": 29,
+              "challenge": 100,
+              "response": 224,
+              "difference": 124,
+              "hexChallenge": "64",
+              "hexResponse": "e0",
+              "hexDifference": "7c"
+            },
+            {
+              "position": 30,
+              "challenge": 0,
+              "response": 89,
+              "difference": 89,
+              "hexChallenge": "00",
+              "hexResponse": "59",
+              "hexDifference": "59"
+            },
+            {
+              "position": 31,
+              "challenge": 119,
+              "response": 29,
+              "difference": 166,
+              "hexChallenge": "77",
+              "hexResponse": "1d",
+              "hexDifference": "a6"
+            },
+            {
+              "position": 32,
+              "challenge": 157,
+              "response": 203,
+              "difference": 46,
+              "hexChallenge": "9d",
+              "hexResponse": "cb",
+              "hexDifference": "2e"
+            },
+            {
+              "position": 33,
+              "challenge": 244,
+              "response": 32,
+              "difference": 44,
+              "hexChallenge": "f4",
+              "hexResponse": "20",
+              "hexDifference": "2c"
+            },
+            {
+              "position": 34,
+              "challenge": 177,
+              "response": 53,
+              "difference": 132,
+              "hexChallenge": "b1",
+              "hexResponse": "35",
+              "hexDifference": "84"
+            },
+            {
+              "position": 35,
+              "challenge": 184,
+              "response": 68,
+              "difference": 140,
+              "hexChallenge": "b8",
+              "hexResponse": "44",
+              "hexDifference": "8c"
+            },
+            {
+              "position": 36,
+              "challenge": 131,
+              "response": 142,
+              "difference": 11,
+              "hexChallenge": "83",
+              "hexResponse": "8e",
+              "hexDifference": "0b"
+            },
+            {
+              "position": 37,
+              "challenge": 253,
+              "response": 76,
+              "difference": 79,
+              "hexChallenge": "fd",
+              "hexResponse": "4c",
+              "hexDifference": "4f"
+            },
+            {
+              "position": 38,
+              "challenge": 223,
+              "response": 121,
+              "difference": 154,
+              "hexChallenge": "df",
+              "hexResponse": "79",
+              "hexDifference": "9a"
+            },
+            {
+              "position": 39,
+              "challenge": 236,
+              "response": 112,
+              "difference": 132,
+              "hexChallenge": "ec",
+              "hexResponse": "70",
+              "hexDifference": "84"
+            },
+            {
+              "position": 41,
+              "challenge": 36,
+              "response": 185,
+              "difference": 149,
+              "hexChallenge": "24",
+              "hexResponse": "b9",
+              "hexDifference": "95"
+            }
+          ],
+          "patterns": [
+            {
+              "position": 9,
+              "pattern": {
+                "type": "XOR",
+                "value": 3
+              }
+            },
+            {
+              "position": 14,
+              "pattern": {
+                "type": "XOR",
+                "value": 28
+              }
+            },
+            {
+              "position": 15,
+              "pattern": {
+                "type": "XOR",
+                "value": 180
+              }
+            },
+            {
+              "position": 16,
+              "pattern": {
+                "type": "XOR",
+                "value": 12
+              }
+            },
+            {
+              "position": 17,
+              "pattern": {
+                "type": "XOR",
+                "value": 189
+              }
+            },
+            {
+              "position": 18,
+              "pattern": {
+                "type": "XOR",
+                "value": 151
+              }
+            },
+            {
+              "position": 19,
+              "pattern": {
+                "type": "XOR",
+                "value": 84
+              }
+            },
+            {
+              "position": 20,
+              "pattern": {
+                "type": "XOR",
+                "value": 143
+              }
+            },
+            {
+              "position": 21,
+              "pattern": {
+                "type": "XOR",
+                "value": 101
+              }
+            },
+            {
+              "position": 23,
+              "pattern": {
+                "type": "XOR",
+                "value": 79
+              }
+            },
+            {
+              "position": 24,
+              "pattern": {
+                "type": "XOR",
+                "value": 89
+              }
+            },
+            {
+              "position": 25,
+              "pattern": {
+                "type": "XOR",
+                "value": 7
+              }
+            },
+            {
+              "position": 26,
+              "pattern": {
+                "type": "XOR",
+                "value": 75
+              }
+            },
+            {
+              "position": 27,
+              "pattern": {
+                "type": "XOR",
+                "value": 224
+              }
+            },
+            {
+              "position": 28,
+              "pattern": {
+                "type": "XOR",
+                "value": 76
+              }
+            },
+            {
+              "position": 29,
+              "pattern": {
+                "type": "XOR",
+                "value": 132
+              }
+            },
+            {
+              "position": 30,
+              "pattern": {
+                "type": "XOR",
+                "value": 89
+              }
+            },
+            {
+              "position": 31,
+              "pattern": {
+                "type": "XOR",
+                "value": 106
+              }
+            },
+            {
+              "position": 32,
+              "pattern": {
+                "type": "XOR",
+                "value": 86
+              }
+            },
+            {
+              "position": 33,
+              "pattern": {
+                "type": "XOR",
+                "value": 212
+              }
+            },
+            {
+              "position": 34,
+              "pattern": {
+                "type": "XOR",
+                "value": 132
+              }
+            },
+            {
+              "position": 35,
+              "pattern": {
+                "type": "XOR",
+                "value": 252
+              }
+            },
+            {
+              "position": 36,
+              "pattern": {
+                "type": "XOR",
+                "value": 13
+              }
+            },
+            {
+              "position": 37,
+              "pattern": {
+                "type": "XOR",
+                "value": 177
+              }
+            },
+            {
+              "position": 38,
+              "pattern": {
+                "type": "XOR",
+                "value": 166
+              }
+            },
+            {
+              "position": 39,
+              "pattern": {
+                "type": "XOR",
+                "value": 156
+              }
+            },
+            {
+              "position": 41,
+              "pattern": {
+                "type": "XOR",
+                "value": 157
+              }
+            }
+          ]
+        },
+        "2": {
+          "constantBytes": [
+            {
+              "position": 8,
+              "value": 1,
+              "hex": "01"
+            }
+          ],
+          "variableBytes": [
+            {
+              "position": 0,
+              "challenge": 117,
+              "response": 69,
+              "difference": 208,
+              "hexChallenge": "75",
+              "hexResponse": "45",
+              "hexDifference": "d0"
+            },
+            {
+              "position": 1,
+              "challenge": 90,
+              "response": 74,
+              "difference": 240,
+              "hexChallenge": "5a",
+              "hexResponse": "4a",
+              "hexDifference": "f0"
+            },
+            {
+              "position": 2,
+              "challenge": 175,
+              "response": 108,
+              "difference": 189,
+              "hexChallenge": "af",
+              "hexResponse": "6c",
+              "hexDifference": "bd"
+            },
+            {
+              "position": 3,
+              "challenge": 136,
+              "response": 97,
+              "difference": 217,
+              "hexChallenge": "88",
+              "hexResponse": "61",
+              "hexDifference": "d9"
+            },
+            {
+              "position": 4,
+              "challenge": 229,
+              "response": 50,
+              "difference": 77,
+              "hexChallenge": "e5",
+              "hexResponse": "32",
+              "hexDifference": "4d"
+            },
+            {
+              "position": 5,
+              "challenge": 200,
+              "response": 86,
+              "difference": 142,
+              "hexChallenge": "c8",
+              "hexResponse": "56",
+              "hexDifference": "8e"
+            },
+            {
+              "position": 6,
+              "challenge": 82,
+              "response": 65,
+              "difference": 239,
+              "hexChallenge": "52",
+              "hexResponse": "41",
+              "hexDifference": "ef"
+            },
+            {
+              "position": 7,
+              "challenge": 112,
+              "response": 84,
+              "difference": 228,
+              "hexChallenge": "70",
+              "hexResponse": "54",
+              "hexDifference": "e4"
+            },
+            {
+              "position": 9,
+              "challenge": 63,
+              "response": 106,
+              "difference": 43,
+              "hexChallenge": "3f",
+              "hexResponse": "6a",
+              "hexDifference": "2b"
+            },
+            {
+              "position": 10,
+              "challenge": 142,
+              "response": 166,
+              "difference": 24,
+              "hexChallenge": "8e",
+              "hexResponse": "a6",
+              "hexDifference": "18"
+            },
+            {
+              "position": 11,
+              "challenge": 70,
+              "response": 11,
+              "difference": 197,
+              "hexChallenge": "46",
+              "hexResponse": "0b",
+              "hexDifference": "c5"
+            },
+            {
+              "position": 12,
+              "challenge": 209,
+              "response": 97,
+              "difference": 144,
+              "hexChallenge": "d1",
+              "hexResponse": "61",
+              "hexDifference": "90"
+            },
+            {
+              "position": 13,
+              "challenge": 187,
+              "response": 180,
+              "difference": 249,
+              "hexChallenge": "bb",
+              "hexResponse": "b4",
+              "hexDifference": "f9"
+            },
+            {
+              "position": 14,
+              "challenge": 25,
+              "response": 58,
+              "difference": 33,
+              "hexChallenge": "19",
+              "hexResponse": "3a",
+              "hexDifference": "21"
+            },
+            {
+              "position": 15,
+              "challenge": 99,
+              "response": 190,
+              "difference": 91,
+              "hexChallenge": "63",
+              "hexResponse": "be",
+              "hexDifference": "5b"
+            },
+            {
+              "position": 16,
+              "challenge": 52,
+              "response": 15,
+              "difference": 219,
+              "hexChallenge": "34",
+              "hexResponse": "0f",
+              "hexDifference": "db"
+            },
+            {
+              "position": 17,
+              "challenge": 158,
+              "response": 206,
+              "difference": 48,
+              "hexChallenge": "9e",
+              "hexResponse": "ce",
+              "hexDifference": "30"
+            },
+            {
+              "position": 18,
+              "challenge": 221,
+              "response": 34,
+              "difference": 69,
+              "hexChallenge": "dd",
+              "hexResponse": "22",
+              "hexDifference": "45"
+            },
+            {
+              "position": 19,
+              "challenge": 199,
+              "response": 131,
+              "difference": 188,
+              "hexChallenge": "c7",
+              "hexResponse": "83",
+              "hexDifference": "bc"
+            },
+            {
+              "position": 20,
+              "challenge": 6,
+              "response": 247,
+              "difference": 241,
+              "hexChallenge": "06",
+              "hexResponse": "f7",
+              "hexDifference": "f1"
+            },
+            {
+              "position": 21,
+              "challenge": 145,
+              "response": 216,
+              "difference": 71,
+              "hexChallenge": "91",
+              "hexResponse": "d8",
+              "hexDifference": "47"
+            },
+            {
+              "position": 22,
+              "challenge": 237,
+              "response": 238,
+              "difference": 1,
+              "hexChallenge": "ed",
+              "hexResponse": "ee",
+              "hexDifference": "01"
+            },
+            {
+              "position": 23,
+              "challenge": 104,
+              "response": 162,
+              "difference": 58,
+              "hexChallenge": "68",
+              "hexResponse": "a2",
+              "hexDifference": "3a"
+            },
+            {
+              "position": 24,
+              "challenge": 76,
+              "response": 15,
+              "difference": 195,
+              "hexChallenge": "4c",
+              "hexResponse": "0f",
+              "hexDifference": "c3"
+            },
+            {
+              "position": 25,
+              "challenge": 201,
+              "response": 27,
+              "difference": 82,
+              "hexChallenge": "c9",
+              "hexResponse": "1b",
+              "hexDifference": "52"
+            },
+            {
+              "position": 26,
+              "challenge": 116,
+              "response": 22,
+              "difference": 162,
+              "hexChallenge": "74",
+              "hexResponse": "16",
+              "hexDifference": "a2"
+            },
+            {
+              "position": 27,
+              "challenge": 146,
+              "response": 120,
+              "difference": 230,
+              "hexChallenge": "92",
+              "hexResponse": "78",
+              "hexDifference": "e6"
+            }
+          ],
+          "patterns": [
+            {
+              "position": 0,
+              "pattern": {
+                "type": "XOR",
+                "value": 48
+              }
+            },
+            {
+              "position": 1,
+              "pattern": {
+                "type": "XOR",
+                "value": 16
+              }
+            },
+            {
+              "position": 2,
+              "pattern": {
+                "type": "XOR",
+                "value": 195
+              }
+            },
+            {
+              "position": 3,
+              "pattern": {
+                "type": "XOR",
+                "value": 233
+              }
+            },
+            {
+              "position": 4,
+              "pattern": {
+                "type": "XOR",
+                "value": 215
+              }
+            },
+            {
+              "position": 5,
+              "pattern": {
+                "type": "XOR",
+                "value": 158
+              }
+            },
+            {
+              "position": 6,
+              "pattern": {
+                "type": "XOR",
+                "value": 19
+              }
+            },
+            {
+              "position": 7,
+              "pattern": {
+                "type": "XOR",
+                "value": 36
+              }
+            },
+            {
+              "position": 9,
+              "pattern": {
+                "type": "XOR",
+                "value": 85
+              }
+            },
+            {
+              "position": 10,
+              "pattern": {
+                "type": "XOR",
+                "value": 40
+              }
+            },
+            {
+              "position": 11,
+              "pattern": {
+                "type": "XOR",
+                "value": 77
+              }
+            },
+            {
+              "position": 12,
+              "pattern": {
+                "type": "XOR",
+                "value": 176
+              }
+            },
+            {
+              "position": 13,
+              "pattern": {
+                "type": "XOR",
+                "value": 15
+              }
+            },
+            {
+              "position": 14,
+              "pattern": {
+                "type": "XOR",
+                "value": 35
+              }
+            },
+            {
+              "position": 15,
+              "pattern": {
+                "type": "XOR",
+                "value": 221
+              }
+            },
+            {
+              "position": 16,
+              "pattern": {
+                "type": "XOR",
+                "value": 59
+              }
+            },
+            {
+              "position": 17,
+              "pattern": {
+                "type": "XOR",
+                "value": 80
+              }
+            },
+            {
+              "position": 18,
+              "pattern": {
+                "type": "XOR",
+                "value": 255
+              }
+            },
+            {
+              "position": 19,
+              "pattern": {
+                "type": "XOR",
+                "value": 68
+              }
+            },
+            {
+              "position": 20,
+              "pattern": {
+                "type": "XOR",
+                "value": 241
+              }
+            },
+            {
+              "position": 21,
+              "pattern": {
+                "type": "XOR",
+                "value": 73
+              }
+            },
+            {
+              "position": 22,
+              "pattern": {
+                "type": "XOR",
+                "value": 3
+              }
+            },
+            {
+              "position": 23,
+              "pattern": {
+                "type": "XOR",
+                "value": 202
+              }
+            },
+            {
+              "position": 24,
+              "pattern": {
+                "type": "XOR",
+                "value": 67
+              }
+            },
+            {
+              "position": 25,
+              "pattern": {
+                "type": "XOR",
+                "value": 210
+              }
+            },
+            {
+              "position": 26,
+              "pattern": {
+                "type": "XOR",
+                "value": 98
+              }
+            },
+            {
+              "position": 27,
+              "pattern": {
+                "type": "XOR",
+                "value": 234
+              }
+            }
+          ]
+        },
+        "3": {
+          "constantBytes": [
+            {
+              "position": 8,
+              "value": 1,
+              "hex": "01"
+            },
+            {
+              "position": 26,
+              "value": 86,
+              "hex": "56"
+            }
+          ],
+          "variableBytes": [
+            {
+              "position": 0,
+              "challenge": 120,
+              "response": 100,
+              "difference": 236,
+              "hexChallenge": "78",
+              "hexResponse": "64",
+              "hexDifference": "ec"
+            },
+            {
+              "position": 1,
+              "challenge": 140,
+              "response": 56,
+              "difference": 172,
+              "hexChallenge": "8c",
+              "hexResponse": "38",
+              "hexDifference": "ac"
+            },
+            {
+              "position": 2,
+              "challenge": 111,
+              "response": 99,
+              "difference": 244,
+              "hexChallenge": "6f",
+              "hexResponse": "63",
+              "hexDifference": "f4"
+            },
+            {
+              "position": 3,
+              "challenge": 242,
+              "response": 79,
+              "difference": 93,
+              "hexChallenge": "f2",
+              "hexResponse": "4f",
+              "hexDifference": "5d"
+            },
+            {
+              "position": 4,
+              "challenge": 217,
+              "response": 78,
+              "difference": 117,
+              "hexChallenge": "d9",
+              "hexResponse": "4e",
+              "hexDifference": "75"
+            },
+            {
+              "position": 5,
+              "challenge": 45,
+              "response": 121,
+              "difference": 76,
+              "hexChallenge": "2d",
+              "hexResponse": "79",
+              "hexDifference": "4c"
+            },
+            {
+              "position": 6,
+              "challenge": 200,
+              "response": 71,
+              "difference": 127,
+              "hexChallenge": "c8",
+              "hexResponse": "47",
+              "hexDifference": "7f"
+            },
+            {
+              "position": 7,
+              "challenge": 85,
+              "response": 48,
+              "difference": 219,
+              "hexChallenge": "55",
+              "hexResponse": "30",
+              "hexDifference": "db"
+            },
+            {
+              "position": 9,
+              "challenge": 88,
+              "response": 23,
+              "difference": 191,
+              "hexChallenge": "58",
+              "hexResponse": "17",
+              "hexDifference": "bf"
+            },
+            {
+              "position": 10,
+              "challenge": 41,
+              "response": 112,
+              "difference": 71,
+              "hexChallenge": "29",
+              "hexResponse": "70",
+              "hexDifference": "47"
+            },
+            {
+              "position": 11,
+              "challenge": 247,
+              "response": 240,
+              "difference": 249,
+              "hexChallenge": "f7",
+              "hexResponse": "f0",
+              "hexDifference": "f9"
+            },
+            {
+              "position": 12,
+              "challenge": 227,
+              "response": 168,
+              "difference": 197,
+              "hexChallenge": "e3",
+              "hexResponse": "a8",
+              "hexDifference": "c5"
+            },
+            {
+              "position": 13,
+              "challenge": 99,
+              "response": 131,
+              "difference": 32,
+              "hexChallenge": "63",
+              "hexResponse": "83",
+              "hexDifference": "20"
+            },
+            {
+              "position": 14,
+              "challenge": 231,
+              "response": 171,
+              "difference": 196,
+              "hexChallenge": "e7",
+              "hexResponse": "ab",
+              "hexDifference": "c4"
+            },
+            {
+              "position": 15,
+              "challenge": 100,
+              "response": 224,
+              "difference": 124,
+              "hexChallenge": "64",
+              "hexResponse": "e0",
+              "hexDifference": "7c"
+            },
+            {
+              "position": 16,
+              "challenge": 0,
+              "response": 89,
+              "difference": 89,
+              "hexChallenge": "00",
+              "hexResponse": "59",
+              "hexDifference": "59"
+            },
+            {
+              "position": 17,
+              "challenge": 119,
+              "response": 29,
+              "difference": 166,
+              "hexChallenge": "77",
+              "hexResponse": "1d",
+              "hexDifference": "a6"
+            },
+            {
+              "position": 18,
+              "challenge": 157,
+              "response": 203,
+              "difference": 46,
+              "hexChallenge": "9d",
+              "hexResponse": "cb",
+              "hexDifference": "2e"
+            },
+            {
+              "position": 19,
+              "challenge": 244,
+              "response": 32,
+              "difference": 44,
+              "hexChallenge": "f4",
+              "hexResponse": "20",
+              "hexDifference": "2c"
+            },
+            {
+              "position": 20,
+              "challenge": 177,
+              "response": 53,
+              "difference": 132,
+              "hexChallenge": "b1",
+              "hexResponse": "35",
+              "hexDifference": "84"
+            },
+            {
+              "position": 21,
+              "challenge": 184,
+              "response": 68,
+              "difference": 140,
+              "hexChallenge": "b8",
+              "hexResponse": "44",
+              "hexDifference": "8c"
+            },
+            {
+              "position": 22,
+              "challenge": 131,
+              "response": 142,
+              "difference": 11,
+              "hexChallenge": "83",
+              "hexResponse": "8e",
+              "hexDifference": "0b"
+            },
+            {
+              "position": 23,
+              "challenge": 253,
+              "response": 76,
+              "difference": 79,
+              "hexChallenge": "fd",
+              "hexResponse": "4c",
+              "hexDifference": "4f"
+            },
+            {
+              "position": 24,
+              "challenge": 223,
+              "response": 121,
+              "difference": 154,
+              "hexChallenge": "df",
+              "hexResponse": "79",
+              "hexDifference": "9a"
+            },
+            {
+              "position": 25,
+              "challenge": 236,
+              "response": 112,
+              "difference": 132,
+              "hexChallenge": "ec",
+              "hexResponse": "70",
+              "hexDifference": "84"
+            },
+            {
+              "position": 27,
+              "challenge": 36,
+              "response": 185,
+              "difference": 149,
+              "hexChallenge": "24",
+              "hexResponse": "b9",
+              "hexDifference": "95"
+            }
+          ],
+          "patterns": [
+            {
+              "position": 0,
+              "pattern": {
+                "type": "XOR",
+                "value": 28
+              }
+            },
+            {
+              "position": 1,
+              "pattern": {
+                "type": "XOR",
+                "value": 180
+              }
+            },
+            {
+              "position": 2,
+              "pattern": {
+                "type": "XOR",
+                "value": 12
+              }
+            },
+            {
+              "position": 3,
+              "pattern": {
+                "type": "XOR",
+                "value": 189
+              }
+            },
+            {
+              "position": 4,
+              "pattern": {
+                "type": "XOR",
+                "value": 151
+              }
+            },
+            {
+              "position": 5,
+              "pattern": {
+                "type": "XOR",
+                "value": 84
+              }
+            },
+            {
+              "position": 6,
+              "pattern": {
+                "type": "XOR",
+                "value": 143
+              }
+            },
+            {
+              "position": 7,
+              "pattern": {
+                "type": "XOR",
+                "value": 101
+              }
+            },
+            {
+              "position": 9,
+              "pattern": {
+                "type": "XOR",
+                "value": 79
+              }
+            },
+            {
+              "position": 10,
+              "pattern": {
+                "type": "XOR",
+                "value": 89
+              }
+            },
+            {
+              "position": 11,
+              "pattern": {
+                "type": "XOR",
+                "value": 7
+              }
+            },
+            {
+              "position": 12,
+              "pattern": {
+                "type": "XOR",
+                "value": 75
+              }
+            },
+            {
+              "position": 13,
+              "pattern": {
+                "type": "XOR",
+                "value": 224
+              }
+            },
+            {
+              "position": 14,
+              "pattern": {
+                "type": "XOR",
+                "value": 76
+              }
+            },
+            {
+              "position": 15,
+              "pattern": {
+                "type": "XOR",
+                "value": 132
+              }
+            },
+            {
+              "position": 16,
+              "pattern": {
+                "type": "XOR",
+                "value": 89
+              }
+            },
+            {
+              "position": 17,
+              "pattern": {
+                "type": "XOR",
+                "value": 106
+              }
+            },
+            {
+              "position": 18,
+              "pattern": {
+                "type": "XOR",
+                "value": 86
+              }
+            },
+            {
+              "position": 19,
+              "pattern": {
+                "type": "XOR",
+                "value": 212
+              }
+            },
+            {
+              "position": 20,
+              "pattern": {
+                "type": "XOR",
+                "value": 132
+              }
+            },
+            {
+              "position": 21,
+              "pattern": {
+                "type": "XOR",
+                "value": 252
+              }
+            },
+            {
+              "position": 22,
+              "pattern": {
+                "type": "XOR",
+                "value": 13
+              }
+            },
+            {
+              "position": 23,
+              "pattern": {
+                "type": "XOR",
+                "value": 177
+              }
+            },
+            {
+              "position": 24,
+              "pattern": {
+                "type": "XOR",
+                "value": 166
+              }
+            },
+            {
+              "position": 25,
+              "pattern": {
+                "type": "XOR",
+                "value": 156
+              }
+            },
+            {
+              "position": 27,
+              "pattern": {
+                "type": "XOR",
+                "value": 157
+              }
+            }
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "session": 1,
+          "transformations": [
+            {
+              "name": "XOR-00",
+              "accuracy": 0.125,
+              "result": "DB 61 6E 43 47 1E 37 4F"
+            },
+            {
+              "name": "XOR-0b",
+              "accuracy": 0.125,
+              "result": "D0 6A 65 48 4C 15 3C 44"
+            },
+            {
+              "name": "XOR-0e",
+              "accuracy": 0.125,
+              "result": "D5 6F 60 4D 49 10 39 41"
+            },
+            {
+              "name": "XOR-15",
+              "accuracy": 0.125,
+              "result": "CE 74 7B 56 52 0B 22 5A"
+            },
+            {
+              "name": "XOR-1a",
+              "accuracy": 0.125,
+              "result": "C1 7B 74 59 5D 04 2D 55"
+            },
+            {
+              "name": "XOR-36",
+              "accuracy": 0.125,
+              "result": "ED 57 58 75 71 28 01 79"
+            },
+            {
+              "name": "XOR-5d",
+              "accuracy": 0.125,
+              "result": "86 3C 33 1E 1A 43 6A 12"
+            },
+            {
+              "name": "XOR-8d",
+              "accuracy": 0.125,
+              "result": "56 EC E3 CE CA 93 BA C2"
+            },
+            {
+              "name": "ADD-2",
+              "accuracy": 0.125,
+              "result": "DD 63 70 45 49 20 39 51"
+            },
+            {
+              "name": "ADD-6",
+              "accuracy": 0.125,
+              "result": "E1 67 74 49 4D 24 3D 55"
+            },
+            {
+              "name": "ADD-19",
+              "accuracy": 0.125,
+              "result": "EE 74 81 56 5A 31 4A 62"
+            },
+            {
+              "name": "ADD-37",
+              "accuracy": 0.125,
+              "result": "00 86 93 68 6C 43 5C 74"
+            },
+            {
+              "name": "ADD-123",
+              "accuracy": 0.125,
+              "result": "56 DC E9 BE C2 99 B2 CA"
+            },
+            {
+              "name": "ADD-246",
+              "accuracy": 0.125,
+              "result": "D1 57 64 39 3D 14 2D 45"
+            },
+            {
+              "name": "ADD-247",
+              "accuracy": 0.125,
+              "result": "D2 58 65 3A 3E 15 2E 46"
+            },
+            {
+              "name": "SUB-9",
+              "accuracy": 0.125,
+              "result": "D2 58 65 3A 3E 15 2E 46"
+            },
+            {
+              "name": "SUB-10",
+              "accuracy": 0.125,
+              "result": "D1 57 64 39 3D 14 2D 45"
+            },
+            {
+              "name": "SUB-133",
+              "accuracy": 0.125,
+              "result": "56 DC E9 BE C2 99 B2 CA"
+            },
+            {
+              "name": "SUB-219",
+              "accuracy": 0.125,
+              "result": "00 86 93 68 6C 43 5C 74"
+            },
+            {
+              "name": "SUB-237",
+              "accuracy": 0.125,
+              "result": "EE 74 81 56 5A 31 4A 62"
+            },
+            {
+              "name": "SUB-250",
+              "accuracy": 0.125,
+              "result": "E1 67 74 49 4D 24 3D 55"
+            },
+            {
+              "name": "SUB-254",
+              "accuracy": 0.125,
+              "result": "DD 63 70 45 49 20 39 51"
+            },
+            {
+              "name": "LOOKUP-00",
+              "accuracy": 0.125,
+              "result": "DB 61 6E 43 47 1E 37 4F"
+            },
+            {
+              "name": "LOOKUP-02",
+              "accuracy": 0.125,
+              "result": "DD 63 70 45 49 20 39 51"
+            },
+            {
+              "name": "LOOKUP-06",
+              "accuracy": 0.125,
+              "result": "E1 67 74 49 4D 24 3D 55"
+            },
+            {
+              "name": "LOOKUP-13",
+              "accuracy": 0.125,
+              "result": "EE 74 81 56 5A 31 4A 62"
+            },
+            {
+              "name": "LOOKUP-25",
+              "accuracy": 0.125,
+              "result": "00 86 93 68 6C 43 5C 74"
+            },
+            {
+              "name": "LOOKUP-7b",
+              "accuracy": 0.125,
+              "result": "56 DC E9 BE C2 99 B2 CA"
+            },
+            {
+              "name": "LOOKUP-f6",
+              "accuracy": 0.125,
+              "result": "D1 57 64 39 3D 14 2D 45"
+            },
+            {
+              "name": "LOOKUP-f7",
+              "accuracy": 0.125,
+              "result": "D2 58 65 3A 3E 15 2E 46"
+            }
+          ]
+        },
+        {
+          "session": 2,
+          "transformations": [
+            {
+              "name": "XOR-10",
+              "accuracy": 0.125,
+              "result": "65 4A BF 98 F5 D8 42 60"
+            },
+            {
+              "name": "XOR-13",
+              "accuracy": 0.125,
+              "result": "66 49 BC 9B F6 DB 41 63"
+            },
+            {
+              "name": "XOR-24",
+              "accuracy": 0.125,
+              "result": "51 7E 8B AC C1 EC 76 54"
+            },
+            {
+              "name": "XOR-30",
+              "accuracy": 0.125,
+              "result": "45 6A 9F B8 D5 F8 62 40"
+            },
+            {
+              "name": "XOR-9e",
+              "accuracy": 0.125,
+              "result": "EB C4 31 16 7B 56 CC EE"
+            },
+            {
+              "name": "XOR-c3",
+              "accuracy": 0.125,
+              "result": "B6 99 6C 4B 26 0B 91 B3"
+            },
+            {
+              "name": "XOR-d7",
+              "accuracy": 0.125,
+              "result": "A2 8D 78 5F 32 1F 85 A7"
+            },
+            {
+              "name": "XOR-e9",
+              "accuracy": 0.125,
+              "result": "9C B3 46 61 0C 21 BB 99"
+            },
+            {
+              "name": "ADD-77",
+              "accuracy": 0.125,
+              "result": "C2 A7 FC D5 32 15 9F BD"
+            },
+            {
+              "name": "ADD-142",
+              "accuracy": 0.125,
+              "result": "03 E8 3D 16 73 56 E0 FE"
+            },
+            {
+              "name": "ADD-189",
+              "accuracy": 0.125,
+              "result": "32 17 6C 45 A2 85 0F 2D"
+            },
+            {
+              "name": "ADD-208",
+              "accuracy": 0.125,
+              "result": "45 2A 7F 58 B5 98 22 40"
+            },
+            {
+              "name": "ADD-217",
+              "accuracy": 0.125,
+              "result": "4E 33 88 61 BE A1 2B 49"
+            },
+            {
+              "name": "ADD-228",
+              "accuracy": 0.125,
+              "result": "59 3E 93 6C C9 AC 36 54"
+            },
+            {
+              "name": "ADD-239",
+              "accuracy": 0.125,
+              "result": "64 49 9E 77 D4 B7 41 5F"
+            },
+            {
+              "name": "ADD-240",
+              "accuracy": 0.125,
+              "result": "65 4A 9F 78 D5 B8 42 60"
+            },
+            {
+              "name": "SUB-16",
+              "accuracy": 0.125,
+              "result": "65 4A 9F 78 D5 B8 42 60"
+            },
+            {
+              "name": "SUB-17",
+              "accuracy": 0.125,
+              "result": "64 49 9E 77 D4 B7 41 5F"
+            },
+            {
+              "name": "SUB-28",
+              "accuracy": 0.125,
+              "result": "59 3E 93 6C C9 AC 36 54"
+            },
+            {
+              "name": "SUB-39",
+              "accuracy": 0.125,
+              "result": "4E 33 88 61 BE A1 2B 49"
+            },
+            {
+              "name": "SUB-48",
+              "accuracy": 0.125,
+              "result": "45 2A 7F 58 B5 98 22 40"
+            },
+            {
+              "name": "SUB-67",
+              "accuracy": 0.125,
+              "result": "32 17 6C 45 A2 85 0F 2D"
+            },
+            {
+              "name": "SUB-114",
+              "accuracy": 0.125,
+              "result": "03 E8 3D 16 73 56 E0 FE"
+            },
+            {
+              "name": "SUB-179",
+              "accuracy": 0.125,
+              "result": "C2 A7 FC D5 32 15 9F BD"
+            },
+            {
+              "name": "LOOKUP-4d",
+              "accuracy": 0.125,
+              "result": "C2 A7 FC D5 32 15 9F BD"
+            },
+            {
+              "name": "LOOKUP-8e",
+              "accuracy": 0.125,
+              "result": "03 E8 3D 16 73 56 E0 FE"
+            },
+            {
+              "name": "LOOKUP-bd",
+              "accuracy": 0.125,
+              "result": "32 17 6C 45 A2 85 0F 2D"
+            },
+            {
+              "name": "LOOKUP-d0",
+              "accuracy": 0.125,
+              "result": "45 2A 7F 58 B5 98 22 40"
+            },
+            {
+              "name": "LOOKUP-d9",
+              "accuracy": 0.125,
+              "result": "4E 33 88 61 BE A1 2B 49"
+            },
+            {
+              "name": "LOOKUP-e4",
+              "accuracy": 0.125,
+              "result": "59 3E 93 6C C9 AC 36 54"
+            },
+            {
+              "name": "LOOKUP-ef",
+              "accuracy": 0.125,
+              "result": "64 49 9E 77 D4 B7 41 5F"
+            },
+            {
+              "name": "LOOKUP-f0",
+              "accuracy": 0.125,
+              "result": "65 4A 9F 78 D5 B8 42 60"
+            }
+          ]
+        },
+        {
+          "session": 3,
+          "transformations": [
+            {
+              "name": "XOR-0c",
+              "accuracy": 0.125,
+              "result": "74 80 63 FE D5 21 C4 59"
+            },
+            {
+              "name": "XOR-1c",
+              "accuracy": 0.125,
+              "result": "64 90 73 EE C5 31 D4 49"
+            },
+            {
+              "name": "XOR-54",
+              "accuracy": 0.125,
+              "result": "2C D8 3B A6 8D 79 9C 01"
+            },
+            {
+              "name": "XOR-65",
+              "accuracy": 0.125,
+              "result": "1D E9 0A 97 BC 48 AD 30"
+            },
+            {
+              "name": "XOR-8f",
+              "accuracy": 0.125,
+              "result": "F7 03 E0 7D 56 A2 47 DA"
+            },
+            {
+              "name": "XOR-97",
+              "accuracy": 0.125,
+              "result": "EF 1B F8 65 4E BA 5F C2"
+            },
+            {
+              "name": "XOR-b4",
+              "accuracy": 0.125,
+              "result": "CC 38 DB 46 6D 99 7C E1"
+            },
+            {
+              "name": "XOR-bd",
+              "accuracy": 0.125,
+              "result": "C5 31 D2 4F 64 90 75 E8"
+            },
+            {
+              "name": "ADD-76",
+              "accuracy": 0.125,
+              "result": "C4 D8 BB 3E 25 79 14 A1"
+            },
+            {
+              "name": "ADD-93",
+              "accuracy": 0.125,
+              "result": "D5 E9 CC 4F 36 8A 25 B2"
+            },
+            {
+              "name": "ADD-117",
+              "accuracy": 0.125,
+              "result": "ED 01 E4 67 4E A2 3D CA"
+            },
+            {
+              "name": "ADD-127",
+              "accuracy": 0.125,
+              "result": "F7 0B EE 71 58 AC 47 D4"
+            },
+            {
+              "name": "ADD-172",
+              "accuracy": 0.125,
+              "result": "24 38 1B 9E 85 D9 74 01"
+            },
+            {
+              "name": "ADD-219",
+              "accuracy": 0.125,
+              "result": "53 67 4A CD B4 08 A3 30"
+            },
+            {
+              "name": "ADD-236",
+              "accuracy": 0.125,
+              "result": "64 78 5B DE C5 19 B4 41"
+            },
+            {
+              "name": "ADD-244",
+              "accuracy": 0.125,
+              "result": "6C 80 63 E6 CD 21 BC 49"
+            },
+            {
+              "name": "SUB-12",
+              "accuracy": 0.125,
+              "result": "6C 80 63 E6 CD 21 BC 49"
+            },
+            {
+              "name": "SUB-20",
+              "accuracy": 0.125,
+              "result": "64 78 5B DE C5 19 B4 41"
+            },
+            {
+              "name": "SUB-37",
+              "accuracy": 0.125,
+              "result": "53 67 4A CD B4 08 A3 30"
+            },
+            {
+              "name": "SUB-84",
+              "accuracy": 0.125,
+              "result": "24 38 1B 9E 85 D9 74 01"
+            },
+            {
+              "name": "SUB-129",
+              "accuracy": 0.125,
+              "result": "F7 0B EE 71 58 AC 47 D4"
+            },
+            {
+              "name": "SUB-139",
+              "accuracy": 0.125,
+              "result": "ED 01 E4 67 4E A2 3D CA"
+            },
+            {
+              "name": "SUB-163",
+              "accuracy": 0.125,
+              "result": "D5 E9 CC 4F 36 8A 25 B2"
+            },
+            {
+              "name": "SUB-180",
+              "accuracy": 0.125,
+              "result": "C4 D8 BB 3E 25 79 14 A1"
+            },
+            {
+              "name": "LOOKUP-4c",
+              "accuracy": 0.125,
+              "result": "C4 D8 BB 3E 25 79 14 A1"
+            },
+            {
+              "name": "LOOKUP-5d",
+              "accuracy": 0.125,
+              "result": "D5 E9 CC 4F 36 8A 25 B2"
+            },
+            {
+              "name": "LOOKUP-75",
+              "accuracy": 0.125,
+              "result": "ED 01 E4 67 4E A2 3D CA"
+            },
+            {
+              "name": "LOOKUP-7f",
+              "accuracy": 0.125,
+              "result": "F7 0B EE 71 58 AC 47 D4"
+            },
+            {
+              "name": "LOOKUP-ac",
+              "accuracy": 0.125,
+              "result": "24 38 1B 9E 85 D9 74 01"
+            },
+            {
+              "name": "LOOKUP-db",
+              "accuracy": 0.125,
+              "result": "53 67 4A CD B4 08 A3 30"
+            },
+            {
+              "name": "LOOKUP-ec",
+              "accuracy": 0.125,
+              "result": "64 78 5B DE C5 19 B4 41"
+            },
+            {
+              "name": "LOOKUP-f4",
+              "accuracy": 0.125,
+              "result": "6C 80 63 E6 CD 21 BC 49"
+            }
+          ]
+        },
+        {
+          "session": 1,
+          "transformations": [
+            {
+              "name": "XOR-00",
+              "accuracy": 1,
+              "result": "FF FF 25 40 00 00 00 00"
+            },
+            {
+              "name": "LOOKUP-00",
+              "accuracy": 1,
+              "result": "FF FF 25 40 00 00 00 00"
+            },
+            {
+              "name": "ROT-1",
+              "accuracy": 0.75,
+              "result": "FF FF 4A 80 00 00 00 00"
+            },
+            {
+              "name": "ROT-2",
+              "accuracy": 0.75,
+              "result": "FF FF 94 01 00 00 00 00"
+            },
+            {
+              "name": "ROT-3",
+              "accuracy": 0.75,
+              "result": "FF FF 29 02 00 00 00 00"
+            },
+            {
+              "name": "ROT-4",
+              "accuracy": 0.75,
+              "result": "FF FF 52 04 00 00 00 00"
+            },
+            {
+              "name": "ROT-5",
+              "accuracy": 0.75,
+              "result": "FF FF A4 08 00 00 00 00"
+            },
+            {
+              "name": "ROT-6",
+              "accuracy": 0.75,
+              "result": "FF FF 49 10 00 00 00 00"
+            },
+            {
+              "name": "ROT-7",
+              "accuracy": 0.75,
+              "result": "FF FF 92 20 00 00 00 00"
+            }
+          ]
+        }
+      ]
+    },
+    "insights": {
+      "keyFindings": [
+        "Found 18 constant bytes across all sessions",
+        "Found 80 variable bytes across all sessions",
+        "Top transformation patterns:",
+        "  XOR-89: 4 occurrences",
+        "  XOR-132: 4 occurrences",
+        "  XOR-3: 2 occurrences",
+        "  XOR-28: 2 occurrences",
+        "  XOR-180: 2 occurrences"
+      ],
+      "recommendations": [
+        "Focus on the most frequent transformation patterns",
+        "Test with additional captured data to validate patterns",
+        "Implement working algorithm based on successful patterns",
+        "Validate with real device communication"
+      ],
+      "nextSteps": [
+        "Capture more authentication sessions from real device",
+        "Test identified patterns with larger dataset",
+        "Implement working rolling code algorithm",
+        "Create test suite for validation"
+      ]
+    }
+  },
+  "timestamp": "2025-10-20T03:21:40.681Z"
+}

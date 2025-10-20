@@ -1,0 +1,31 @@
+{
+  "deviceInfo": {
+    "imei": "862817068367949",
+    "serial": "0021800078EHD5108DUZ00000002",
+    "model": "CEAB9UQ00",
+    "firmware": "E++2.17",
+    "deviceType": "U-WMT"
+  },
+  "sessions": [
+    {
+      "id": 1,
+      "timestamp": "1760889661",
+      "sequence": "00000000",
+      "challenge": "ff ff 25 40 00 00 00 00 00 12 10 02 00 01 78 8c 6f f2 d9 2d c8 55 01 58 29 f7 e3 63 e7 64 00 77 9d f4 b1 b8 83 fd df ec 56 24",
+      "response": "ff ff 25 40 00 00 00 00 00 11 10 02 00 01 64 38 63 4f 4e 79 47 30 01 17 70 f0 a8 83 ab e0 59 1d cb 20 35 44 8e 4c 79 70 56 b9",
+      "source": "binding.txt",
+      "deviceInfo": {
+        "imei": "862817068367949",
+        "serial": "0021800078EHD5108DUZ00000002",
+        "model": "CEAB9UQ00",
+        "firmware": "E++2.17",
+        "deviceType": "U-WMT"
+      }
+    }
+  ],
+  "analysis": {
+    "totalSessions": 1,
+    "source": "binding.txt",
+    "extractedAt": "2025-10-20T03:20:25.361Z"
+  }
+}

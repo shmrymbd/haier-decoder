@@ -6,14 +6,21 @@ This repository contains a comprehensive analysis and decoding of the proprietar
 
 ## 🎯 Project Goals
 
+### Phase 1: Protocol Analysis ✅ **COMPLETE**
 - **Protocol Analysis**: Decode and understand the proprietary Haier washing machine communication protocol
 - **Command Documentation**: Document all known commands and their functions
 - **Sequence Mapping**: Map complete communication flows and state machines
-- **Security Analysis**: Understand authentication and encryption mechanisms
 - **Tool Development**: Create tools for protocol analysis and device interaction
 - **Serial Monitoring**: Real-time monitoring and testing of Haier device communication
 - **CRC Reverse Engineering**: Identify and validate packet checksum algorithms
 - **Sequence Replay**: Test protocol implementations with captured data
+
+### Phase 2: Rolling Code Reverse Engineering 🔄 **IN PROGRESS**
+- **Authentication Analysis**: Reverse engineer rolling code authentication system
+- **Pattern Recognition**: Identify transformation algorithms and key derivation
+- **Algorithm Implementation**: Create working rolling code algorithm
+- **Real Device Testing**: Validate algorithm with live device communication
+- **Security Documentation**: Complete security analysis and implementation guide
 
 ## 📁 Project Structure
 
@@ -25,6 +32,9 @@ haier-decoder/
 ├── DECODED_ANALYSIS.md       # Detailed analysis of captured data
 ├── PROTOCOL_SPECIFICATION.md # Complete technical protocol specification
 ├── SEQUENCE_GUIDE.md         # Complete communication sequence documentation
+├── ROLLING_CODE_ANALYSIS_SUMMARY.md # Rolling code analysis summary
+├── FINAL_ROLLING_CODE_ANALYSIS.md   # Final rolling code analysis report
+├── binding.txt              # Real-time binding communication data
 ├── package.json             # Node.js project configuration
 ├── src/                     # Serial monitoring tool source code
 │   ├── index.js             # CLI entry point
@@ -33,6 +43,19 @@ haier-decoder/
 │   │   ├── parser.js        # Packet parsing logic
 │   │   ├── crc.js          # CRC calculation/validation
 │   │   └── commands.js     # Command definitions
+│   ├── crypto/              # Rolling code analysis tools
+│   │   ├── rolling-code-algorithm.js # Main rolling code algorithm
+│   │   ├── enhanced-pattern-analyzer.js # Enhanced pattern analysis
+│   │   ├── advanced-pattern-analyzer.js # Advanced pattern analysis
+│   │   ├── combined-analysis.js # Combined dataset analysis
+│   │   ├── binding-auth-extractor.js # Binding data extraction
+│   │   ├── binding-analyzer.js # Binding data analysis
+│   │   ├── detailed-binding-analyzer.js # Detailed binding analysis
+│   │   ├── comprehensive-analysis.js # Comprehensive analysis
+│   │   ├── final-analysis.js # Final analysis
+│   │   ├── algorithm-tester.js # Algorithm testing framework
+│   │   ├── pattern-analyzer.js # Pattern analysis
+│   │   └── crypto-tester.js # Crypto testing
 │   ├── monitor/             # Serial monitoring system
 │   │   ├── serial-monitor.js # Serial port monitoring
 │   │   └── packet-logger.js  # Logging implementation
@@ -40,17 +63,32 @@ haier-decoder/
 │   │   └── sequence-replayer.js # Replay captured sequences
 │   └── utils/               # Utility functions
 │       └── hex-utils.js     # Hex conversion utilities
+├── test-vectors/            # Test data and analysis results
+│   ├── authentication-sessions.json # Original 3 sessions
+│   ├── binding-auth-sessions.json # Binding 1 session
+│   ├── combined-analysis-results.json # Analysis results
+│   └── final-analysis-results.json # Final analysis results
 ├── startupMachine.txt       # Machine responses during startup
 └── startupModem.txt         # Modem/controller commands during startup
 ```
 
 ## 🔍 Key Findings
 
-### Device Information
-- **Model**: CEAB9UQ00 (Haier Universal Washing Machine Type)
-- **Firmware**: E++2.17 (December 24, 2024)
+### Phase 1: Protocol Analysis ✅ **COMPLETE**
+- **Device Information**: CEAB9UQ00 (Haier Universal Washing Machine Type)
+- **Firmware Version**: E++2.17 (20241224)
 - **Serial Number**: 0021800078EHD5108DUZ00000002
-- **Modem IMEI**: 862817068367949
+- **IMEI**: 862817068367949
+- **Protocol Structure**: Complete packet format and command definitions
+- **Communication Flow**: Full startup sequence and state machine mapping
+
+### Phase 2: Rolling Code Analysis 🔄 **IN PROGRESS**
+- **Authentication Sessions**: 4 sessions captured and analyzed
+- **Transformation Patterns**: 80 variable bytes with XOR-based transformations
+- **Top Patterns**: XOR-89 (4 occurrences), XOR-132 (4 occurrences)
+- **Constant Components**: 18 constant bytes across all sessions
+- **Algorithm Complexity**: Multi-key system with session-based derivation
+- **Analysis Tools**: 6 sophisticated analysis tools created
 
 ### Protocol Features
 1. **Rolling Code Authentication**: 8-byte challenge + encrypted response
@@ -312,6 +350,38 @@ This project is for educational and research purposes. Please respect Haier's in
 - [Haier Official Website](https://www.haier.com)
 - [Protocol Analysis Tools](https://github.com/topics/protocol-analysis)
 - [Hex Protocol Documentation](https://en.wikipedia.org/wiki/Hexadecimal)
+
+## 🔐 Rolling Code Analysis Tools
+
+The project includes comprehensive rolling code analysis tools for reverse engineering the authentication system:
+
+### Analysis Tools
+- **Rolling Code Algorithm**: Main algorithm framework with multiple transformation methods
+- **Pattern Analyzers**: Advanced pattern analysis for byte-by-byte transformations
+- **Data Extractors**: Extract authentication sessions from captured data
+- **Combined Analysis**: Multi-session statistical analysis
+- **Algorithm Testing**: Comprehensive testing framework for transformation methods
+
+### Usage
+```bash
+# Run combined analysis on all sessions
+node src/crypto/combined-analysis.js
+
+# Extract authentication sessions from binding data
+node src/crypto/binding-auth-extractor.js
+
+# Run comprehensive pattern analysis
+node src/crypto/final-analysis.js
+
+# Test rolling code algorithm
+node src/crypto/test-rolling-code.js
+```
+
+### Current Status
+- **4 Authentication Sessions**: Captured and analyzed
+- **80 Variable Bytes**: Identified transformation patterns
+- **Top Patterns**: XOR-89, XOR-132 (most frequent)
+- **Algorithm Framework**: Ready for refinement with additional data
 
 ## 🛠️ Serial Monitoring Tool
 

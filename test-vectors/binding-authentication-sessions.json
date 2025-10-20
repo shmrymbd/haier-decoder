@@ -1,0 +1,15 @@
+{
+  "deviceInfo": {
+    "imei": "862817068367949",
+    "serial": "0021800078EHD5108DUZ00000002",
+    "model": "CEAB9UQ00",
+    "firmware": "E++2.17",
+    "deviceType": "U-WMT"
+  },
+  "sessions": [],
+  "analysis": {
+    "totalSessions": 0,
+    "source": "binding.txt",
+    "extractedAt": "2025-10-20T03:19:16.465Z"
+  }
+}
