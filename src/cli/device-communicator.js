@@ -6,7 +6,7 @@ const RollingCodeImplementation = require('../crypto/rolling-code-implementation
 const HexUtils = require('../utils/hex-utils');
 
 class DeviceCommunicator extends EventEmitter {
-  constructor(port) {
+  constructor(port, options = {}) {
     super();
     this.portPath = port;
     this.port = null;
@@ -16,6 +16,8 @@ class DeviceCommunicator extends EventEmitter {
     this.isConnected = false;
     this.authenticated = false;
     this.deviceInfo = null;
+    this.ready = false;
+    this.autoInitialize = options.autoInitialize !== false; // Default to true for backward compatibility
     this.commandTimeout = 5000; // 5 seconds
   }
 
@@ -69,8 +71,13 @@ class DeviceCommunicator extends EventEmitter {
       // Initialize rolling code algorithm
       await this.initializeRollingCode();
       
-      // Initialize complete protocol session
-      await this.initializeSession();
+      // Initialize complete protocol session (only if auto-initialization is enabled)
+      if (this.autoInitialize) {
+        await this.initializeSession();
+      } else {
+        console.log(chalk.yellow('⚠️ Auto-initialization disabled. Use \'init\' command to initialize manually.'));
+        this.ready = false;
+      }
 
     } catch (error) {
       console.error(chalk.red('❌ Failed to connect:'), error.message);
@@ -382,6 +389,37 @@ class DeviceCommunicator extends EventEmitter {
     }
   }
 
+  async manualInitialize() {
+    if (!this.isConnected) {
+      throw new Error('Device not connected. Connect first before initializing.');
+    }
+    
+    if (this.ready) {
+      console.log(chalk.yellow('⚠️ Device already initialized.'));
+      return;
+    }
+    
+    try {
+      await this.initializeSession();
+    } catch (error) {
+      console.error(chalk.red('❌ Manual initialization failed:'), error.message);
+      throw error;
+    }
+  }
+
+  isReady() {
+    return this.ready;
+  }
+
+  getConnectionStatus() {
+    return {
+      connected: this.isConnected,
+      ready: this.ready,
+      authenticated: this.authenticated,
+      autoInitialize: this.autoInitialize
+    };
+  }
+
   async sendSessionStart() {
     const sessionStartHex = 'ff ff 0a 00 00 00 00 00 00 61 00 07 72';
     await this.sendRawHex(sessionStartHex);
@@ -409,6 +447,12 @@ class DeviceCommunicator extends EventEmitter {
 
   delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async syncTimestamp() {
+    // Send timestamp synchronization packet
+    const timestampHex = 'ff ff 0a 40 00 00 00 00 00 f4 00 00 3e d0 e2';
+    await this.sendRawHex(timestampHex);
   }
 
   async getStatus() {

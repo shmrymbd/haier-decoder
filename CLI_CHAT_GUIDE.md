@@ -4,6 +4,8 @@
 
 The CLI Chat Tool provides an interactive command-line interface for communicating with Haier washing machines via serial port. It supports both interactive and automated modes, high-level commands, automatic authentication, and comprehensive logging.
 
+**New Feature**: The chat interface now automatically waits for machine power on requests and responds with the complete session initialization sequence.
+
 ## Quick Start
 
 ### Basic Usage
@@ -28,6 +30,38 @@ npm run test-chat
 # Start chat (requires port argument)
 npm run chat /dev/ttyUSB0
 ```
+
+## Power On Waiting Mode
+
+The chat interface now automatically detects when the washing machine powers on and responds with the complete session initialization sequence.
+
+### How It Works
+
+1. **Start the chat interface**: The system connects to the serial port and waits
+2. **Machine powers on**: The washing machine sends a power on request (`ff ff 0a 00 00 00 00 00 00 61 00 07 72`)
+3. **Automatic response**: The system detects the request and automatically:
+   - Sends session start response
+   - Announces controller ready
+   - Initiates handshake
+   - Exchanges device ID
+   - Queries machine status
+   - Synchronizes timestamp
+4. **Ready for commands**: The system is now ready to accept commands
+
+### Visual Indicators
+
+- 🔋 **Waiting**: Shows "Waiting for machine power on request..." when idle
+- 🔋 **Detected**: Shows "Machine power on request detected!" when machine powers on
+- 📡 **Responding**: Shows "Responding with session initialization..." during setup
+- ✅ **Complete**: Shows "Session initialization complete!" when ready
+
+### Limited Commands During Wait
+
+While waiting for power on, only these commands are available:
+- `help` - Show help information
+- `status` - Show connection status
+- `conn` - Show connection details
+- `exit`/`quit` - Exit the interface
 
 ## Command Reference
 

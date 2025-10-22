@@ -326,9 +326,10 @@ program
 // Chat command
 program
   .command('chat <port>')
-  .description('Interactive chat interface with Haier device')
+  .description('Interactive chat interface with Haier device (waits for machine power on)')
   .option('-a, --auto', 'Start in automated mode')
   .option('-l, --log <file>', 'Log file path')
+  .option('--no-init', 'Skip automatic protocol initialization (wait for manual init)')
   .action(async (port, options) => {
     try {
       const ChatCLI = require('./cli/chat-cli');

@@ -5,15 +5,17 @@ class CommandHandler {
   constructor(communicator) {
     this.communicator = communicator;
     this.commands = {
-      // Authentication
+      // Authentication & Initialization
       'auth': this.authenticate.bind(this),
       'challenge': this.sendChallenge.bind(this),
+      'init': this.initializeDevice.bind(this),
       
       // Status & Info
       'status': this.getStatus.bind(this),
       'info': this.getDeviceInfo.bind(this),
       'model': this.getModel.bind(this),
       'serial': this.getSerial.bind(this),
+      'conn': this.getConnectionStatus.bind(this),
       
       // Control
       'reset': this.sendReset.bind(this),
@@ -66,6 +68,15 @@ class CommandHandler {
       return await this.commands[commandName](...args);
     } catch (error) {
       return { error: error.message };
+    }
+  }
+
+  async initializeDevice() {
+    if (!this.communicator.isReady()) {
+      await this.communicator.manualInitialize();
+      return { message: 'Device initialized successfully' };
+    } else {
+      return { message: 'Device already initialized' };
     }
   }
 
@@ -160,6 +171,14 @@ class CommandHandler {
     } catch (error) {
       return { error: `Failed to get status: ${error.message}` };
     }
+  }
+
+  async getConnectionStatus() {
+    const status = this.communicator.getConnectionStatus();
+    return {
+      message: 'Connection status retrieved',
+      data: `Connected: ${status.connected ? '✅' : '❌'}\nReady: ${status.ready ? '✅' : '❌'}\nAuthenticated: ${status.authenticated ? '✅' : '❌'}\nAuto-Init: ${status.autoInitialize ? '✅' : '❌'}`
+    };
   }
 
   async getDeviceInfo() {
