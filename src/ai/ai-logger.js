@@ -252,6 +252,33 @@ class AILogger {
   }
 
   /**
+   * Log validation result
+   */
+  logValidation(validationResult, context = {}) {
+    const level = validationResult.isValid ? 'info' : 'warn';
+    this.logger[level]('AI response validation', {
+      event: 'validation',
+      isValid: validationResult.isValid,
+      errors: validationResult.errors,
+      warnings: validationResult.warnings,
+      confidence: validationResult.confidence,
+      context: this.sanitizeData(context)
+    });
+  }
+
+  /**
+   * Log AI agent operation
+   */
+  logOperation(operation, details, context = {}) {
+    this.logger.info(`AI Agent ${operation}`, {
+      event: 'operation',
+      operation,
+      details,
+      context: this.sanitizeData(context)
+    });
+  }
+
+  /**
    * Get logger instance for direct use
    */
   getLogger() {

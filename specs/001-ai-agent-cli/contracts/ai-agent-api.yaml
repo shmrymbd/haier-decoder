@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: AI Agent CLI Integration API
-  description: Internal API contracts for AI agent integration with Haier Protocol Decoder CLI
+  description: Internal API contracts for AI Agent integration with Haier Protocol Decoder CLI
   version: 1.0.0
   contact:
     name: Haier Protocol Decoder Team
@@ -9,13 +9,13 @@ info:
 
 servers:
   - url: cli://ai-agent
-    description: CLI-based AI agent interface
+    description: CLI-based AI Agent interface
 
 paths:
   /sessions:
     post:
-      summary: Create new AI agent session
-      description: Initialize a new AI agent session for conversation
+      summary: Create new AI Agent session
+      description: Initialize a new AI Agent session for conversation
       requestBody:
         required: true
         content:
@@ -134,7 +134,7 @@ paths:
   /sessions/{sessionId}:
     delete:
       summary: Close session
-      description: Close an active AI agent session
+      description: Close an active AI Agent session
       parameters:
         - name: sessionId
           in: path

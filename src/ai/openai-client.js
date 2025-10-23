@@ -44,9 +44,13 @@ class OpenAIClient {
         model: options.model || this.options.model,
         messages: this.prepareMessages(messages),
         max_tokens: options.maxTokens || this.options.maxTokens,
-        temperature: options.temperature || this.options.temperature,
-        ...options
+        temperature: options.temperature || this.options.temperature
       };
+
+      // Remove duplicate maxTokens if it exists in options
+      if (options.maxTokens) {
+        delete requestOptions.maxTokens;
+      }
 
       const response = await this.client.chat.completions.create(requestOptions);
       
@@ -133,9 +137,13 @@ class OpenAIClient {
    */
   async testConnection() {
     try {
+      // Test connection debug removed
       const response = await this.chatCompletion([
         { role: 'user', content: 'Hello, this is a test.' }
-      ], { maxTokens: 10 });
+      ], { 
+        model: this.options.model || 'gpt-3.5-turbo',
+        maxTokens: 10 
+      });
 
       return {
         success: true,

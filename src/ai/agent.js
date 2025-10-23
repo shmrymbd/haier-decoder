@@ -9,6 +9,7 @@ const OpenAIClient = require('./openai-client');
 const DataSanitizer = require('./data-sanitizer');
 const AILogger = require('./ai-logger');
 const AIErrorHandler = require('./ai-error-handler');
+const ResponseValidator = require('./response-validator');
 const { ProtocolQuery, AnalysisResult, CommandSuggestion } = require('./models');
 
 class AIAgent {
@@ -27,6 +28,12 @@ class AIAgent {
     this.dataSanitizer = new DataSanitizer({ enabled: this.options.enableSanitization });
     this.logger = new AILogger();
     this.errorHandler = new AIErrorHandler();
+    this.responseValidator = new ResponseValidator({
+      maxResponseLength: this.options.maxResponseLength || 2000,
+      minConfidence: this.options.minConfidence || 0.3,
+      enableContentFilter: this.options.enableContentFilter !== false,
+      enableProtocolValidation: this.options.enableProtocolValidation !== false
+    });
     this.isInitialized = false;
     this.customSystemPrompt = null;
   }
@@ -136,6 +143,7 @@ RESPONSE GUIDELINES:
       await this.loadSystemPrompt();
       
       this.openaiClient = new OpenAIClient({
+        apiKey: process.env.OPENAI_API_KEY,
         model: this.options.model,
         maxTokens: this.options.maxTokens,
         temperature: this.options.temperature
@@ -200,6 +208,25 @@ RESPONSE GUIDELINES:
         }
       });
 
+      // Validate response
+      const validationResult = await this.responseValidator.validateResponse(result, {
+        protocolKnowledge: context.protocolKnowledge,
+        sessionContext: context.sessionContext,
+        queryType: query.queryType
+      });
+
+      if (!validationResult.isValid) {
+        this.logger.logger.warn('Response validation failed', {
+          errors: validationResult.errors,
+          warnings: validationResult.warnings
+        });
+      }
+
+      // Use sanitized response if validation modified it
+      if (validationResult.sanitizedResponse !== result.responseText) {
+        result.responseText = validationResult.sanitizedResponse;
+      }
+
       // Generate command suggestions if appropriate
       if (this.shouldGenerateSuggestions(query, result)) {
         const suggestions = await this.generateCommandSuggestions(query, result, context);
@@ -207,6 +234,7 @@ RESPONSE GUIDELINES:
       }
 
       this.logger.logResponse(sessionId, result);
+      this.logger.logValidation(validationResult, { sessionId, queryId: query.queryId });
 
       return result;
     } catch (error) {

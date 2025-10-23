@@ -61,7 +61,7 @@
 - timestamp must be valid
 
 **State Transitions**:
-- `pending` → `processing` (AI agent starts processing)
+- `pending` → `processing` (AI Agent starts processing)
 - `processing` → `completed` (successful response)
 - `processing` → `failed` (error occurred)
 
@@ -128,7 +128,7 @@
 
 **Relationships**:
 - Referenced by Protocol Query entities
-- Used by AI agent for responses
+- Used by AI Agent for responses
 
 **Validation Rules**:
 - commandHex must be valid hex string

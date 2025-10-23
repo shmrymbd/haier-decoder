@@ -8,7 +8,12 @@
 const { EventEmitter } = require('events');
 const fs = require('fs').promises;
 const path = require('path');
-const { v4: uuidv4 } = require('crypto');
+const crypto = require('crypto');
+
+// Simple UUID v4 generator
+function uuidv4() {
+  return crypto.randomUUID();
+}
 
 class ConversationManager extends EventEmitter {
   constructor(options = {}) {

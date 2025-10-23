@@ -369,6 +369,8 @@ program
         enabled: true,
         mode: 'batch',
         verbose: options.verbose,
+        model: options.model,
+        temperature: parseFloat(options.temp),
         systemPrompt: options.prompt,
         systemPromptFile: options.promptFile
       });

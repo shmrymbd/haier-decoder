@@ -37,7 +37,7 @@ The AI Agent CLI Integration adds intelligent assistance to the Haier Protocol D
 
 ### 1. Interactive AI Mode
 
-Start the CLI with AI agent enabled:
+Start the CLI with AI Agent enabled:
 
 ```bash
 node src/index.js chat --ai
