@@ -326,7 +326,7 @@ program
 // Chat command
 program
   .command('chat <port>')
-  .description('Interactive chat interface with Haier device')
+  .description('Interactive chat interface with Haier device (waits for machine power on)')
   .option('-a, --auto', 'Start in automated mode')
   .option('-l, --log <file>', 'Log file path')
   .option('--ai', 'Enable AI agent assistance')
@@ -334,6 +334,7 @@ program
   .option('--ai-temp <temp>', 'AI temperature (0-2)', '0.7')
   .option('--ai-prompt <prompt>', 'Custom AI system prompt')
   .option('--ai-prompt-file <file>', 'AI system prompt file path')
+  .option('--no-init', 'Skip automatic protocol initialization (wait for manual init)')
   .action(async (port, options) => {
     try {
       const ChatCLI = require('./cli/chat-cli');

@@ -17,6 +17,8 @@ class ChatCLI extends EventEmitter {
     this.aiIntegration = null;
     this.commandHistory = [];
     this.historyIndex = -1;
+    this.waitingForPowerOn = true;
+    this.powerOnDetected = false;
   }
 
   async start() {
@@ -45,7 +47,7 @@ class ChatCLI extends EventEmitter {
     const CommandHandler = require('./command-handler');
     const SessionManager = require('./session-manager');
     
-    this.communicator = new DeviceCommunicator(this.port);
+    this.communicator = new DeviceCommunicator(this.port, { autoInitialize: !this.options.noInit });
     this.commandHandler = new CommandHandler(this.communicator);
     this.sessionManager = new SessionManager();
     
@@ -130,10 +132,19 @@ class ChatCLI extends EventEmitter {
     console.log(chalk.gray('====================================='));
     console.log(chalk.yellow(`Mode: ${this.mode}`));
     console.log(chalk.yellow(`Port: ${this.port}`));
+    
     if (this.aiMode && this.aiIntegration && this.aiIntegration.isAvailable()) {
       console.log(chalk.green(`AI Agent: Enabled`));
     } else if (this.aiMode) {
       console.log(chalk.red(`AI Agent: Failed to initialize`));
+    }
+    
+    if (this.waitingForPowerOn) {
+      console.log(chalk.cyan('🔋 Waiting for machine power on request...'));
+      console.log(chalk.gray('   The system will automatically respond when the machine powers on.'));
+    }
+    if (this.options.noInit) {
+      console.log(chalk.yellow('⚠️ Auto-initialization disabled. Use \'init\' command when machine is ready.'));
     }
     console.log(chalk.gray('Type \'help\' for commands, \'exit\' to quit\n'));
   }
@@ -158,6 +169,14 @@ class ChatCLI extends EventEmitter {
       // Handle special commands
       if (command === 'exit' || command === 'quit') {
         this.exit();
+        return;
+      }
+      
+      // If waiting for power on, only allow certain commands
+      if (this.waitingForPowerOn && !this.isAllowedDuringPowerOnWait(command)) {
+        console.log(chalk.yellow('⚠️ Waiting for machine power on request. Only limited commands available.'));
+        console.log(chalk.gray('   Available: help, status, conn, exit'));
+        this.rl.prompt();
         return;
       }
       
@@ -300,15 +319,27 @@ class ChatCLI extends EventEmitter {
       console.log('  suggest           - Get AI-powered command suggestions\n');
     }
     
-    console.log(chalk.yellow.bold('Authentication Commands:'));
+    if (this.waitingForPowerOn) {
+      console.log(chalk.cyan.bold('🔋 Power On Mode:'));
+      console.log('  The system is waiting for machine power on request');
+      console.log('  When the machine powers on, the system will automatically:');
+      console.log('    • Detect the power on request');
+      console.log('    • Send session initialization sequence');
+      console.log('    • Establish communication protocol');
+      console.log('    • Ready for command input\n');
+    }
+    
+    console.log(chalk.yellow.bold('Authentication & Initialization Commands:'));
     console.log('  auth              - Authenticate with device (auto-response enabled)');
-    console.log('  challenge         - Send authentication challenge\n');
+    console.log('  challenge         - Send authentication challenge');
+    console.log('  init              - Initialize device protocol session (when machine is on)\n');
     
     console.log(chalk.yellow.bold('Status & Info Commands:'));
     console.log('  status            - Get current device status');
     console.log('  info              - Get device information');
     console.log('  model             - Get device model');
-    console.log('  serial            - Get device serial number\n');
+    console.log('  serial            - Get device serial number');
+    console.log('  conn              - Get connection status\n');
     
     console.log(chalk.yellow.bold('Control Commands:'));
     console.log('  reset             - Reset device to standby');
@@ -384,6 +415,77 @@ class ChatCLI extends EventEmitter {
         this.communicator.authenticate(packet.payload);
       }
     }
+    
+    // Check for machine power on request
+    if (this.waitingForPowerOn && this.isPowerOnRequest(packet)) {
+      this.handlePowerOnRequest();
+    }
+  }
+
+  isPowerOnRequest(packet) {
+    // Check if this is a machine power on request
+    // Power on request is typically: ff ff 0a 00 00 00 00 00 00 61 00 07 72
+    if (!packet.raw || packet.raw.length < 13) {
+      return false;
+    }
+    
+    // Check for session start command (0x61)
+    const rawHex = packet.raw.toString('hex').toLowerCase();
+    return rawHex.includes('ff ff 0a 00 00 00 00 00 00 61 00 07 72') ||
+           (packet.command === 0x61 && packet.frameType === 0x00);
+  }
+
+  async handlePowerOnRequest() {
+    if (this.powerOnDetected) {
+      return; // Already handled
+    }
+    
+    this.powerOnDetected = true;
+    this.waitingForPowerOn = false;
+    
+    console.log(chalk.green('\n🔋 Machine power on request detected!'));
+    console.log(chalk.yellow('📡 Responding with session initialization...'));
+    
+    try {
+      // Send session start response
+      await this.communicator.sendSessionStart();
+      await this.delay(100);
+      
+      // Send controller ready
+      await this.communicator.sendControllerReady();
+      await this.delay(100);
+      
+      // Send handshake
+      await this.communicator.sendHandshake();
+      await this.delay(200);
+      
+      // Send device ID
+      await this.communicator.exchangeDeviceId();
+      await this.delay(100);
+      
+      // Send status query
+      await this.communicator.queryStatus();
+      await this.delay(100);
+      
+      // Send timestamp sync
+      await this.communicator.syncTimestamp();
+      await this.delay(100);
+      
+      console.log(chalk.green('✅ Session initialization complete!'));
+      console.log(chalk.cyan('🎮 Ready for commands. Type \'help\' for available commands.'));
+      
+    } catch (error) {
+      console.error(chalk.red('❌ Failed to respond to power on request:'), error.message);
+    }
+  }
+
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  isAllowedDuringPowerOnWait(command) {
+    const allowedCommands = ['help', 'status', 'conn', 'exit', 'quit'];
+    return allowedCommands.includes(command.toLowerCase());
   }
 
   async exit() {
