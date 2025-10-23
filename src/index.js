@@ -329,13 +329,159 @@ program
   .description('Interactive chat interface with Haier device')
   .option('-a, --auto', 'Start in automated mode')
   .option('-l, --log <file>', 'Log file path')
+  .option('--ai', 'Enable AI agent assistance')
+  .option('--ai-model <model>', 'AI model to use', 'gpt-3.5-turbo')
+  .option('--ai-temp <temp>', 'AI temperature (0-2)', '0.7')
+  .option('--ai-prompt <prompt>', 'Custom AI system prompt')
+  .option('--ai-prompt-file <file>', 'AI system prompt file path')
   .action(async (port, options) => {
     try {
       const ChatCLI = require('./cli/chat-cli');
-      const chat = new ChatCLI(port, options);
+      const chat = new ChatCLI(port, {
+        ...options,
+        ai: options.ai,
+        aiModel: options.aiModel,
+        aiTemp: parseFloat(options.aiTemp),
+        aiPrompt: options.aiPrompt,
+        aiPromptFile: options.aiPromptFile
+      });
       await chat.start();
     } catch (error) {
       console.error(`❌ Chat interface failed: ${error.message}`);
+      process.exit(1);
+    }
+  });
+
+// AI Agent command
+program
+  .command('ai <question>')
+  .description('Ask AI agent about Haier protocol (requires OPENAI_API_KEY)')
+  .option('-m, --model <model>', 'AI model to use', 'gpt-3.5-turbo')
+  .option('-t, --temp <temp>', 'AI temperature (0-2)', '0.7')
+  .option('-p, --prompt <prompt>', 'Custom system prompt')
+  .option('-f, --prompt-file <file>', 'System prompt file path')
+  .option('-v, --verbose', 'Verbose output')
+  .action(async (question, options) => {
+    try {
+      const AIIntegration = require('./cli/ai-integration');
+      const ai = new AIIntegration({
+        enabled: true,
+        mode: 'batch',
+        verbose: options.verbose,
+        systemPrompt: options.prompt,
+        systemPromptFile: options.promptFile
+      });
+      
+      await ai.initialize();
+      
+      const result = await ai.processQuery(question);
+      ai.displayResponse(result);
+      
+      await ai.cleanup();
+    } catch (error) {
+      console.error(`❌ AI query failed: ${error.message}`);
+      if (error.message.includes('API key')) {
+        console.error('💡 Set OPENAI_API_KEY environment variable to use AI features');
+      }
+      process.exit(1);
+    }
+  });
+
+// AI Analyze command
+program
+  .command('ai-analyze <file>')
+  .description('Analyze protocol data file with AI agent')
+  .option('-m, --model <model>', 'AI model to use', 'gpt-3.5-turbo')
+  .option('-t, --temp <temp>', 'AI temperature (0-2)', '0.7')
+  .option('-p, --prompt <prompt>', 'Custom system prompt')
+  .option('-f, --prompt-file <file>', 'System prompt file path')
+  .option('-v, --verbose', 'Verbose output')
+  .action(async (file, options) => {
+    try {
+      if (!fs.existsSync(file)) {
+        console.error(`❌ File not found: ${file}`);
+        process.exit(1);
+      }
+      
+      const AIIntegration = require('./cli/ai-integration');
+      const ai = new AIIntegration({
+        enabled: true,
+        mode: 'analysis',
+        verbose: options.verbose,
+        systemPrompt: options.prompt,
+        systemPromptFile: options.promptFile
+      });
+      
+      await ai.initialize();
+      
+      const data = fs.readFileSync(file, 'utf8');
+      const result = await ai.analyzeProtocolData(data, {
+        analysisType: 'pattern',
+        verbose: options.verbose
+      });
+      
+      ai.displayResponse(result);
+      
+      await ai.cleanup();
+    } catch (error) {
+      console.error(`❌ AI analysis failed: ${error.message}`);
+      if (error.message.includes('API key')) {
+        console.error('💡 Set OPENAI_API_KEY environment variable to use AI features');
+      }
+      process.exit(1);
+    }
+  });
+
+// AI System Prompt save command
+program
+  .command('ai-prompt-save <file>')
+  .description('Save current system prompt to file')
+  .action(async (file) => {
+    try {
+      const AIIntegration = require('./cli/ai-integration');
+      const ai = new AIIntegration({ enabled: true, mode: 'batch' });
+      
+      await ai.initialize();
+      const savedFile = await ai.agent.saveSystemPromptToFile(file);
+      console.log(`✅ System prompt saved to: ${savedFile}`);
+      
+      await ai.cleanup();
+    } catch (error) {
+      console.error(`❌ Failed to save system prompt: ${error.message}`);
+      process.exit(1);
+    }
+  });
+
+// AI System Prompt show command
+program
+  .command('ai-prompt-show')
+  .description('Show current system prompt')
+  .option('-f, --file <file>', 'Show system prompt from file')
+  .action(async (options) => {
+    try {
+      if (options.file) {
+        // Show prompt from file
+        if (!fs.existsSync(options.file)) {
+          console.error(`❌ File not found: ${options.file}`);
+          process.exit(1);
+        }
+        const prompt = fs.readFileSync(options.file, 'utf8');
+        console.log('\n📝 System Prompt from file:');
+        console.log('=' .repeat(50));
+        console.log(prompt);
+        console.log('=' .repeat(50));
+      } else {
+        // Show default prompt
+        const AIAgent = require('./ai/agent');
+        const agent = new AIAgent();
+        const prompt = agent.getDefaultSystemPrompt();
+        console.log('\n📝 Default System Prompt:');
+        console.log('=' .repeat(50));
+        console.log(prompt);
+        console.log('=' .repeat(50));
+      }
+    } catch (error) {
+      console.error(`❌ Failed to show system prompt: ${error.message}`);
       process.exit(1);
     }
   });

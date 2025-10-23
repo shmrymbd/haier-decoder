@@ -1,0 +1,296 @@
+openapi: 3.0.3
+info:
+  title: AI Agent CLI Integration API
+  description: Internal API contracts for AI agent integration with Haier Protocol Decoder CLI
+  version: 1.0.0
+  contact:
+    name: Haier Protocol Decoder Team
+    email: support@haier-decoder.com
+
+servers:
+  - url: cli://ai-agent
+    description: CLI-based AI agent interface
+
+paths:
+  /sessions:
+    post:
+      summary: Create new AI agent session
+      description: Initialize a new AI agent session for conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+      responses:
+        '201':
+          description: Session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /sessions/{sessionId}/queries:
+    post:
+      summary: Submit protocol query
+      description: Submit a natural language query about protocol analysis
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProtocolQueryRequest'
+      responses:
+        '200':
+          description: Query processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalysisResultResponse'
+        '400':
+          description: Invalid query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /sessions/{sessionId}/analyze:
+    post:
+      summary: Analyze protocol data
+      description: Perform automated analysis of captured protocol data
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProtocolDataAnalysisRequest'
+      responses:
+        '200':
+          description: Analysis completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalysisResultResponse'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /sessions/{sessionId}/suggestions:
+    get:
+      summary: Get command suggestions
+      description: Get intelligent command suggestions based on current context
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: context
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Suggestions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandSuggestionsResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /sessions/{sessionId}:
+    delete:
+      summary: Close session
+      description: Close an active AI agent session
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Session closed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    CreateSessionRequest:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum: [interactive, batch, analysis]
+          default: interactive
+        context:
+          type: object
+          description: Initial context for the session
+      required:
+        - mode
+
+    ProtocolQueryRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: Natural language query about protocol
+          maxLength: 1000
+        context:
+          type: object
+          description: Relevant protocol data context
+        queryType:
+          type: string
+          enum: [question, analysis, suggestion, troubleshooting]
+          default: question
+      required:
+        - query
+
+    ProtocolDataAnalysisRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          description: Protocol data to analyze
+        analysisType:
+          type: string
+          enum: [pattern, anomaly, sequence, authentication]
+          default: pattern
+        options:
+          type: object
+          description: Analysis options and parameters
+      required:
+        - data
+
+    SessionResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        mode:
+          type: string
+        status:
+          type: string
+          enum: [active, idle, closed]
+
+    AnalysisResultResponse:
+      type: object
+      properties:
+        resultId:
+          type: string
+        response:
+          type: string
+          description: AI-generated response
+        responseType:
+          type: string
+          enum: [explanation, suggestion, analysis, error]
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommandSuggestion'
+        metadata:
+          type: object
+          description: Additional analysis metadata
+        timestamp:
+          type: string
+          format: date-time
+
+    CommandSuggestionsResponse:
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommandSuggestion'
+        context:
+          type: object
+          description: Context used for suggestions
+
+    CommandSuggestion:
+      type: object
+      properties:
+        command:
+          type: string
+          description: Suggested CLI command
+        description:
+          type: string
+          description: Explanation of command purpose
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        context:
+          type: object
+          description: Relevant context for suggestion
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        code:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time

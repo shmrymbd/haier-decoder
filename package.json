@@ -19,7 +19,10 @@
     "simulator:start": "node src/simulator/simulator-cli.js start",
     "simulator:interactive": "node src/simulator/simulator-cli.js interactive",
     "simulator:test-auth": "node src/simulator/simulator-cli.js test-auth",
-    "simulator:ports": "node src/simulator/simulator-cli.js ports"
+    "simulator:ports": "node src/simulator/simulator-cli.js ports",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [
     "haier",
@@ -39,8 +42,13 @@
     "@serialport/parser-readline": "^12.0.0",
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
+    "openai": "^6.6.0",
     "serialport": "^12.0.0",
     "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0"
   },
   "engines": {
     "node": ">=14.0.0"

@@ -1,0 +1,162 @@
+{
+  "commands": [
+    {
+      "commandId": "wash-program-01",
+      "commandHex": "60 01",
+      "commandName": "Wash Program 1",
+      "description": "Standard wash program with normal cycle",
+      "parameters": ["program_type"],
+      "examples": [
+        "ff ff 0e 40 00 00 00 00 00 60 00 01 01 00 00 00 b0 34 ad"
+      ],
+      "relatedCommands": ["wash-program-02", "wash-program-03", "wash-program-04"],
+      "category": "wash_programs"
+    },
+    {
+      "commandId": "wash-program-02",
+      "commandHex": "60 02",
+      "commandName": "Wash Program 2",
+      "description": "Quick wash program with shorter cycle",
+      "parameters": ["program_type"],
+      "examples": [
+        "ff ff 0e 40 00 00 00 00 00 60 00 01 02 00 00 00 b1 70 ad"
+      ],
+      "relatedCommands": ["wash-program-01", "wash-program-03", "wash-program-04"],
+      "category": "wash_programs"
+    },
+    {
+      "commandId": "wash-program-03",
+      "commandHex": "60 03",
+      "commandName": "Wash Program 3",
+      "description": "Heavy duty wash program for heavily soiled items",
+      "parameters": ["program_type"],
+      "examples": [
+        "ff ff 0e 40 00 00 00 00 00 60 00 01 03 00 00 00 b2 8c ac"
+      ],
+      "relatedCommands": ["wash-program-01", "wash-program-02", "wash-program-04"],
+      "category": "wash_programs"
+    },
+    {
+      "commandId": "wash-program-04",
+      "commandHex": "60 04",
+      "commandName": "Wash Program 4",
+      "description": "Delicate wash program for sensitive fabrics",
+      "parameters": ["program_type"],
+      "examples": [
+        "ff ff 0e 40 00 00 00 00 00 60 00 01 04 00 00 00 b3 f8 ad"
+      ],
+      "relatedCommands": ["wash-program-01", "wash-program-02", "wash-program-03"],
+      "category": "wash_programs"
+    },
+    {
+      "commandId": "reset-standby",
+      "commandHex": "01 5d 1f 00 01",
+      "commandName": "Reset to Standby",
+      "description": "Return device to standby state",
+      "parameters": [],
+      "examples": [
+        "ff ff 0c 40 00 00 00 00 00 01 5d 1f 00 01 ca bb 9b"
+      ],
+      "relatedCommands": ["init-command"],
+      "category": "control"
+    },
+    {
+      "commandId": "init-command",
+      "commandHex": "01 4d 01",
+      "commandName": "Initialization Command",
+      "description": "Session initialization and handshake",
+      "parameters": [],
+      "examples": [
+        "ff ff 0a 40 00 00 00 00 00 01 4d 01 99 b3 b4"
+      ],
+      "relatedCommands": ["reset-standby", "ack-command"],
+      "category": "control"
+    },
+    {
+      "commandId": "ack-command",
+      "commandHex": "05 4d 61",
+      "commandName": "Acknowledgment",
+      "description": "Standard acknowledgment response",
+      "parameters": [],
+      "examples": [
+        "ff ff 08 40 00 00 00 00 00 05 4d 61 80"
+      ],
+      "relatedCommands": ["init-command", "control-signal"],
+      "category": "control"
+    },
+    {
+      "commandId": "control-signal",
+      "commandHex": "09 51 64",
+      "commandName": "Control Signal",
+      "description": "Control signal for device communication",
+      "parameters": [],
+      "examples": [
+        "ff ff 08 40 00 00 00 00 00 09 51 64 80"
+      ],
+      "relatedCommands": ["ack-command"],
+      "category": "control"
+    }
+  ],
+  "statusResponses": [
+    {
+      "statusId": "ready-standby",
+      "statusHex": "6d 01 01 30 30",
+      "statusName": "Ready/Standby",
+      "description": "Device is ready and in standby mode",
+      "examples": [
+        "ff ff 43 40 00 00 00 00 00 6d 01 01 30 30 [additional_data] [crc]"
+      ],
+      "category": "status"
+    },
+    {
+      "statusId": "program-running",
+      "statusHex": "6d 01 [program] b0 31",
+      "statusName": "Program Running",
+      "description": "Wash program is currently active",
+      "examples": [
+        "ff ff 43 40 00 00 00 00 00 6d 01 01 b0 31 [additional_data] [crc]"
+      ],
+      "category": "status"
+    },
+    {
+      "statusId": "device-busy",
+      "statusHex": "6d 01 02 b0 31",
+      "statusName": "Device Busy",
+      "description": "Device is busy and cannot accept new commands",
+      "examples": [
+        "ff ff 43 40 00 00 00 00 00 6d 01 02 b0 31 [additional_data] [crc]"
+      ],
+      "category": "status"
+    },
+    {
+      "statusId": "reset-progress",
+      "statusHex": "6d 01 04 30 30",
+      "statusName": "Reset in Progress",
+      "description": "Device is resetting to standby mode",
+      "examples": [
+        "ff ff 43 40 00 00 00 00 00 6d 01 04 30 30 [additional_data] [crc]"
+      ],
+      "category": "status"
+    }
+  ],
+  "packetStructure": {
+    "preamble": "ff ff",
+    "lengthByte": "variable",
+    "frameType": "40",
+    "sequenceLength": 4,
+    "crcLength": 3,
+    "description": "Standard Haier protocol packet structure"
+  },
+  "crcAlgorithms": [
+    {
+      "name": "Standard CRC",
+      "description": "3-byte CRC validation for protocol packets",
+      "testVectors": [
+        {
+          "data": "ff ff 0e 40 00 00 00 00 00 60 00 01 01 00 00 00",
+          "expectedCrc": "b0 34 ad"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+# haier-decoder Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2025-10-23
+
+## Active Technologies
+
+- Node.js 14+ (existing project constraint) + OpenAI API, existing CLI framework (commander.js), protocol analysis modules (001-ai-agent-cli)
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+# Add commands for Node.js 14+ (existing project constraint)
+
+## Code Style
+
+Node.js 14+ (existing project constraint): Follow standard conventions
+
+## Recent Changes
+
+- 001-ai-agent-cli: Added Node.js 14+ (existing project constraint) + OpenAI API, existing CLI framework (commander.js), protocol analysis modules
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->

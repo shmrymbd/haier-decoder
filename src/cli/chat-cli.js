@@ -8,11 +8,13 @@ class ChatCLI extends EventEmitter {
     this.port = port;
     this.options = options;
     this.mode = options.auto ? 'automated' : 'interactive';
+    this.aiMode = options.ai || false;
     this.isConnected = false;
     this.rl = null;
     this.communicator = null;
     this.commandHandler = null;
     this.sessionManager = null;
+    this.aiIntegration = null;
     this.commandHistory = [];
     this.historyIndex = -1;
   }
@@ -46,6 +48,26 @@ class ChatCLI extends EventEmitter {
     this.communicator = new DeviceCommunicator(this.port);
     this.commandHandler = new CommandHandler(this.communicator);
     this.sessionManager = new SessionManager();
+    
+    // Initialize AI integration if enabled
+    if (this.aiMode) {
+      const AIIntegration = require('./ai-integration');
+      this.aiIntegration = new AIIntegration({
+        enabled: true,
+        mode: this.mode,
+        verbose: this.options.verbose
+      });
+      
+      try {
+        await this.aiIntegration.initialize();
+        console.log(chalk.green('✓ AI Agent initialized successfully'));
+      } catch (error) {
+        console.warn(chalk.yellow('⚠️ AI Agent initialization failed:'), error.message);
+        console.log(chalk.gray('Continuing without AI features...'));
+        this.aiMode = false;
+        this.aiIntegration = null;
+      }
+    }
     
     // Setup event handlers
     this.communicator.on('connected', () => {
@@ -108,6 +130,11 @@ class ChatCLI extends EventEmitter {
     console.log(chalk.gray('====================================='));
     console.log(chalk.yellow(`Mode: ${this.mode}`));
     console.log(chalk.yellow(`Port: ${this.port}`));
+    if (this.aiMode && this.aiIntegration && this.aiIntegration.isAvailable()) {
+      console.log(chalk.green(`AI Agent: Enabled`));
+    } else if (this.aiMode) {
+      console.log(chalk.red(`AI Agent: Failed to initialize`));
+    }
     console.log(chalk.gray('Type \'help\' for commands, \'exit\' to quit\n'));
   }
 
@@ -164,6 +191,58 @@ class ChatCLI extends EventEmitter {
         return;
       }
       
+      // Handle AI commands
+      if (this.aiMode && this.aiIntegration && this.aiIntegration.isAvailable()) {
+        if (command === 'ai' || command === 'ask') {
+          const question = args.join(' ');
+          if (!question) {
+            console.log(chalk.yellow('Please provide a question for the AI agent.'));
+            this.rl.prompt();
+            return;
+          }
+          
+          try {
+            const result = await this.aiIntegration.processQuery(question, {
+              session: this.sessionManager.getCurrentSession(),
+              protocolData: this.getCurrentProtocolContext()
+            });
+            
+            this.aiIntegration.displayResponse(result);
+            this.rl.prompt();
+            return;
+          } catch (error) {
+            console.error(chalk.red('❌ AI query failed:'), error.message);
+            this.rl.prompt();
+            return;
+          }
+        }
+        
+        if (command === 'suggest') {
+          try {
+            const suggestions = await this.aiIntegration.getCommandSuggestions({
+              session: this.sessionManager.getCurrentSession(),
+              context: this.getCurrentProtocolContext()
+            });
+            
+            if (suggestions.length > 0) {
+              console.log(chalk.cyan('\n💡 AI Command Suggestions:'));
+              suggestions.forEach((suggestion, index) => {
+                console.log(chalk.cyan(`  ${index + 1}. ${suggestion.command}`));
+                console.log(chalk.gray(`     ${suggestion.description}`));
+              });
+            } else {
+              console.log(chalk.gray('No suggestions available at this time.'));
+            }
+            this.rl.prompt();
+            return;
+          } catch (error) {
+            console.error(chalk.red('❌ Failed to get suggestions:'), error.message);
+            this.rl.prompt();
+            return;
+          }
+        }
+      }
+      
       // Execute command through handler
       const result = await this.commandHandler.execute(command, args);
       
@@ -201,9 +280,25 @@ class ChatCLI extends EventEmitter {
     }
   }
 
+  getCurrentProtocolContext() {
+    return {
+      isConnected: this.isConnected,
+      mode: this.mode,
+      recentCommands: this.commandHistory.slice(-5),
+      sessionData: this.sessionManager ? this.sessionManager.getSessionData() : null
+    };
+  }
+
   showHelp() {
     console.log(chalk.blue.bold('\nHaier Device Chat Interface'));
     console.log(chalk.gray('============================\n'));
+    
+    if (this.aiMode && this.aiIntegration && this.aiIntegration.isAvailable()) {
+      console.log(chalk.green.bold('AI Agent Commands:'));
+      console.log('  ai <question>     - Ask AI agent a protocol question');
+      console.log('  ask <question>    - Ask AI agent a protocol question');
+      console.log('  suggest           - Get AI-powered command suggestions\n');
+    }
     
     console.log(chalk.yellow.bold('Authentication Commands:'));
     console.log('  auth              - Authenticate with device (auto-response enabled)');
@@ -303,6 +398,10 @@ class ChatCLI extends EventEmitter {
     // Close connections
     if (this.communicator) {
       await this.communicator.disconnect();
+    }
+    
+    if (this.aiIntegration) {
+      await this.aiIntegration.cleanup();
     }
     
     if (this.rl) {

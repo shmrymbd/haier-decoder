@@ -1,0 +1,130 @@
+{
+  "testVectors": [
+    {
+      "name": "Wash Program 1 Command",
+      "description": "Test vector for wash program 1 command",
+      "input": {
+        "command": "60 01",
+        "sequence": "00 00 00 00",
+        "data": "01 00 00 00"
+      },
+      "expectedPacket": "ff ff 0e 40 00 00 00 00 00 60 00 01 01 00 00 00 b0 34 ad",
+      "expectedCrc": "b0 34 ad"
+    },
+    {
+      "name": "Wash Program 2 Command",
+      "description": "Test vector for wash program 2 command",
+      "input": {
+        "command": "60 02",
+        "sequence": "00 00 00 00",
+        "data": "02 00 00 00"
+      },
+      "expectedPacket": "ff ff 0e 40 00 00 00 00 00 60 00 01 02 00 00 00 b1 70 ad",
+      "expectedCrc": "b1 70 ad"
+    },
+    {
+      "name": "Reset Command",
+      "description": "Test vector for reset to standby command",
+      "input": {
+        "command": "01 5d 1f 00 01",
+        "sequence": "00 00 00 00",
+        "data": ""
+      },
+      "expectedPacket": "ff ff 0c 40 00 00 00 00 00 01 5d 1f 00 01 ca bb 9b",
+      "expectedCrc": "ca bb 9b"
+    },
+    {
+      "name": "Init Command",
+      "description": "Test vector for initialization command",
+      "input": {
+        "command": "01 4d 01",
+        "sequence": "00 00 00 00",
+        "data": ""
+      },
+      "expectedPacket": "ff ff 0a 40 00 00 00 00 00 01 4d 01 99 b3 b4",
+      "expectedCrc": "99 b3 b4"
+    },
+    {
+      "name": "Ack Response",
+      "description": "Test vector for acknowledgment response",
+      "input": {
+        "command": "05 4d 61",
+        "sequence": "00 00 00 00",
+        "data": ""
+      },
+      "expectedPacket": "ff ff 08 40 00 00 00 00 00 05 4d 61 80",
+      "expectedCrc": "80"
+    }
+  ],
+  "statusTestVectors": [
+    {
+      "name": "Ready Status",
+      "description": "Test vector for ready/standby status response",
+      "input": {
+        "status": "01 30 30",
+        "sequence": "00 00 00 00"
+      },
+      "expectedPacket": "ff ff 43 40 00 00 00 00 00 6d 01 01 30 30 [additional_data] [crc]",
+      "expectedCrc": "variable"
+    },
+    {
+      "name": "Program Running Status",
+      "description": "Test vector for program running status",
+      "input": {
+        "status": "01 b0 31",
+        "sequence": "00 00 00 00",
+        "program": "01"
+      },
+      "expectedPacket": "ff ff 43 40 00 00 00 00 00 6d 01 01 b0 31 [additional_data] [crc]",
+      "expectedCrc": "variable"
+    },
+    {
+      "name": "Device Busy Status",
+      "description": "Test vector for device busy status",
+      "input": {
+        "status": "02 b0 31",
+        "sequence": "00 00 00 00"
+      },
+      "expectedPacket": "ff ff 43 40 00 00 00 00 00 6d 01 02 b0 31 [additional_data] [crc]",
+      "expectedCrc": "variable"
+    }
+  ],
+  "aiTestScenarios": [
+    {
+      "name": "Protocol Query - Command Explanation",
+      "query": "What does command 0x60 do?",
+      "expectedResponse": {
+        "type": "explanation",
+        "contains": ["wash program", "0x60", "command"],
+        "confidence": 0.9
+      }
+    },
+    {
+      "name": "Protocol Query - CRC Troubleshooting",
+      "query": "Why is this packet failing CRC validation?",
+      "context": {
+        "packet": "ff ff 0e 40 00 00 00 00 00 60 00 01 01 00 00 00 b0 34 ae"
+      },
+      "expectedResponse": {
+        "type": "troubleshooting",
+        "contains": ["CRC", "validation", "error"],
+        "confidence": 0.8
+      }
+    },
+    {
+      "name": "Protocol Query - Authentication Flow",
+      "query": "Explain this authentication flow",
+      "context": {
+        "packets": [
+          "ff ff 0a 40 00 00 00 00 00 01 4d 01 99 b3 b4",
+          "ff ff 08 40 00 00 00 00 00 05 4d 61 80"
+        ]
+      },
+      "expectedResponse": {
+        "type": "explanation",
+        "contains": ["authentication", "handshake", "init"],
+        "confidence": 0.9
+      }
+    }
+  ]
+}
