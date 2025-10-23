@@ -47,11 +47,6 @@ class OpenAIClient {
         temperature: options.temperature || this.options.temperature
       };
 
-      // Remove duplicate maxTokens if it exists in options
-      if (options.maxTokens) {
-        delete requestOptions.maxTokens;
-      }
-
       const response = await this.client.chat.completions.create(requestOptions);
       
       this.requestCount++;

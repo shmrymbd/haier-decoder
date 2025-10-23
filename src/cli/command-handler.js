@@ -52,6 +52,11 @@ class CommandHandler {
       'auto': () => this.switchMode('automated'),
       'manual': () => this.switchMode('interactive'),
       
+      // AI Control
+      'ai-analyze': this.toggleAIAnalysis.bind(this),
+      'ai-on': this.enableAIAnalysis.bind(this),
+      'ai-off': this.disableAIAnalysis.bind(this),
+      
       // System
       'help': this.showHelp.bind(this),
       'exit': this.exit.bind(this),
@@ -529,6 +534,23 @@ class CommandHandler {
     }
     
     return parsed;
+  }
+
+  // AI Control Methods
+  toggleAIAnalysis() {
+    // This method needs to be implemented in the ChatCLI class
+    // For now, return a message indicating the command was received
+    return { message: 'AI analysis toggle command received. Implementation needed in ChatCLI.' };
+  }
+
+  enableAIAnalysis() {
+    // This method needs to be implemented in the ChatCLI class
+    return { message: 'AI analysis enable command received. Implementation needed in ChatCLI.' };
+  }
+
+  disableAIAnalysis() {
+    // This method needs to be implemented in the ChatCLI class
+    return { message: 'AI analysis disable command received. Implementation needed in ChatCLI.' };
   }
 }
 

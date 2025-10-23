@@ -9,6 +9,7 @@ class ChatCLI extends EventEmitter {
     this.options = options;
     this.mode = options.auto ? 'automated' : 'interactive';
     this.aiMode = options.ai || false;
+    this.autoAnalyzeSignals = options.autoAnalyze !== false; // Default to true
     this.isConnected = false;
     this.rl = null;
     this.communicator = null;
@@ -57,7 +58,9 @@ class ChatCLI extends EventEmitter {
       this.aiIntegration = new AIIntegration({
         enabled: true,
         mode: this.mode,
-        verbose: this.options.verbose
+        verbose: this.options.verbose,
+        model: this.options.aiModel || 'gpt-3.5-turbo',
+        temperature: this.options.aiTemperature || 0.7
       });
       
       try {
@@ -222,7 +225,11 @@ class ChatCLI extends EventEmitter {
           
           try {
             const result = await this.aiIntegration.processQuery(question, {
-              session: this.sessionManager.getCurrentSession(),
+              session: {
+                sessionId: this.sessionManager.sessionId,
+                sessionStart: this.sessionManager.sessionStart,
+                deviceInfo: this.sessionManager.deviceInfo
+              },
               protocolData: this.getCurrentProtocolContext()
             });
             
@@ -239,7 +246,11 @@ class ChatCLI extends EventEmitter {
         if (command === 'suggest') {
           try {
             const suggestions = await this.aiIntegration.getCommandSuggestions({
-              session: this.sessionManager.getCurrentSession(),
+              session: {
+                sessionId: this.sessionManager.sessionId,
+                sessionStart: this.sessionManager.sessionStart,
+                deviceInfo: this.sessionManager.deviceInfo
+              },
               context: this.getCurrentProtocolContext()
             });
             
@@ -304,7 +315,7 @@ class ChatCLI extends EventEmitter {
       isConnected: this.isConnected,
       mode: this.mode,
       recentCommands: this.commandHistory.slice(-5),
-      sessionData: this.sessionManager ? this.sessionManager.getSessionData() : null
+      sessionData: this.sessionManager ? this.sessionManager.getSessionStats() : null
     };
   }
 
@@ -316,7 +327,11 @@ class ChatCLI extends EventEmitter {
       console.log(chalk.green.bold('AI Agent Commands:'));
       console.log('  ai <question>     - Ask AI agent a protocol question');
       console.log('  ask <question>    - Ask AI agent a protocol question');
-      console.log('  suggest           - Get AI-powered command suggestions\n');
+      console.log('  suggest           - Get AI-powered command suggestions');
+      console.log('  ai-analyze        - Toggle automatic AI analysis of received signals');
+      console.log('  ai-on             - Enable automatic AI analysis');
+      console.log('  ai-off            - Disable automatic AI analysis');
+      console.log(`  Status: ${this.autoAnalyzeSignals ? chalk.green('Enabled') : chalk.red('Disabled')}\n`);
     }
     
     if (this.waitingForPowerOn) {
@@ -420,6 +435,126 @@ class ChatCLI extends EventEmitter {
     if (this.waitingForPowerOn && this.isPowerOnRequest(packet)) {
       this.handlePowerOnRequest();
     }
+    
+    // Send received signals to AI agent for processing (if AI is enabled and auto-analyze is on)
+    if (this.aiMode && this.autoAnalyzeSignals && this.aiIntegration && this.aiIntegration.isAvailable()) {
+      this.processReceivedSignalWithAI(packet);
+    }
+    
+    // AI-powered automatic response to rolling code challenges
+    if (this.aiMode && this.autoAnalyzeSignals && this.aiIntegration && this.aiIntegration.isAvailable()) {
+      this.handleAIRollingCodeChallenge(packet);
+    }
+  }
+
+  async handleAIRollingCodeChallenge(packet) {
+    try {
+      // Debug logging
+      const rawHex = packet.raw.toString('hex').toLowerCase();
+      console.log(chalk.gray(`🔍 Checking packet: command=${packet.command}, raw=${rawHex.substring(0, 20)}...`));
+      
+      // Check if this is a rolling code challenge (command 0x12 or authentication-related)
+      if (packet.command === 0x12 || this.isRollingCodeChallenge(packet)) {
+        console.log(chalk.yellow('🤖 AI detected rolling code challenge - responding automatically...'));
+        
+        // Immediately respond to rolling code challenge using existing algorithm
+        if (this.communicator && this.communicator.authenticate) {
+          console.log(chalk.green('🤖 AI executing automatic rolling code response...'));
+          await this.communicator.authenticate(packet.payload);
+          console.log(chalk.green('✅ AI rolling code response sent successfully'));
+        } else {
+          console.log(chalk.yellow('⚠️ Rolling code response method not available'));
+        }
+        
+        // Also analyze with AI for learning purposes (but don't wait for it)
+        this.analyzeRollingCodeChallengeWithAI(packet);
+      } else {
+        console.log(chalk.gray(`🔍 Not a rolling code challenge: command=${packet.command}, isRollingCode=${this.isRollingCodeChallenge(packet)}`));
+      }
+    } catch (error) {
+      console.error(chalk.red('❌ AI rolling code challenge handling failed:'), error.message);
+    }
+  }
+
+  async analyzeRollingCodeChallengeWithAI(packet) {
+    try {
+      const packetHex = packet.raw.toString('hex').toUpperCase();
+      const query = `This is a rolling code authentication challenge from the Haier machine: ${packetHex}. Analyze the challenge and provide insights about the protocol.`;
+      
+      const context = {
+        session: {
+          sessionId: this.sessionManager.sessionId,
+          sessionStart: this.sessionManager.sessionStart,
+          deviceInfo: this.sessionManager.deviceInfo
+        },
+        protocolData: this.getCurrentProtocolContext(),
+        packetAnalysis: {
+          raw: packetHex,
+          command: packet.command,
+          commandName: packet.commandInfo?.name || 'Rolling Code Challenge',
+          commandType: 'AUTHENTICATION',
+          direction: 'received',
+          timestamp: Date.now()
+        }
+      };
+      
+      const result = await this.aiIntegration.processQuery(query, context);
+      
+      console.log(chalk.cyan('\n🤖 AI Rolling Code Analysis:'));
+      console.log(chalk.gray(`📦 Challenge: ${packetHex}`));
+      console.log(chalk.white(result.responseText));
+      
+    } catch (error) {
+      console.error(chalk.red('❌ AI rolling code analysis failed:'), error.message);
+    }
+  }
+
+  isRollingCodeChallenge(packet) {
+    // Check if this is a rolling code challenge based on packet characteristics
+    if (!packet.raw || packet.raw.length < 10) {
+      return false;
+    }
+    
+    const rawHex = packet.raw.toString('hex').toLowerCase();
+    
+    // Look for authentication challenge patterns
+    // Command 0x12 is the main rolling code challenge
+    if (packet.command === 0x12) {
+      return true;
+    }
+    
+    // Check for rolling code challenge patterns in the packet
+    // Look for patterns like: FF FF XX 40 ... 12 10 02 00 01
+    if (rawHex.includes('1210020001') && rawHex.length > 20) {
+      return true;
+    }
+    
+    // Check for the specific pattern we're seeing: 12 10 02 00 01
+    if (rawHex.includes('1210020001')) {
+      return true;
+    }
+    
+    // Check for other authentication-related patterns
+    if (rawHex.includes('12') && rawHex.length > 20 && rawHex.includes('40')) {
+      return true;
+    }
+    
+    return false;
+  }
+
+  async executeAIRollingCodeResponse(challengePacket, aiResult) {
+    try {
+      // Use the existing rolling code algorithm to generate response
+      if (this.communicator && this.communicator.authenticate) {
+        console.log(chalk.green('🤖 AI executing rolling code response...'));
+        await this.communicator.authenticate(challengePacket.payload);
+        console.log(chalk.green('✅ AI rolling code response sent successfully'));
+      } else {
+        console.log(chalk.yellow('⚠️ Rolling code response method not available'));
+      }
+    } catch (error) {
+      console.error(chalk.red('❌ AI rolling code response execution failed:'), error.message);
+    }
   }
 
   isPowerOnRequest(packet) {
@@ -486,6 +621,83 @@ class ChatCLI extends EventEmitter {
   isAllowedDuringPowerOnWait(command) {
     const allowedCommands = ['help', 'status', 'conn', 'exit', 'quit'];
     return allowedCommands.includes(command.toLowerCase());
+  }
+
+  /**
+   * Process received signal with AI agent for automatic analysis
+   */
+  async processReceivedSignalWithAI(packet) {
+    try {
+      // Create a descriptive query about the received packet
+      const packetHex = packet.raw.toString('hex').toUpperCase();
+      const commandName = packet.commandInfo?.name || 'Unknown';
+      const commandType = packet.commandInfo?.type || 'Unknown';
+      
+      const query = `Analyze this received signal: ${packetHex}. Command: ${commandName} (${commandType}). What does this packet indicate and what should be the appropriate response?`;
+      
+      // Get current protocol context
+      const context = {
+        session: {
+          sessionId: this.sessionManager.sessionId,
+          sessionStart: this.sessionManager.sessionStart,
+          deviceInfo: this.sessionManager.deviceInfo
+        },
+        protocolData: this.getCurrentProtocolContext(),
+        packetAnalysis: {
+          raw: packetHex,
+          command: packet.command,
+          commandName: commandName,
+          commandType: commandType,
+          direction: 'received',
+          timestamp: Date.now()
+        }
+      };
+      
+      // Process with AI agent
+      const result = await this.aiIntegration.processQuery(query, context);
+      
+      // Display AI analysis
+      console.log(chalk.cyan('\n🤖 AI Analysis of Received Signal:'));
+      console.log(chalk.gray(`📦 Packet: ${packetHex}`));
+      console.log(chalk.gray(`🔧 Command: ${commandName} (${commandType})`));
+      console.log(chalk.white(result.responseText));
+      
+      // Check if AI suggests any actions
+      if (result.suggestedActions && result.suggestedActions.length > 0) {
+        console.log(chalk.yellow('\n💡 Suggested Actions:'));
+        result.suggestedActions.forEach((action, index) => {
+          console.log(chalk.yellow(`  ${index + 1}. ${action}`));
+        });
+      }
+      
+    } catch (error) {
+      console.error(chalk.red('❌ AI analysis of received signal failed:'), error.message);
+    }
+  }
+
+  /**
+   * Toggle automatic AI analysis of received signals
+   */
+  toggleAIAnalysis() {
+    this.autoAnalyzeSignals = !this.autoAnalyzeSignals;
+    const status = this.autoAnalyzeSignals ? 'enabled' : 'disabled';
+    return { message: `Automatic AI analysis of received signals ${status}` };
+  }
+
+  /**
+   * Enable automatic AI analysis of received signals
+   */
+  enableAIAnalysis() {
+    this.autoAnalyzeSignals = true;
+    return { message: 'Automatic AI analysis of received signals enabled' };
+  }
+
+  /**
+   * Disable automatic AI analysis of received signals
+   */
+  disableAIAnalysis() {
+    this.autoAnalyzeSignals = false;
+    return { message: 'Automatic AI analysis of received signals disabled' };
   }
 
   async exit() {

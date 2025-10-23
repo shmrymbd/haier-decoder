@@ -74,7 +74,8 @@ class AIIntegration extends EventEmitter {
     }
 
     try {
-      const session = await this.conversationManager.getCurrentSession();
+      // Use the session from context if available, otherwise create a basic session
+      const session = context.session || { sessionId: 'unknown', sessionStart: new Date().toISOString(), deviceInfo: null };
       const result = await this.agent.processQuery(query, {
         session,
         context,
