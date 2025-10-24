@@ -52,43 +52,43 @@ module.exports = {
   knownPackets: [
     {
       name: 'Standard ACK',
-      data: 'ff ff 08 40 00 00 00 00 00 05 4d 61',
+      data: 'ff ff 08 40 00 00 00 00 00 05 4d 61 80',
       crc: '80',
       description: 'Standard acknowledgment packet'
     },
     {
       name: 'Program 1',
-      data: 'ff ff 0e 40 00 00 00 00 00 60 00 01 01 00 00 00',
-      crc: 'b0 34 ad',
+      data: 'ff ff 0e 40 00 00 00 00 00 60 00 01 01 00 00 00 b0 34 ad',
+      crc: '34 ad',
       description: 'Start program 1 command'
     },
     {
       name: 'Program 2',
-      data: 'ff ff 0e 40 00 00 00 00 00 60 00 01 02 00 00 00',
-      crc: 'b1 70 ad',
+      data: 'ff ff 0e 40 00 00 00 00 00 60 00 01 02 00 00 00 b1 70 ad',
+      crc: '70 ad',
       description: 'Start program 2 command'
     },
     {
       name: 'Program 3',
-      data: 'ff ff 0e 40 00 00 00 00 00 60 00 01 03 00 00 00',
-      crc: 'b2 8c ac',
+      data: 'ff ff 0e 40 00 00 00 00 00 60 00 01 03 00 00 00 b2 8c ac',
+      crc: '8c ac',
       description: 'Start program 3 command'
     },
     {
       name: 'Program 4',
-      data: 'ff ff 0e 40 00 00 00 00 00 60 00 01 04 00 00 00',
-      crc: 'b3 f8 ad',
+      data: 'ff ff 0e 40 00 00 00 00 00 60 00 01 04 00 00 00 b3 f8 ad',
+      crc: 'f8 ad',
       description: 'Start program 4 command'
     },
     {
       name: 'Reset Command',
-      data: 'ff ff 0c 40 00 00 00 00 00 01 5d 1f 00 01',
-      crc: 'ca bb 9b',
+      data: 'ff ff 0c 40 00 00 00 00 00 01 5d 1f 00 01 ca bb 9b',
+      crc: 'bb 9b',
       description: 'Reset to standby command'
     },
     {
       name: 'Control Signal',
-      data: 'ff ff 08 40 00 00 00 00 00 09 51 64',
+      data: 'ff ff 08 40 00 00 00 00 00 09 51 64 80',
       crc: '80',
       description: 'Control signal heartbeat'
     }

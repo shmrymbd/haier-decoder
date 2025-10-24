@@ -62,14 +62,76 @@ class CRC {
   }
 
   /**
+   * Extract frame data for CRC calculation according to Haier protocol
+   * Frame structure: [separator][length][flags][reserved][type][data][checksum][crc]
+   * CRC is calculated on: [length][flags][reserved][type][data] (excluding separator, checksum and CRC)
+   * @param {Buffer} packet - Complete packet
+   * @returns {Buffer} Frame data for CRC calculation
+   */
+  extractFrameDataForCRC(packet) {
+    if (packet.length < 8) {
+      return Buffer.alloc(0);
+    }
+    
+    // Check if this is a single-byte CRC packet (no CRC bytes at the end)
+    const frameLength = packet[2];
+    const expectedPacketLength = frameLength + 3; // +3 for separator
+    
+    if (packet.length === expectedPacketLength) {
+      // Single-byte CRC packet - CRC is calculated on frame data excluding checksum
+      return packet.slice(2, -1); // Skip separator, exclude checksum
+    } else {
+      // Multi-byte CRC packet - CRC is calculated on frame data excluding checksum and CRC
+      return packet.slice(2, -3); // Skip separator and CRC, exclude checksum
+    }
+  }
+
+  /**
    * Test all CRC algorithms against known packets
    * @returns {Object|null} Best matching algorithm or null
    */
   reverseEngineerCRC() {
     console.log('🔍 Reverse engineering CRC algorithm...');
     
+    // First, test CRC-16/ARC algorithm (based on HaierProtocol library findings)
+    console.log('\n📊 Testing CRC-16/ARC (Haier Protocol Standard):');
+    let arcMatches = 0;
+    const arcResults = [];
+    
+    for (const packet of this.knownPackets) {
+      const data = this.hexToBuffer(packet.data);
+      const frameData = this.extractFrameDataForCRC(data);
+      const calculatedCRC = this.calculateCRC16ARC(frameData);
+      const expectedCRC = this.parseCRC(packet.crc);
+      
+      const match = calculatedCRC === expectedCRC;
+      if (match) arcMatches++;
+      
+      arcResults.push({
+        name: packet.name,
+        calculated: calculatedCRC.toString(16).padStart(4, '0'),
+        expected: expectedCRC.toString(16).padStart(4, '0'),
+        match
+      });
+    }
+    
+    console.log(`   Matches: ${arcMatches}/${this.knownPackets.length}`);
+    
+    arcResults.forEach(result => {
+      const status = result.match ? '✅' : '❌';
+      console.log(`   ${status} ${result.name}: ${result.calculated} vs ${result.expected}`);
+    });
+    
+    if (arcMatches === this.knownPackets.length) {
+      console.log('\n🎯 Perfect match: CRC-16/ARC algorithm (Haier Protocol Standard)');
+      this.validatedAlgorithm = { name: 'CRC-16/ARC', type: 'arc' };
+      this.buildLookupTable();
+      return this.validatedAlgorithm;
+    }
+    
+    // If CRC-16/ARC doesn't match all, test other algorithms
     let bestMatch = null;
-    let maxMatches = 0;
+    let maxMatches = arcMatches;
     
     for (const algorithm of this.algorithms) {
       let matches = 0;
@@ -144,8 +206,8 @@ class CRC {
       return { valid: false, reason: 'Packet too short' };
     }
     
-    // For CRC-16/ARC, calculate on frame data excluding separator, CRC, and checksum
-    const frameData = packet.slice(2, -3); // Skip separator and CRC, exclude checksum
+    // For CRC-16/ARC, calculate on frame data according to Haier protocol
+    const frameData = this.extractFrameDataForCRC(packet);
     const receivedCRC = this.parseCRCFromPacket(packet);
     
     // Try CRC-16/ARC first (based on HaierProtocol library findings)
@@ -158,8 +220,8 @@ class CRC {
       };
     }
     
-    // Try validated algorithm
-    if (this.validatedAlgorithm) {
+    // Try validated algorithm (if not CRC-16/ARC)
+    if (this.validatedAlgorithm && this.validatedAlgorithm.type !== 'arc') {
       const calculatedCRC = this.calculateCRC16(frameData, this.validatedAlgorithm);
       if (calculatedCRC === receivedCRC) {
         return { 
@@ -234,13 +296,13 @@ class CRC {
   }
 
   /**
-   * Extract CRC from packet (last 3 bytes)
+   * Extract CRC from packet (last 2 bytes)
    * @param {Buffer} packet - Complete packet
    * @returns {number} CRC value
    */
   parseCRCFromPacket(packet) {
-    const crcBytes = packet.slice(-3);
-    return this.parseCRC(crcBytes.toString('hex'));
+    const crcBytes = packet.slice(-2);
+    return (crcBytes[0] << 8) | crcBytes[1];
   }
 
   /**

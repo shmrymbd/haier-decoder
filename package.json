@@ -19,6 +19,7 @@
     "simulator:start": "node src/simulator/simulator-cli.js start",
     "simulator:interactive": "node src/simulator/simulator-cli.js interactive",
     "simulator:test-auth": "node src/simulator/simulator-cli.js test-auth",
+    "simulator:test-heartbeat": "node src/simulator/simulator-cli.js test-heartbeat",
     "simulator:ports": "node src/simulator/simulator-cli.js ports",
     "test": "jest",
     "test:watch": "jest --watch",

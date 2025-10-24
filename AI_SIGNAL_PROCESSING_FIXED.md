@@ -96,3 +96,7 @@ node src/index.js ai "What is the Haier protocol authentication mechanism?"
 - ✅ Generate context-aware responses
 
 The Haier decoder project now has **complete AI capabilities** for intelligent protocol analysis and signal processing.
+
+
+
+
