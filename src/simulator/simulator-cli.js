@@ -171,43 +171,6 @@ program
     });
   });
 
-// Test heartbeat functionality
-program
-  .command('test-heartbeat <port>')
-  .description('Test heartbeat functionality')
-  .option('-b, --baud <rate>', 'Baud rate', '9600')
-  .option('-v, --verbose', 'Verbose output')
-  .action(async (port, options) => {
-    try {
-      console.log(chalk.blue('💓 Testing Heartbeat Functionality'));
-      
-      const simulator = new HaierModemSimulator({
-        port: port,
-        baudRate: parseInt(options.baud),
-        verbose: options.verbose
-      });
-
-      await simulator.start();
-      
-      console.log(chalk.green('✅ Heartbeat test started. Sending heartbeats every 3 seconds...'));
-      console.log(chalk.yellow('Press Ctrl+C to stop the test.'));
-      
-      // Set up graceful shutdown
-      process.on('SIGINT', async () => {
-        console.log(chalk.yellow('\n🛑 Stopping heartbeat test...'));
-        await simulator.stop();
-        process.exit(0);
-      });
-      
-      // Keep the process running
-      console.log(chalk.green('✅ Heartbeat test running. Press Ctrl+C to stop.'));
-      
-    } catch (error) {
-      console.error(chalk.red('❌ Heartbeat test failed:'), error.message);
-      process.exit(1);
-    }
-  });
-
 // Show available serial ports
 program
   .command('ports')

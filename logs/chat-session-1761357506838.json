@@ -1,0 +1,18 @@
+{
+  "sessionStart": "2025-10-25T01:58:26.838Z",
+  "sessionId": 1761357506838,
+  "deviceInfo": null,
+  "commands": [
+    {
+      "timestamp": "2025-10-25T01:58:48.970Z",
+      "command": "cak",
+      "args": [],
+      "result": {
+        "error": "Unknown command: cak. Type 'help' for available commands."
+      },
+      "duration": 22132
+    }
+  ],
+  "totalCommands": 1,
+  "duration": 60648
+}

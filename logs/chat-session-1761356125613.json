@@ -1,0 +1,52 @@
+{
+  "sessionStart": "2025-10-25T01:35:25.613Z",
+  "sessionId": 1761356125613,
+  "deviceInfo": null,
+  "commands": [
+    {
+      "timestamp": "2025-10-25T01:35:40.747Z",
+      "command": "send",
+      "args": [
+        "ff",
+        "ff",
+        "0a",
+        "00",
+        "00",
+        "00",
+        "00",
+        "00",
+        "00",
+        "61",
+        "00",
+        "07",
+        "72"
+      ],
+      "result": {
+        "message": "Hex packet sent"
+      },
+      "duration": 15134
+    },
+    {
+      "timestamp": "2025-10-25T01:35:58.723Z",
+      "command": "ffff0a00000000000061000772",
+      "args": [],
+      "result": {
+        "error": "Unknown command: ffff0a00000000000061000772. Type 'help' for available commands."
+      },
+      "duration": 33110
+    },
+    {
+      "timestamp": "2025-10-25T01:36:00.900Z",
+      "command": "send",
+      "args": [
+        "ffff0a00000000000061000772"
+      ],
+      "result": {
+        "message": "Hex packet sent"
+      },
+      "duration": 35287
+    }
+  ],
+  "totalCommands": 3,
+  "duration": 145097
+}

@@ -1,0 +1,3 @@
+[10/25/2025, 9:35:40 AM] send ff ff 0a 00 00 00 00 00 00 61 00 07 72 → Hex packet sent
+[10/25/2025, 9:35:58 AM] ffff0a00000000000061000772 → ERROR: Unknown command: ffff0a00000000000061000772. Type 'help' for available commands.
+[10/25/2025, 9:36:00 AM] send ffff0a00000000000061000772 → Hex packet sent

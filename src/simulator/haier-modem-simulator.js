@@ -7,6 +7,7 @@
  */
 
 const { SerialPort } = require('serialport');
+const { ReadlineParser } = require('@serialport/parser-readline');
 const chalk = require('chalk');
 
 class HaierModemSimulator {
@@ -23,11 +24,6 @@ class HaierModemSimulator {
     this.sessionActive = false;
     this.sequenceNumber = 0;
     this.lastHeartbeat = Date.now();
-    
-    // Data filtering
-    this.lastDataTime = 0;
-    this.dataCount = 0;
-    this.dataRateLimit = 100; // ms between data displays
     
     // Serial connection
     this.serialPort = null;
@@ -109,8 +105,7 @@ class HaierModemSimulator {
         flowControl: false
       });
 
-      // Use raw data parser instead of readline to handle binary data
-      this.parser = this.serialPort;
+      this.parser = this.serialPort.pipe(new ReadlineParser({ delimiter: '\n' }));
 
       // Set up event handlers
       this.setupEventHandlers();
@@ -136,7 +131,7 @@ class HaierModemSimulator {
       console.error(chalk.red('❌ Serial port error:'), error.message);
     });
 
-    this.serialPort.on('data', (data) => {
+    this.parser.on('data', (data) => {
       this.handleIncomingData(data);
     });
   }
@@ -145,38 +140,13 @@ class HaierModemSimulator {
    * Handle incoming data from the machine
    */
   handleIncomingData(data) {
-    const now = Date.now();
-    this.dataCount++;
-    
-    // Rate limiting to reduce spam
-    if (now - this.lastDataTime < this.dataRateLimit) {
-      return; // Skip this data to reduce noise
-    }
-    this.lastDataTime = now;
-    
-    // Convert to hex display for better readability
-    const hexData = this.bufferToHex(data);
-    
     if (this.verbose) {
-      console.log(chalk.yellow(`📥 Received (${data.length} bytes): ${hexData}`));
-    }
-
-    // Filter out corrupted or incomplete data
-    if (!this.isValidPacket(data)) {
-      if (this.verbose && this.dataCount % 10 === 0) { // Only show every 10th invalid packet
-        console.log(chalk.red(`❌ Invalid packet (${this.dataCount}): ${hexData}`));
-      }
-      return;
+      console.log(chalk.yellow(`📥 Received: ${data}`));
     }
 
     // Parse the data
     const packet = this.parsePacket(data);
-    if (!packet) {
-      if (this.verbose) {
-        console.log(chalk.gray(`📦 Failed to parse: ${hexData}`));
-      }
-      return;
-    }
+    if (!packet) return;
 
     // Handle different packet types
     switch (packet.command) {
@@ -189,101 +159,11 @@ class HaierModemSimulator {
       case '4d 61': // ACK
         this.handleAck(packet);
         break;
-      case '05 4d': // Heartbeat response
-        this.handleHeartbeatResponse(packet);
-        break;
-      case '04 0F': // Reset confirmation
-        this.handleResetConfirmation(packet);
-        break;
-      case '0F 5A': // Reset confirmation (alternative)
-        this.handleResetConfirmation(packet);
-        break;
       default:
         if (this.verbose) {
-          console.log(chalk.gray(`📦 Unknown command: ${packet.command} (${hexData})`));
+          console.log(chalk.gray(`📦 Unknown command: ${packet.command}`));
         }
     }
-  }
-
-  /**
-   * Convert buffer to hex string
-   */
-  bufferToHex(buffer) {
-    // Handle both string and buffer data
-    if (Buffer.isBuffer(buffer)) {
-      return buffer.toString('hex').toUpperCase().match(/.{2}/g).join(' ');
-    } else if (typeof buffer === 'string') {
-      // Convert string to buffer using binary encoding
-      return Buffer.from(buffer, 'binary').toString('hex').toUpperCase().match(/.{2}/g).join(' ');
-    } else {
-      // Handle other data types
-      return Buffer.from(buffer).toString('hex').toUpperCase().match(/.{2}/g).join(' ');
-    }
-  }
-
-  /**
-   * Check if packet is valid
-   */
-  isValidPacket(data) {
-    if (!data || data.length < 3) return false;
-    
-    // Check for minimum packet structure
-    const hex = this.bufferToHex(data);
-    const parts = hex.split(' ');
-    
-    // Must have at least 3 bytes
-    if (parts.length < 3) return false;
-    
-    // Filter out UTF-8 replacement characters (EF BF BD)
-    if (hex.includes('EF BF BD')) {
-      return false; // This is corrupted data
-    }
-    
-    // Allow FF FF headers (standard protocol)
-    const header = parts.slice(0, 2).join(' ');
-    if (header === 'FF FF' || header === 'ff ff') {
-      return parts.length >= 4;
-    }
-    
-    // Allow 33 headers (device-specific protocol)
-    if (header === '33' || parts[0] === '33') {
-      return parts.length >= 6; // Minimum valid packet
-    }
-    
-    // Filter out common garbage patterns
-    const garbagePatterns = [
-      '3@Z', '@Z', '@', '', '', '', ''
-    ];
-    
-    const dataStr = data.toString();
-    for (const pattern of garbagePatterns) {
-      if (dataStr.includes(pattern)) {
-        return false;
-      }
-    }
-    
-    // Allow other valid-looking packets
-    return parts.length >= 3;
-  }
-
-  /**
-   * Handle heartbeat response
-   */
-  handleHeartbeatResponse(packet) {
-    if (this.verbose) {
-      console.log(chalk.green('💓 Heartbeat response received'));
-    }
-    this.lastHeartbeat = Date.now();
-  }
-
-  /**
-   * Handle reset confirmation
-   */
-  handleResetConfirmation(packet) {
-    if (this.verbose) {
-      console.log(chalk.blue('🔄 Reset confirmation received'));
-    }
-    // Update session state if needed
   }
 
   /**
@@ -291,34 +171,17 @@ class HaierModemSimulator {
    */
   parsePacket(data) {
     try {
-      // Convert to hex if needed
-      const hexData = this.bufferToHex(data);
-      const parts = hexData.split(' ');
-      
-      if (parts.length < 4) return null;
+      const parts = data.trim().split(' ');
+      if (parts.length < 8) return null;
 
-      // Handle different packet formats
-      let header, length, frameType, sequence, command, payload, crc;
-      
-      // Check for standard Haier protocol format (FF FF header)
-      if (parts[0] === 'FF' && parts[1] === 'FF' && parts.length >= 8) {
-        header = parts.slice(0, 2).join(' ');
-        length = parseInt(parts[2], 16);
-        frameType = parts[3];
-        sequence = parts.slice(4, 10).join(' ');
-        command = parts.slice(10, 12).join(' ');
-        payload = parts.slice(12, -3);
-        crc = parts.slice(-3);
-      } else {
-        // Handle shorter packets or different formats
-        header = parts.slice(0, 2).join(' ');
-        length = parts.length;
-        frameType = parts[2] || '00';
-        sequence = parts.slice(3, 6).join(' ') || '00 00 00';
-        command = parts.slice(6, 8).join(' ') || '00 00';
-        payload = parts.slice(8, -1);
-        crc = parts.slice(-1);
-      }
+      // Extract packet components
+      const header = parts.slice(0, 2).join(' ');
+      const length = parseInt(parts[2], 16);
+      const frameType = parts[3];
+      const sequence = parts.slice(4, 10).join(' ');
+      const command = parts.slice(10, 12).join(' ');
+      const payload = parts.slice(12, -3);
+      const crc = parts.slice(-3);
 
       return {
         header,
@@ -328,13 +191,10 @@ class HaierModemSimulator {
         command,
         payload,
         crc,
-        raw: data,
-        hex: hexData
+        raw: data
       };
     } catch (error) {
-      if (this.verbose) {
-        console.error(chalk.red('❌ Failed to parse packet:'), error.message);
-      }
+      console.error(chalk.red('❌ Failed to parse packet:'), error.message);
       return null;
     }
   }

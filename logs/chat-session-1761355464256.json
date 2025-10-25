@@ -1,0 +1,42 @@
+{
+  "sessionStart": "2025-10-25T01:24:24.256Z",
+  "sessionId": 1761355464256,
+  "deviceInfo": null,
+  "commands": [
+    {
+      "timestamp": "2025-10-25T01:24:32.923Z",
+      "command": "send",
+      "args": [
+        "ffff0a00000000000061000772"
+      ],
+      "result": {
+        "message": "Hex packet sent"
+      },
+      "duration": 8671
+    },
+    {
+      "timestamp": "2025-10-25T01:24:43.983Z",
+      "command": "send",
+      "args": [
+        "ffff0a00000000000061000772"
+      ],
+      "result": {
+        "message": "Hex packet sent"
+      },
+      "duration": 19727
+    },
+    {
+      "timestamp": "2025-10-25T01:25:24.716Z",
+      "command": "send",
+      "args": [
+        "ffff0a00000000000061000772"
+      ],
+      "result": {
+        "message": "Hex packet sent"
+      },
+      "duration": 60460
+    }
+  ],
+  "totalCommands": 3,
+  "duration": 60462
+}
